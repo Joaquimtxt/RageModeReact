@@ -28,6 +28,13 @@ const Header = () => {
         >
           <span className="navbar-toggler-icon"></span>
         </button>
+        
+        <button
+          className="btn bg-danger me-2 "
+          style={{ fontFamily: 'fantasy', fontSize: '20px', color: 'white' }}
+        >
+          SIGN IN
+        </button>
 
         {/* Botão do menu toggle para telas maiores */}
         <button
@@ -45,7 +52,7 @@ const Header = () => {
           <img
             src="src/assets/logo.jpeg"
             alt="Logo da RageMode"
-            className="rounded mx-auto d-block col-6 col-md-4 col-lg-3"
+            className="rounded d-block mx-auto col-6 col-md-4 col-lg-3"
           />
         </Link>
       </div>

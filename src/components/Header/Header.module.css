@@ -10,6 +10,8 @@
     transition: left 0.5s linear; /* Transição suave para a posição */
 }
 
+
+
 /* Sidebar visível */
 .SidebarVisible {
     left: 0; /* Move a sidebar para dentro da tela */
