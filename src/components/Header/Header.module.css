@@ -10,7 +10,9 @@
     transition: left 0.5s linear; /* Transição suave para a posição */
 }
 
-
+.infoContainer{
+    z-index: 1040;
+}
 
 /* Sidebar visível */
 .SidebarVisible {
