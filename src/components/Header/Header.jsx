@@ -30,15 +30,17 @@ const Header = () => {
         </button>
         
         <button
-          className="btn bg-danger me-2 "
+          className="btn bg-danger me-2"
           style={{ fontFamily: 'fantasy', fontSize: '20px', color: 'white' }}
         >
-          SIGN IN
+          <Link to="/signin" style={{ textDecoration: 'none', color: 'white' }}>
+            SIGN IN
+          </Link>
         </button>
 
         {/* Botão do menu toggle para telas maiores */}
         <button
-          className="navbar-toggler d-none d-lg-block me-2"
+          className="navbar-toggler d-none d-lg-block"
           type="button"
           onClick={toggleSidebar}
           aria-expanded={isSidebarOpen}
