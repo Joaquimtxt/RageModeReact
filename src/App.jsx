@@ -5,6 +5,8 @@ import "bootstrap/dist/js/bootstrap.bundle.js"
 import { BrowserRouter as Router, Route, Routes } from "react-router";
 import Home from "./Pages/Home/Home";
 import Games from "./Pages/Games/Games";
+import Header from './components/Header/Header';
+import Footer from './components/Footer/Footer';
 
 function App() {
 
@@ -15,7 +17,7 @@ function App() {
       <Route path="/" element={<Home/>} />
       <Route path="/games" element={<Games/>} />
     </Routes>
-    <Footer />
+    <Footer/>
   </Router>
   )
 }

@@ -1,0 +1,53 @@
+.GithubLink {
+    color: #fff !important; 
+    position: relative; 
+    transition: color 0.3s;
+    z-index: 2; 
+}
+
+.GithubLink::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    width: 120%;
+    height: 120%;
+    background-color: rgba(128, 128, 128, 0.3); 
+    border-radius: 40%;
+    z-index: 1; /* Fica atrás do texto */
+    transition: transform 0.3s ease-in-out;
+}
+
+.GithubLink:hover::after {
+    transform: translate(-50%, -50%) scale(1); 
+}
+
+.Footer {
+    z-index: 0; 
+}
+
+.Icon{
+    position: relative;
+    transition: color 0.3s;
+    z-index: 2;
+}
+.Icon::after{
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    width: 120%;
+    height: 120%;
+    background-color: rgba(128, 128, 128, 0.3);
+    border-radius: 100%;
+    z-index: 1; 
+    transition: transform 0.3s ease-in-out;
+}
+
+.Icon:hover::after{
+    transform: translate(-50%, -50%) scale(1);
+}
+
+

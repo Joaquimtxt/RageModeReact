@@ -1,0 +1,59 @@
+.Sidebar {
+    width: 400px;
+    z-index: 1045;
+    position: fixed;
+    top: 0;
+    left: -400px; /* Inicialmente fora da tela */
+    height: 100%;
+    background-color: #343a40; /* Cor de fundo */
+    overflow-y: auto;
+    transition: left 0.5s linear; /* Transição suave para a posição */
+}
+
+/* Sidebar visível */
+.SidebarVisible {
+    left: 0; /* Move a sidebar para dentro da tela */
+}
+/* Fundo do menu colapsável para telas menores */
+.CollapseMenu {
+    background-color: #343a40; /* Mesma cor do sidebar */
+    color: #ffffff; /* Cor do texto */
+    padding: 1rem; /* Espaçamento interno */
+}
+
+/* Estilo base para os links */
+.NavLink {
+    position: relative;
+    color: #ffffff;  
+    transition: color 0.3s ease-in-out; 
+}
+
+/* Linha abaixo do link */
+.NavLink::after {
+    content: '';
+    position: absolute;
+    bottom: -2px; 
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: transparent; 
+    transition: background-color 0.3s ease-in-out; 
+}
+
+/* Hover: muda a cor do texto e exibe a linha */
+.NavLink:hover {
+    color: red; 
+}
+
+.NavLink:hover::after {
+    background-color: red; 
+}
+
+/* Link ativo (selecionado) */
+.NavLinkActive {
+    color: red !important; 
+}
+
+.NavLinkActive::after {
+    background-color: red; 
+}
