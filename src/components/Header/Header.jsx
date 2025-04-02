@@ -13,7 +13,7 @@ const Header = () => {
 
   return (
     <header
-      className={`navbar navbar-dark fixed-top w-100 d-flex z-3 justify-content-between align-items-center bg-dark py-1 px-2 ${styles.infoContainer}`}
+      className={`navbar navbar-dark fixed-top w-100 d-flex z-3 justify-content-between align-items-center bg-secondary py-1 px-2 ${styles.infoContainer}`}
     >
       <div className="container-fluid d-flex align-items-center">
         {/* Botão do menu toggle para telas menores */}
@@ -43,9 +43,9 @@ const Header = () => {
         {/* Logo centralizado */}
         <Link to="/" className="mx-auto" id="logo">
           <img
-            src="https://placehold.co/300x100"
+            src="src/assets/logo.jpeg"
             alt="Logo da RageMode"
-            className="img-fluid"
+            className="rounded mx-auto d-block col-6 col-md-4 col-lg-3"
           />
         </Link>
       </div>

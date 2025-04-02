@@ -13,7 +13,7 @@ const Footer = () => {
     const DateYear = GetDate.getFullYear();
 
   return (
-    <footer className={`footer footer-dark bg-dark fixed-bottom py-3 px-2 w-100 ${styles.Footer}`}>
+    <footer className={`footer footer-dark bg-secondary fixed-bottom py-3 px-2 w-100 ${styles.Footer}`}>
     <div className="container-fluid">
       <div className="row align-items-center">
         <div className="col-12 col-lg-6 d-flex flex-column align-items-center align-items-lg-start ms-lg-0">
