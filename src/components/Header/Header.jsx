@@ -1,6 +1,8 @@
 import { Link, useLocation } from 'react-router';
 import styles from './Header.module.css';
 import { useState } from 'react';
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.bundle.js";
 
 const Header = () => {
     const location = useLocation();
@@ -13,7 +15,7 @@ const Header = () => {
 
   return (
     <header
-      className={`navbar navbar-dark fixed-top w-100 d-flex z-3 justify-content-between align-items-center bg-dark py-1 px-2 ${styles.infoContainer}`}
+      className={`navbar navbar-dark fixed-top w-100 d-flex z-3 justify-content-between align-items-center bg-secondary bg-opacity-50 py-2 px-2 ${styles.infoContainer}`}
     >
       <div className="container-fluid d-flex align-items-center">
         {/* Botão do menu toggle para telas menores */}
@@ -43,11 +45,13 @@ const Header = () => {
         {/* Logo centralizado */}
         <Link to="/" className="mx-auto" id="logo">
           <img
-            src="https://placehold.co/300x100"
+            src="https://placehold.co/200x70"
             alt="Logo da RageMode"
             className="img-fluid"
           />
         </Link>
+
+        <Link to="/signin" className='btn btn-danger'>SIGN IN</Link>
       </div>
 
       {/* Menu colapsável para telas menores */}
