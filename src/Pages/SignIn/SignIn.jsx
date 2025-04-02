@@ -10,15 +10,6 @@ const SignIn = () => {
               <h2 className="text-center mb-4">Sign In</h2>
               <form>
                 <div className="mb-3">
-                  <label htmlFor="username" className="form-label">Username</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="username"
-                    placeholder="Enter your username"
-                  />
-                </div>
-                <div className="mb-3">
                   <label htmlFor="email" className="form-label">Email</label>
                   <input
                     type="email"
@@ -36,16 +27,8 @@ const SignIn = () => {
                     placeholder="Enter your password"
                   />
                 </div>
-                <div className="d-flex justify-content-between mb-3">
-                  <div className="card p-3 text-center shadow-sm" style={{ width: '45%' }}>
-                    Small Box 1
-                  </div>
-                  <div className="card p-3 text-center shadow-sm" style={{ width: '45%' }}>
-                    Small Box 2
-                  </div>
-                </div>
                 <button type="submit" className="btn btn-primary w-100">
-                  Entrar
+                  Sign In
                 </button>
               </form>
               <p className="text-center mt-3">
