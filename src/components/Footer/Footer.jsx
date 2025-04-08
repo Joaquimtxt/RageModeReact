@@ -4,6 +4,7 @@ import "bootstrap/dist/js/bootstrap.bundle.js";
 import DevGithub from './DevGithub';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import YouTubeIcon from '@mui/icons-material/YouTube';
+import GitHubIcon from '@mui/icons-material/GitHub'
 
 
 
@@ -13,30 +14,40 @@ const Footer = () => {
     const DateYear = GetDate.getFullYear();
 
   return (
-    <footer className={`footer footer-dark bg-secondary fixed-bottom py-3 px-2 w-100 ${styles.Footer}`}>
+    <footer className={`footer footer-dark bg-dark bg-opacity-50 px-4 py-5 w-100 ${styles.Footer}`}>
     <div className="container-fluid">
       <div className="row align-items-center">
         <div className="col-12 col-lg-6 d-flex flex-column align-items-center align-items-lg-start ms-lg-0">
-          <h5 className="text-center text-light mb-2">
-            Find us on our <b className="text-danger">social</b>:
+          <h5 className="text-center text-light fw-light mb-2">
+            Find us at our <b className="text-danger">socials:</b>
           </h5>
-          <div className="d-flex">
-            <a
-              href="https://instagram.com"
-              className={`text-decoration-none text-light fw-bolder mx-2 ${styles.Icon}`}
-              target="_blank"
-              rel="noopener noreferrer"
+          <div className="d-flex ms-1 gap-2 mt-3">
+          <a href='https://instagram.com'
+            className={`text-decoration-none text-light mx-2 ${styles.Icon}`}
+            target='_blank'
+            rel='nooopener noreferrer'
             >
-              <InstagramIcon fontSize="large" />
-            </a>
+              <GitHubIcon fontSize='large'/>
+            </a>  
             <a
               href="https://youtube.com"
-              className={`text-decoration-none text-light fw-bolder mx-2 ${styles.Icon}`}
+              className={`text-decoration-none text-light  mx-2 ${styles.Icon}`}
               target="_blank"
               rel="noopener noreferrer"
             >
               <YouTubeIcon fontSize="large" />
             </a>
+            <a
+              href="https://instagram.com"
+              className={`text-decoration-none text-light mx-2 ${styles.Icon}`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <InstagramIcon fontSize="large" />
+            </a>
+
+            
+              
           </div>
         </div>
 
@@ -49,10 +60,10 @@ const Footer = () => {
         </div>
       </div>
 
-      <hr className="text-light m-0"  />
+      <hr className="text-light mt-5 mb-3"  />
 
       <div className="row mt-3">
-        <div className="col-12 text-center fw-bolder text-secondary">
+        <div className="col-12 text-center fw-bolder text-secondary mb-5">
           &copy; {DateYear} RageMode | Todos os direitos reservados.
         </div>
       </div>
