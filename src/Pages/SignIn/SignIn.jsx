@@ -8,9 +8,12 @@ const SignIn = () => {
     >
       <div className="row justify-content-center">
         <div>
-          <div className="card shadow">
-            <div className="card-body border-0 d-flex justify-content-center flex-column align-items-center" style={{ backgroundColor: "#B6B09F" }}>
-              <h2 className="text-center mb-4 text-light">Sign In</h2>
+          <h2 className="text-center mb-4 text-light">Sign In</h2>
+          <div>
+            <div
+              id="card"
+              className="card-body border-0 d-flex justify-content-center flex-column align-items-center "
+            >
               <form>
                 <div className="mb-3">
                   <label htmlFor="email" className="form-label" placeho>
@@ -18,7 +21,7 @@ const SignIn = () => {
                   </label>
                   <input
                     type="email"
-                    className="form-control"
+                    className="form-control bg-transparent rounded-4"
                     id="email"
                     placeholder="Enter your email"
                   />
@@ -29,17 +32,18 @@ const SignIn = () => {
                   </label>
                   <input
                     type="password"
-                    className="form-control"
+                    className="form-control bg-transparent rounded-4"
                     id="password"
                     placeholder="Enter your password"
                   />
                 </div>
-                <button type="submit" className="btn btn-primary w-100">
+                <button id="button" type="submit" className="btn w-100 text-light my-5 rounded-4">
                   Sign In
                 </button>
               </form>
+              <hr style={{width:"400px", height:"3px", background:"#000"}}/>
               <p className="text-center mt-3">
-                Don't have an account? <Link to="/signup">Sign Up</Link>
+                Don't have an account? <Link to="/signup" className=" btn btn-danger text-light text-decoration-none">Sign Up</Link>
               </p>
             </div>
           </div>

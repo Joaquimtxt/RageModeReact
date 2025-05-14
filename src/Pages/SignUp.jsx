@@ -26,12 +26,11 @@ const SignUp = () => {
       >
         <div className="row justify-content-center">
           <div>
-            <div className="card shadow">
-              <div
+              <h2 className="text-center mb-4 text-light">Sign Up</h2>
+            <div >
+              <div id="card"
                 className="card-body border-0 d-flex justify-content-center flex-column align-items-center"
-                style={{ backgroundColor: "#B6B09F" }}
               >
-                <h2 className="text-center mb-4 text-light">Sign Up</h2>
                 <form onSubmit={handleSubmit}>
                   <div className="mb-3">
                     <label htmlFor="email" className="form-label">
@@ -39,7 +38,7 @@ const SignUp = () => {
                     </label>
                     <input
                       type="email"
-                      className="form-control"
+                      className="form-control rounded-4 bg-transparent"
                       id="email"
                       placeholder="Enter your email"
                       value={formData.email}
@@ -52,19 +51,20 @@ const SignUp = () => {
                     </label>
                     <input
                       type="password"
-                      className="form-control"
+                      className="form-control rounded-4 bg-transparent"
                       id="password"
                       placeholder="Enter your password"
                       value={formData.password}
                       onChange={handleChange}
                     />
                   </div>
-                  <button type="submit" className="btn btn-primary w-100">
+                  <button type="submit" className="btn w-100 bg-black text-light my-5 rounded-4">
                     Sign Up
                   </button>
                 </form>
+                <hr style={{ width: "400px", height: "3px", background: "#000" }} />
                 <p className="text-center mt-3">
-                  Already have an account? <Link to="/signin">Sign In</Link>
+                  Already have an account? <Link className="text-decoration-none text-light btn btn-danger" to="/signin">Sign In</Link>
                 </p>
               </div>
             </div>

@@ -1,3 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=Jersey+25&display=swap');
+
 body{
     background: radial-gradient(circle, #6366F1 5%, #09284D 64%, #09284D 100%);
+}
+h2{
+    text-transform: uppercase;
+    font-family: 'Jersey 25', sans-serif;
+    font-size: 22px;
+}
+#card{
+    background:linear-gradient(to right, #872341 0%,  #BE3144 94%);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    color: #fff;
+    margin: 0;
+    width: 500px;
+    height: 600px; 
+}
+#email{
+    background:linear-gradient(to right, #872341 0%,  #BE3144 94%);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    color: #fff;
+    margin: 0;
+    width: 400px;
+}
+#password{
+    background:linear-gradient(to right, #872341 0%,  #BE3144 94%);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    color: #fff;
+    margin: 0;
+    width: 400px;
+}
+#button {
+    background: #000;
+    color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    margin: 0;
+    width: 200px;
 }
