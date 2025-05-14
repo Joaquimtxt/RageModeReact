@@ -7,8 +7,8 @@ import "bootstrap/dist/js/bootstrap.bundle.js";
 
 const Games = () => {
   return (
-    <div className="container-fluid p-0 mt-4 mb-4 d-flex justify-content-start">
-    <div className=" p-3 rounded bg-dark" style={{ maxWidth: '50%' }}>
+    <div className="container-fluid p-0 mt-4 mb-4 d-flex justify-content-start w-75">
+    <div className=" p-3 rounded bg-dark w-50">
       <h1 className="text-light mb-4 text-center">Jogos</h1>
       <Selectsth Titulo="Street Fighter" />
     </div>
