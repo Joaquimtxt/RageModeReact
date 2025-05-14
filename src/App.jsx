@@ -7,6 +7,7 @@ import Games from "./Pages/Games/Games";
 import Header from "./components/Header/Header";
 import SigIn from "./Pages/SignIn/SignIn";
 import SignUp from "./Pages/SignUp";
+import SelectCharacter from "./Pages/SelectCharacter"; ".Pages/SelectCharacter";
 import Footer from "./components/Footer/Footer";
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
         <Route path="/games" element={<Games />} />
         <Route path="/signin" element={<SigIn />} />
         <Route path="/signup" element={<SignUp />} />
+        <Route path="/select-character" element={<SelectCharacter />} />
       </Routes>
       <Footer />
     </Router>
