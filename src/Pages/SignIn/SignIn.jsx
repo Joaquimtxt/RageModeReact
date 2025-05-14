@@ -1,16 +1,21 @@
-import { Link } from 'react-router';
+import { Link } from "react-router";
 
 const SignIn = () => {
   return (
-    <div className="container mt-5">
+    <div
+      className="container d-flex flex-column justify-content-center align-items-center"
+      style={{ minHeight: "100vh", marginTop: "64px" }}
+    >
       <div className="row justify-content-center">
-        <div className="col-md-6">
+        <div>
           <div className="card shadow">
-            <div className="card-body">
-              <h2 className="text-center mb-4">Sign In</h2>
+            <div className="card-body border-0 d-flex justify-content-center flex-column align-items-center" style={{ backgroundColor: "#B6B09F" }}>
+              <h2 className="text-center mb-4 text-light">Sign In</h2>
               <form>
                 <div className="mb-3">
-                  <label htmlFor="email" className="form-label">Email</label>
+                  <label htmlFor="email" className="form-label" placeho>
+                    Email
+                  </label>
                   <input
                     type="email"
                     className="form-control"
@@ -19,7 +24,9 @@ const SignIn = () => {
                   />
                 </div>
                 <div className="mb-3">
-                  <label htmlFor="password" className="form-label">Password</label>
+                  <label htmlFor="password" className="form-label">
+                    Password
+                  </label>
                   <input
                     type="password"
                     className="form-control"
