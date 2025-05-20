@@ -33,57 +33,49 @@ const Selectsth = (props) => {
   };
 
   return (
-    <div className="container-fluid rounded-2 position-relative w-100" style={{ maxWidth: "1600px"}}>
+    <div className={`container-fluid rounded-2 position-relative w-100 ${styles.SthContainer}`}>
       <h1 className="ms-xl-5 ms-2 text-light">{props.Titulo}</h1>
-      <div className={`position-relative ${styles.SthScroll}`}>
-        <div className="d-flex align-items-center">
+      <div className={`d-flex align-items-center justify-content-between ${styles.SthScroll}`}>
           <button
-            className={`btn btn-dark d-none d-md-flex align-items-center justify-content-center ${styles.scrollIcon2}`}
-            onClick={handlePrev}
-            disabled={startIdx === 0}
-            aria-label="Anterior"
-            style={{ zIndex: 2 }}
-          >
-            <ion-icon name="caret-back-outline" size="large"></ion-icon>
-          </button>
-          <div className="overflow-hidden w-100">
+           className={`btn btn-dark d-none d-md-flex align-items-center justify-content-center z-2 position-relative ${styles.scrollIcon2}`}
+           onClick={handlePrev}
+           disabled={startIdx === 0}
+           aria-label="Anterior"
+         >
+           <ion-icon name="caret-back-outline" size="large"></ion-icon>
+         </button>
+          <div className="overflow-hidden flex-grow-1 mx-3 ">
             <div
-              className={`d-flex flex-nowrap ${styles.SthScroll}`}
+              className={`d-flex flex-nowrap m-0 p-0${styles.SthScroll}`}
               style={{
                 transform: `translateX(-${(startIdx / cards.length) * 100}%)`,
-                transition: 'transform 3s',
+                transition: 'transform 0.5s ease-in-out',
                 width: `${(cards.length / CARDS_PER_VIEW) * 100}%`,
-                margin: 0,
-                padding: 0,
               }}
             >
               {cards.map((card, idx) => (
                 <div
                   key={idx}
-                  className="flex-shrink-0"
+                  className="flex-shrink-0 m-0 p-2"
                   style={{
                     width: `${100 / cards.length}%`,
-                    margin: 0,
-                    padding: 0,
                   }}
                 >
                   {card}
                 </div>
               ))}
             </div>
-          </div>
           <button
-            className={`btn btn-dark d-none d-md-flex align-items-center justify-content-center ${styles.scrollIcon1}`}
+            className={`btn btn-dark d-none d-md-flex align-items-center justify-content-center  position-absolute ${styles.scrollIcon1}`}
             onClick={handleNext}
             disabled={startIdx >= cards.length - CARDS_PER_VIEW}
             aria-label="Próximo"
-            style={{ zIndex: 2 }}
           >
             <ion-icon name="caret-forward-outline" size="large"></ion-icon>
           </button>
+          </div>
         </div>
       </div>
-    </div>
   );
 };
 

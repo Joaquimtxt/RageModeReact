@@ -1,3 +1,6 @@
+.SthContainer{
+  width: 1600px;
+}
 .SthScroll {
     display: flex;
     flex-wrap: nowrap;
@@ -11,26 +14,20 @@
   .SthScroll::-webkit-scrollbar {
     display: none;
   }
+
   
   .card {
-   height: 450px;
+   height: 400px;
     background-color: #2c2f33;
     border: 2px solid ;
     border-radius: 8px;
-    padding: 0;
-    position: relative;
-    z-index: 1;
     scroll-snap-align: start;
-    min-width: 0;
+   
   }
   
   .card div:nth-of-type(1) {
-    position: absolute;
-    text-align: center;
     padding: 16px;
-    width: 100%;
     opacity: 0;
-    top: 0;
     color: #f9d3b4;
   }
   
@@ -41,10 +38,7 @@
   
   .card div:nth-of-type(3) {
     transition: all 0.7s;
-    z-index: 1;
     background: linear-gradient(to top, #991b1b, #dc2626, transparent);
-    position: sticky;
-    bottom: 0;
     left: 0;
     right: 0;
     border-radius: 10px;
@@ -82,16 +76,16 @@
     transform: scale(1.03, 1.03);
   }
 
-  .scrollIcon1,
+  .scrollIcon1 ,
 .scrollIcon2 {
-  position: absolute; /* Posiciona os ícones em relação ao contêiner pai */
   top: 50%; /* Centraliza verticalmente */
   transform: translateY(-50%);
   cursor: pointer;
   color: rgb(255, 17, 17);
   width: 50px;
   height: 50px;
-  z-index: 1;
+  background: none; /* Remove o fundo preto */
+  border: none;
 }
 
 /* Ícone direito */

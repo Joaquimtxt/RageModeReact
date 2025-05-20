@@ -1,5 +1,5 @@
 import React from 'react'
-import Selectsth from '../../components/Selectsth/Selectsth'
+import Selectsth from '../../components/Selectsth/Selectsth.jsx'
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.js";
 
@@ -7,9 +7,9 @@ import "bootstrap/dist/js/bootstrap.bundle.js";
 
 const Games = () => {
   return (
-    <div className="container-fluid p-0 mt-4 mb-4 d-flex justify-content-start w-75">
-    <div className=" p-3 rounded bg-dark w-50">
-      <h1 className="text-light mb-4 text-center">Jogos</h1>
+    <div className={`container-fluid p-0 mt-4 mb-4 d-flex flex-column align-items-start w-100`}>
+      <h1 className="text-light mt-5 text-start">Jogos</h1>
+    <div className=" p-3 rounded bg-dark mt-2">
       <Selectsth Titulo="Street Fighter" />
     </div>
   </div>

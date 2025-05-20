@@ -3,14 +3,14 @@ import styles from './Selectsth.module.css'
 
 const SthCard = (props) => {
   return (
-    <div className={`m-0 ${styles.card}`} style={{ width: "100%", minWidth: 0 }}>
-      <div>
+    <div className={` min-vw-0 position position-relative p-0 z-1 ${styles.card}`} >
+      <div className='position-absolute align-text-center w-100 top-0'>
         <p>{props.Year}</p>
       </div>
       <div>
-        <img src={props.Poster} alt={props.Title} style={{ width: "100%", height: "auto", display: "block" }} />
+        <img src={props.Poster} alt={props.Title}  className='w-100 h-h-auto d-block'/>
       </div>
-      <div className={`card-title text-light`}>
+      <div className={`card-title text-light z-1 position-sticky bottom-0`}>
         <h3>{props.Title}</h3>
       </div>
     </div>
