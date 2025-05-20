@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './Selectsth.module.css';
 import SthCard from './SthCard';
 
@@ -19,16 +19,33 @@ const Selectsth = (props) => {
     <SthCard Year="1999" Poster="https://placehold.co/300x400" Title="Street Fighter 20" />,
   ];
 
-  const CARDS_PER_VIEW = 4;
+  const [cardsPerView, setCardsPerView] = useState(4);
   const [startIdx, setStartIdx] = useState(0);
 
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 576) {
+        setCardsPerView(3); // Para telas menores que "sm", mostrar 3 cards
+      } else {
+        setCardsPerView(4); // Para telas maiores, mostrar 4 cards
+      }
+    };
+
+    handleResize(); // Chamar a função ao carregar o componente
+    window.addEventListener('resize', handleResize); // Adicionar listener para redimensionamento
+
+    return () => {
+      window.removeEventListener('resize', handleResize); // Remover listener ao desmontar o componente
+    };
+  }, []);
+
   const handlePrev = () => {
-    setStartIdx((prev) => Math.max(prev - CARDS_PER_VIEW, 0));
+    setStartIdx((prev) => Math.max(prev - cardsPerView, 0));
   };
 
   const handleNext = () => {
     setStartIdx((prev) =>
-      Math.min(prev + CARDS_PER_VIEW, cards.length - CARDS_PER_VIEW)
+      Math.min(prev + cardsPerView, cards.length - cardsPerView)
     );
   };
 
@@ -50,13 +67,13 @@ const Selectsth = (props) => {
               style={{
                 transform: `translateX(-${(startIdx / cards.length) * 100}%)`,
                 transition: 'transform 0.5s ease-in-out',
-                width: `${(cards.length / CARDS_PER_VIEW) * 100}%`,
+                width: `${(cards.length / cardsPerView) * 100}%`,
               }}
             >
               {cards.map((card, idx) => (
                 <div
                   key={idx}
-                  className="flex-shrink-0 m-0 p-2"
+                  className="flex-shrink-0 p-2"
                   style={{
                     width: `${100 / cards.length}%`,
                   }}
@@ -68,7 +85,7 @@ const Selectsth = (props) => {
           <button
             className={`btn btn-dark d-none d-md-flex align-items-center justify-content-center  position-absolute ${styles.scrollIcon1}`}
             onClick={handleNext}
-            disabled={startIdx >= cards.length - CARDS_PER_VIEW}
+            disabled={startIdx >= cards.length - cardsPerView}
             aria-label="Próximo"
           >
             <ion-icon name="caret-forward-outline" size="large"></ion-icon>
