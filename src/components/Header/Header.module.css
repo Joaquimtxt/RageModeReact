@@ -34,3 +34,8 @@
 .NavLinkActive::after {
     background-color: red; 
 }
+
+
+.jerseyFont {
+    font-family: 'Jersey 15', sans-serif;
+}
