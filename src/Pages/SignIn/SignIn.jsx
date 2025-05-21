@@ -3,8 +3,8 @@ import { Link } from "react-router";
 const SignIn = () => {
   return (
     <div
-      className="container d-flex flex-column justify-content-center align-items-center"
-      style={{ minHeight: "100vh", marginTop: "64px" }}
+      className="container d-flex flex-column justify-content-center align-items-center "
+      style={{ minHeight: "100vh"}}
     >
       <div className="row justify-content-center">
         <div>
@@ -12,8 +12,8 @@ const SignIn = () => {
           <div>
             <div
               id="card"
-              className="card-body border-0 d-flex justify-content-center flex-column align-items-center "
-            >
+              className="card-body border-0 d-flex justify-content-center flex-column align-items-center"
+            > 
               <form>
                 <div className="mb-3">
                   <label htmlFor="email" className="form-label" placeho>

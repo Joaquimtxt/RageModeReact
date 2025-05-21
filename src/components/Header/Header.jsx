@@ -1,12 +1,12 @@
-import { Link, useLocation } from 'react-router';
-import styles from './Header.module.css';
-import { useState } from 'react';
+import { Link, useLocation } from "react-router";
+import styles from "./Header.module.css";
+import { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.js";
 
 const Header = () => {
-    const location = useLocation();
-    
+  const location = useLocation();
+
   const [isSidebarOpen, setSidebarOpen] = useState(false);
 
   const toggleSidebar = () => {
@@ -30,12 +30,12 @@ const Header = () => {
         >
           <span className="navbar-toggler-icon"></span>
         </button>
-        
+
         <button
           className="btn bg-danger me-2"
-          style={{ fontFamily: 'fantasy', fontSize: '20px', color: 'white' }}
+          style={{ fontFamily: "fantasy", fontSize: "20px", color: "white" }}
         >
-          <Link to="/signin" style={{ textDecoration: 'none', color: 'white' }}>
+          <Link to="/signin" style={{ textDecoration: "none", color: "white" }}>
             SIGN IN
           </Link>
         </button>
@@ -59,25 +59,44 @@ const Header = () => {
             className="rounded d-block mx-auto col-6 col-md-4 col-lg-3"
           />
         </Link>
-
-        <Link to="/signin" className='btn btn-danger'>SIGN IN</Link>
       </div>
 
       {/* Menu colapsável para telas menores */}
-      <div className={`collapse navbar-collapse d-lg-none mt-3 ${styles.CollapseMenu}`} id="navbarNav">
+      <div
+        className={`collapse navbar-collapse d-lg-none mt-3 ${styles.CollapseMenu}`}
+        id="navbarNav"
+      >
         <ul className="navbar-nav me-auto mb-2 mb-lg-0">
           <li className="nav-item me-lg-3 text-center mt-3">
-            <Link to="/"  className={`${styles.NavLink} ${
-                location.pathname === '/' ? styles.NavLinkActive : ''
-              }`}>
+            <Link
+              to="/"
+              className={`${styles.NavLink} ${
+                location.pathname === "/" ? styles.NavLinkActive : ""
+              }`}
+            >
               Home
             </Link>
           </li>
           <li className="nav-item me-lg-3 text-center mt-3">
-            <Link to="/games"  className={`${styles.NavLink} ${
-                location.pathname === '/games' ? styles.NavLinkActive : ''
-              }`}>
+            <Link
+              to="/games"
+              className={`${styles.NavLink} ${
+                location.pathname === "/games" ? styles.NavLinkActive : ""
+              }`}
+            >
               Games
+            </Link>
+          </li>
+          <li className="nav-item me-lg-3 text-center mt-3">
+            <Link
+              to="/select-character"
+              className={`${styles.NavLink} ${
+                location.pathname === "/select-character"
+                  ? styles.NavLinkActive
+                  : ""
+              }`}
+            >
+              Select Character
             </Link>
           </li>
         </ul>
@@ -86,7 +105,7 @@ const Header = () => {
       {/* Sidebar para telas maiores */}
       <div
         className={`d-none d-lg-block ${styles.Sidebar} ${
-          isSidebarOpen ? styles.SidebarVisible : ''
+          isSidebarOpen ? styles.SidebarVisible : ""
         }`}
       >
         <button
@@ -99,7 +118,7 @@ const Header = () => {
             <Link
               to="/"
               className={`${styles.NavLink} ${
-                location.pathname === '/' ? styles.NavLinkActive : ''
+                location.pathname === "/" ? styles.NavLinkActive : ""
               }`}
             >
               Home
@@ -109,10 +128,22 @@ const Header = () => {
             <Link
               to="/games"
               className={`${styles.NavLink} ${
-                location.pathname === '/games' ? styles.NavLinkActive : ''
+                location.pathname === "/games" ? styles.NavLinkActive : ""
               }`}
             >
               Games
+            </Link>
+          </li>
+          <li className="nav-item me-lg-3 text-center mt-3">
+            <Link
+              to="/select-character"
+              className={`${styles.NavLink} ${
+                location.pathname === "/select-character"
+                  ? styles.NavLinkActive
+                  : ""
+              }`}
+            >
+              Select Character
             </Link>
           </li>
         </ul>
