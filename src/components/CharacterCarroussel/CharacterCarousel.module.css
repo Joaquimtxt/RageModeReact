@@ -1,0 +1,41 @@
+.carouselContainer {
+  /* estilos gerais container */
+}
+
+.carouselScroll {
+  position: relative;
+  width: 100%;
+}
+
+.scrollTransition {
+  transition: transform 0.5s ease;
+}
+
+.scrollIconLeft {
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+}
+
+.scrollIconRight {
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+}
+
+/* Card custom styles se quiser */
+.card {
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.card img {
+  transition: transform 0.3s ease, scale 0.3s ease;
+}
+
+.card img:hover {
+  transform: scale(1.1);
+}
+  

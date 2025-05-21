@@ -1,6 +1,7 @@
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.js";
+import "bootstrap-icons/font/bootstrap-icons.css";
 import { BrowserRouter as Router, Route, Routes } from "react-router";
 import Home from "./Pages/Home/Home";
 import Games from "./Pages/Games/Games";
