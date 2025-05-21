@@ -1,3 +1,22 @@
 body{
+    box-sizing: border-box;
+    border: 0;
+    padding: 0;
+    margin: 0;
     background: radial-gradient(circle, #6366F1 5%, #09284D 64%, #09284D 100%);
+}
+
+
+
+
+
+
+
+.logNsign{
+    background: linear-gradient(to left, #872341 0%, #BE3144 94%);
+}
+
+
+.bi-cloud-upload-fill{
+    font-size: 100px;
 }
