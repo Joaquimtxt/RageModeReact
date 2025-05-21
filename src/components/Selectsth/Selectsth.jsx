@@ -60,11 +60,7 @@ const Selectsth = (props) => {
 
 
   return (
-    <div className={`container-fluid rounded-2 position-relative w-100 px-0`}
-    style={{
-      padding: 0,
-      margin: 0,
-      maxWidth: window.innerWidth < 700 ? '100vw' : '100%',}}>
+    <div className={`container-fluid rounded-2 position-relative w-100 px-0 ${styles.sthContainer}`}>
       <h1 className="ms-xl-5 ms-2 text-light ">{props.Titulo}</h1>
       <div className={`d-flex align-items-center  ${styles.SthScroll}`}>
           <button
