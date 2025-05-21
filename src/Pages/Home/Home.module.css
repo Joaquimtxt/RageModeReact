@@ -1,3 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Jersey+15&display=swap');
 .posterExample{
-    height: 1080px;
+    max-height: 700px;
 }
+
+body {
+    /* background-image: url(../../../public/background3.jpg) 0; */
+    
+}
+
+.jerseyFont {
+    font-family: 'Jersey 15', sans-serif;
+}
+
+
+
+

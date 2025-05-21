@@ -1,155 +1,98 @@
 import { Link, useLocation } from "react-router";
-import styles from "./Header.module.css";
-import { useState } from "react";
+import styles from './Header.module.css';
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.js";
 
 const Header = () => {
-  const location = useLocation();
-
-  const [isSidebarOpen, setSidebarOpen] = useState(false);
-
-  const toggleSidebar = () => {
-    setSidebarOpen(!isSidebarOpen);
-  };
-
-  return (
-    <header
-      className={`navbar navbar-dark fixed-top w-100 d-flex z-3 justify-content-between align-items-center bg-secondary bg-opacity-50 py-2 px-2 ${styles.infoContainer}`}
-    >
-      <div className="container-fluid d-flex align-items-center">
-        {/* Botão do menu toggle para telas menores */}
-        <button
-          className="navbar-toggler d-lg-none me-2"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNav"
-          aria-controls="navbarNav"
-          aria-expanded={isSidebarOpen}
-          aria-label="Toggle navigation"
-        >
-          <span className="navbar-toggler-icon"></span>
-        </button>
-
-        <button
-          className="btn bg-danger me-2"
-          style={{ fontFamily: "fantasy", fontSize: "20px", color: "white" }}
-        >
-          <Link to="/signin" style={{ textDecoration: "none", color: "white" }}>
+    const location = useLocation();
+    const closeOffcanvas = () => {
+      const offcanvasEl = document.getElementById("menuOffcanvas");//Estou fazendo desse jeito pois o dismiss-"offcanvas não está funcionando
+      // Só funciona com elementos nativos como a, button, e não com componentes do React como Link
+      if (offcanvasEl) {
+        const bsOffcanvas = window.bootstrap?.Offcanvas.getOrCreateInstance(offcanvasEl);
+        bsOffcanvas?.hide();
+      }
+    };
+    return (
+      <nav className="navbar navbar-dark bg-dark px-3">
+        <div className="container-fluid">
+          {/* Botão para abrir o menu */}
+          <button
+            className="navbar-toggler"
+            type="button"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#menuOffcanvas"
+            aria-controls="menuOffcanvas"
+          >
+            <span className="navbar-toggler-icon"></span>
+          </button>
+  
+          {/* Logo centralizado */}
+          <Link to="/" className="mx-auto" id="logo">
+            <img
+              src="https://placehold.co/200x70"
+              alt="Logo da RageMode"
+              className="rounded d-block mx-auto col-6 col-md-4 col-lg-3"
+            />
+          </Link>
+  
+          {/* Botão SIGN IN (fora do menu em telas grandes) */}
+          <Link to="/signin" className="btn btn-danger d-none d-lg-block">
             SIGN IN
           </Link>
-        </button>
-
-        {/* Botão do menu toggle para telas maiores */}
-        <button
-          className="navbar-toggler d-none d-lg-block"
-          type="button"
-          onClick={toggleSidebar}
-          aria-expanded={isSidebarOpen}
-          aria-label="Toggle navigation"
-        >
-          <span className="navbar-toggler-icon"></span>
-        </button>
-
-        {/* Logo centralizado */}
-        <Link to="/" className="mx-auto" id="logo">
-          <img
-            src="https://placehold.co/200x70"
-            alt="Logo da RageMode"
-            className="rounded d-block mx-auto col-6 col-md-4 col-lg-3"
-          />
-        </Link>
-      </div>
-
-      {/* Menu colapsável para telas menores */}
-      <div
-        className={`collapse navbar-collapse d-lg-none mt-3 ${styles.CollapseMenu}`}
-        id="navbarNav"
-      >
-        <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-          <li className="nav-item me-lg-3 text-center mt-3">
-            <Link
-              to="/"
-              className={`${styles.NavLink} ${
-                location.pathname === "/" ? styles.NavLinkActive : ""
-              }`}
-            >
-              Home
-            </Link>
-          </li>
-          <li className="nav-item me-lg-3 text-center mt-3">
-            <Link
-              to="/games"
-              className={`${styles.NavLink} ${
-                location.pathname === "/games" ? styles.NavLinkActive : ""
-              }`}
-            >
-              Games
-            </Link>
-          </li>
-          <li className="nav-item me-lg-3 text-center mt-3">
-            <Link
-              to="/select-character"
-              className={`${styles.NavLink} ${
-                location.pathname === "/select-character"
-                  ? styles.NavLinkActive
-                  : ""
-              }`}
-            >
-              Select Character
-            </Link>
-          </li>
-        </ul>
-      </div>
-
-      {/* Sidebar para telas maiores */}
-      <div
-        className={`d-none d-lg-block ${styles.Sidebar} ${
-          isSidebarOpen ? styles.SidebarVisible : ""
-        }`}
-      >
-        <button
-          className="btn btn-close btn-close-white m-3"
-          onClick={toggleSidebar}
-          aria-label="Close"
-        ></button>
-        <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-          <li className="nav-item me-lg-3 text-center mt-3">
-            <Link
-              to="/"
-              className={`${styles.NavLink} ${
-                location.pathname === "/" ? styles.NavLinkActive : ""
-              }`}
-            >
-              Home
-            </Link>
-          </li>
-          <li className="nav-item me-lg-3 text-center mt-3">
-            <Link
-              to="/games"
-              className={`${styles.NavLink} ${
-                location.pathname === "/games" ? styles.NavLinkActive : ""
-              }`}
-            >
-              Games
-            </Link>
-          </li>
-          <li className="nav-item me-lg-3 text-center mt-3">
-            <Link
-              to="/select-character"
-              className={`${styles.NavLink} ${
-                location.pathname === "/select-character"
-                  ? styles.NavLinkActive
-                  : ""
-              }`}
-            >
-              Select Character
-            </Link>
-          </li>
-        </ul>
-      </div>
-    </header>
-  );
-};
+  
+          {/* Offcanvas Menu */}
+          <div
+            id="menuOffcanvas"
+            className="offcanvas offcanvas-start text-bg-dark"
+            tabIndex="-1"
+            aria-labelledby="menuOffcanvasLabel"
+          >
+            <div className="offcanvas-header">
+              <h5 className="offcanvas-title" id="menuOffcanvasLabel">
+                Menu
+              </h5>
+              <button
+                type="button"
+                className="btn-close btn-close-white"
+                data-bs-dismiss="offcanvas"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div className="offcanvas-body">
+              <ul className="navbar-nav">
+                <li className="nav-item text-center mt-3">
+                  <Link
+                    to="/"
+                    className={`${styles.NavLink} ${location.pathname === '/' ? styles.NavLinkActive : ''}`}
+                    onClick={closeOffcanvas}
+                  >
+                    Home
+                  </Link>
+                </li>
+                <li className="nav-item text-center mt-3">
+                  <Link
+                    to="/games"
+                    className={`${styles.NavLink} ${location.pathname === '/games' ? styles.NavLinkActive : ''}`}
+                    onClick={closeOffcanvas}
+                  >
+                    Games
+                  </Link>
+                </li>
+                <li className="nav-item text-center mt-3 d-lg-none">
+                  <Link
+                    to="/signin"
+                    className="btn btn-danger w-50 mt-3"
+                  >
+                    SIGN IN
+                  </Link>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </nav>
+    );
+  };
 
 export default Header;
