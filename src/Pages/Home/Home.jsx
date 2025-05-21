@@ -2,14 +2,24 @@ import styles from './Home.module.css'
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.js";
 import ForumContainer from '../../components/ForumContainer/ForumContainer';
-import posterExample from '../../assets/poster_art1.jpg'
-import posterExample2 from '../../assets/sfd-characters-banner.jpg'
 import Mosaico from '../../assets/Mosaico.png'
+import { Navigate } from 'react-router';
 
 const Home = () => {
   return (
     <div>
-      <img src={posterExample2} className={`${styles.posterExample} vw-100 z-1 opacity-75 object-fit-cover object-fit-md-fill `} alt="" srcset="" />
+      <div className=' text-light PosterContainer d-flex flex-column align-items-center'>
+        <img src='../../../public/logo_ragemode_icon.png' className='img-fluid col-8 col-md-3 align-self-center mt-5 mb-3'/>
+<p className='fs-5 fw-medium mb-4'> Fighting Game Community</p>
+
+<div className='bg-danger bg-opacity-75 px-4 py-2 fw-bold text-light d-flex flex-row gap-5 w-auto rounded-1'>
+  <p className='m-0'>Row</p>
+  <p className='m-0'>Row</p>
+  <p className='m-0'>Row</p>
+  <p className='m-0'>Row</p>
+</div>
+      </div>
+      {/* <img src={posterExample2} className={` position-static ${styles.posterExample} vw-100 z-1 opacity-75 object-fit-cover object-fit-md-fill`} alt="" srcset="" /> */}
       
 <div className='d-flex flex-column text-center my-5 text-light'>
     <div className={`${styles.jerseyFont} display-1`}>RECENTES</div>
