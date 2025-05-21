@@ -5,7 +5,7 @@
     top: 0;
     left: -400px; /* Inicialmente fora da tela */
     height: 100%;
-    background-color: #343a40; /* Cor de fundo */
+    background-color: black; /* Cor de fundo */
     overflow-y: auto;
     transition: left 0.5s linear; /* Transição suave para a posição */
 }
@@ -56,4 +56,9 @@
 
 .NavLinkActive::after {
     background-color: red; 
+}
+
+
+.jerseyFont {
+    font-family: 'Jersey 15', sans-serif;
 }

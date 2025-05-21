@@ -15,7 +15,7 @@ const Header = () => {
 
   return (
     <header
-      className={`navbar navbar-dark fixed-top w-100 d-flex z-3 justify-content-between align-items-center bg-secondary bg-opacity-50 py-2 px-2 ${styles.infoContainer}`}
+      className={`navbar navbar-dark sticky-md-top w-100 d-flex z-3 justify-content-between align-items-center bg-z-50 py-2 px-2 ${styles.infoContainer}`}
     >
       <div className="container-fluid d-flex align-items-center">
         {/* Botão do menu toggle para telas menores */}
@@ -45,13 +45,13 @@ const Header = () => {
         {/* Logo centralizado */}
         <Link to="/" className="mx-auto" id="logo">
           <img
-            src="https://placehold.co/200x70"
+            src="../../../public/logo_ragemode_icon.png"
             alt="Logo da RageMode"
             className="img-fluid"
           />
         </Link>
 
-        <Link to="/signin" className='btn btn-danger'>SIGN IN</Link>
+        <Link to="/register" className='btn btn-danger'>SIGN IN</Link>
       </div>
 
       {/* Menu colapsável para telas menores */}
@@ -89,7 +89,7 @@ const Header = () => {
           <li className="nav-item me-lg-3 text-center mt-3">
             <Link
               to="/"
-              className={`${styles.NavLink} ${
+              className={`fs-3 ${styles.jerseyFont} text-decoration-none ${styles.NavLink} ${
                 location.pathname === '/' ? styles.NavLinkActive : ''
               }`}
             >
@@ -99,9 +99,9 @@ const Header = () => {
           <li className="nav-item me-lg-3 text-center mt-3">
             <Link
               to="/games"
-              className={`${styles.NavLink} ${
+              className={`fs-3 text-decoration-none ${styles.NavLink} ${
                 location.pathname === '/games' ? styles.NavLinkActive : ''
-              }`}
+              } ${styles.jerseyFont}`}
             >
               Games
             </Link>

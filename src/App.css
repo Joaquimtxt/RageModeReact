@@ -1,3 +1,16 @@
+
+
 body{
     background: radial-gradient(circle, #6366F1 5%, #09284D 64%, #09284D 100%);
 }
+.navbar{
+    background: linear-gradient(to top, transparent 10%, rgba(0, 0, 0, 0.644) 90%);
+    /* backdrop-filter: blur(2px); */
+}
+
+#logo{
+    max-width: 200px;
+    max-height: 70px;
+}
+
+
