@@ -1,16 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styles from './Selectsth.module.css';
 import SthCard from './SthCard';
 
 const Selectsth = (props) => {
-  // Total de cards (ajuste conforme necessário)
   const cards = [
-    <SthCard Year="1999" Poster="https://placehold.co/300x400" Title="Street Fighter 20" />,
-    <SthCard Year="1999" Poster="https://placehold.co/300x400" Title="Street Fighter 20" />,
-    <SthCard Year="1999" Poster="https://placehold.co/300x400" Title="Street Fighter 20" />,
-    <SthCard Year="1999" Poster="https://placehold.co/300x400" Title="Street Fighter 20" />,
-    <SthCard Year="1999" Poster="https://placehold.co/300x400" Title="Street Fighter 20" />,
-    <SthCard Year="1999" Poster="https://placehold.co/300x400" Title="Street Fighter 20" />,
     <SthCard Year="1999" Poster="https://placehold.co/300x400" Title="Street Fighter 20" />,
     <SthCard Year="1999" Poster="https://placehold.co/300x400" Title="Street Fighter 20" />,
     <SthCard Year="1999" Poster="https://placehold.co/300x400" Title="Street Fighter 20" />,
@@ -21,10 +14,15 @@ const Selectsth = (props) => {
 
   const [cardsPerView, setCardsPerView] = useState(4);
   const [startIdx, setStartIdx] = useState(0);
+  const touchStartX = useRef(null);
+
+  const handleTouchStart = (e) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
 
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth < 576) {
+      if (window.innerWidth < 700) {
         setCardsPerView(3); // Para telas menores que "sm", mostrar 3 cards
       } else {
         setCardsPerView(4); // Para telas maiores, mostrar 4 cards
@@ -40,19 +38,35 @@ const Selectsth = (props) => {
   }, []);
 
   const handlePrev = () => {
-    setStartIdx((prev) => Math.max(prev - cardsPerView, 0));
+    setStartIdx((prev) => Math.max(prev - cardsPerView, 0));//Diminui o índice inicial, mas não permite que fique negativo(Rolar para o início), o limite é 0
   };
 
   const handleNext = () => {
     setStartIdx((prev) =>
-      Math.min(prev + cardsPerView, cards.length - cardsPerView)
+      Math.min(prev + cardsPerView, cards.length - cardsPerView)//Aumenta o índice inicial, mas não permite que ultrapasse o limite, que é o tanto de cards - cards por view
     );
   };
+  const handleTouchEnd = (e) => {
+    if (touchStartX.current === null) return;
+    const touchEndX = e.changedTouches[0].clientX;
+    const diff = touchStartX.current - touchEndX;//Calcula a diferença da posição do touch inicial, com a posição final do touch
+    if (diff > 50) { //Se o user arrastar mais de 50px para a esquerda, vai para os próximos card
+      handleNext();//É chamado para respeitar os limites do carrossel
+    } else if (diff < -50) {//Se o user arrastar mais de 50px para a direita, vai para os cards anteriores
+      handlePrev();//É chamado para respeitar os limites do carrossel
+    }
+    touchStartX.current = null;
+  };
+
 
   return (
-    <div className={`container-fluid rounded-2 position-relative w-100 ${styles.SthContainer}`}>
-      <h1 className="ms-xl-5 ms-2 text-light">{props.Titulo}</h1>
-      <div className={`d-flex align-items-center justify-content-between ${styles.SthScroll}`}>
+    <div className={`container-fluid rounded-2 position-relative w-100 px-0`}
+    style={{
+      padding: 0,
+      margin: 0,
+      maxWidth: window.innerWidth < 700 ? '100vw' : '100%',}}>
+      <h1 className="ms-xl-5 ms-2 text-light ">{props.Titulo}</h1>
+      <div className={`d-flex align-items-center  ${styles.SthScroll}`}>
           <button
            className={`btn btn-dark d-none d-md-flex align-items-center justify-content-center z-2 position-relative ${styles.scrollIcon2}`}
            onClick={handlePrev}
@@ -61,21 +75,25 @@ const Selectsth = (props) => {
          >
            <ion-icon name="caret-back-outline" size="large"></ion-icon>
          </button>
-          <div className="overflow-hidden flex-grow-1 mx-3 ">
+          <div className="overflow-hidden "
+       >
             <div
-              className={`d-flex flex-nowrap m-0 p-0${styles.SthScroll}`}
+              className={`d-flex flex-nowrap m-0 p-3 ${styles.scrollTransition}`}
               style={{
                 transform: `translateX(-${(startIdx / cards.length) * 100}%)`,
-                transition: 'transform 0.5s ease-in-out',
                 width: `${(cards.length / cardsPerView) * 100}%`,
+              
               }}
+              onTouchStart={handleTouchStart}
+              onTouchEnd={handleTouchEnd}
             >
               {cards.map((card, idx) => (
                 <div
                   key={idx}
-                  className="flex-shrink-0 p-2"
+                  className="flex-shrink-0"
                   style={{
                     width: `${100 / cards.length}%`,
+                  
                   }}
                 >
                   {card}
