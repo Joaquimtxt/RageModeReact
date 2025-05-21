@@ -7,7 +7,7 @@ import posterExample from '../../assets/poster_art1.jpg'
 const Home = () => {
   return (
     <div>
-      <img src={posterExample} className={`${styles.posterExample} vw-100 opacity-50 object-fit-cover`} alt="" srcset="" />
+      <img src={posterExample} className={`${styles.posterExample} vw-100 opacity-50 object-fit-cover`} alt="" srcSet="" />
 <div className='d-flex flex-column text-center my-5 text-light'>
     <div className='display-5'>TEXTOTEXTOTEXTO</div>
     <ForumContainer />
