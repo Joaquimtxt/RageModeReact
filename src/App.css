@@ -1,11 +1,12 @@
-
+@import url('https://fonts.googleapis.com/css2?family=Jersey+15&display=swap');
 
 body{
     box-sizing: border-box;
     border: 0;
     padding: 0;
     margin: 0;
-    background: radial-gradient(circle, #6366F1 5%, #09284D 64%, #09284D 100%);
+    background: radial-gradient(circle, #6366F1 5%, #09284D 64%, #09284D 100%); 
+    /* background-image: url(../public/sf3-3rd-strike-poster-art-by-daigo-ikeno\ 1.png); */
 }
 
 
@@ -16,6 +17,7 @@ body{
 
 .logNsign{
     background: linear-gradient(to left, #872341 0%, #BE3144 94%);
+    font-family: "Jersey 15", sans-serif;
 }
 
 
@@ -28,8 +30,11 @@ body{
 }
 
 #logo{
-    max-width: 200px;
-    max-height: 70px;
+    width: 200px;
+    height: 70px;
 }
 
 
+.jersey{
+    font-family: "Jersey 15", sans-serif;
+}

@@ -4,11 +4,13 @@ import "bootstrap/dist/js/bootstrap.bundle.js";
 import ForumContainer from '../../components/ForumContainer/ForumContainer';
 import posterExample from '../../assets/poster_art1.jpg'
 import posterExample2 from '../../assets/sfd-characters-banner.jpg'
+import Mosaico from '../../assets/Mosaico.png'
 
 const Home = () => {
   return (
     <div>
       <img src={posterExample2} className={`${styles.posterExample} vw-100 z-1 opacity-75 object-fit-cover object-fit-md-fill `} alt="" srcset="" />
+      
 <div className='d-flex flex-column text-center my-5 text-light'>
     <div className={`${styles.jerseyFont} display-1`}>RECENTES</div>
     <ForumContainer

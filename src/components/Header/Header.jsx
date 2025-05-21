@@ -51,21 +51,21 @@ const Header = () => {
           />
         </Link>
 
-        <Link to="/register" className='btn btn-danger'>SIGN IN</Link>
+        <Link to="/register" className='btn logNsign text-light border-0 fw-bold rounded-1 px-3 py-2'>SIGN IN</Link>
       </div>
 
       {/* Menu colapsável para telas menores */}
-      <div className={`collapse navbar-collapse d-lg-none mt-3 ${styles.CollapseMenu}`} id="navbarNav">
-        <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-          <li className="nav-item me-lg-3 text-center mt-3">
-            <Link to="/"  className={`${styles.NavLink} ${
+      <div className={` collapse navbar-collapse d-lg-none border border-danger border-1 rounded-1  mt-3 ${styles.CollapseMenu}`} id="navbarNav">
+        <ul className="navbar-nav me-auto mb-2 mb-lg-0 ">
+          <li className="nav-item me-lg-3 text-center mt-3 border border-danger pb-1 rounded-3 ">
+            <Link to="/"  className={`text-decoration-none jersey fs-4  ${styles.NavLink} ${
                 location.pathname === '/' ? styles.NavLinkActive : ''
               }`}>
               Home
             </Link>
           </li>
-          <li className="nav-item me-lg-3 text-center mt-3">
-            <Link to="/games"  className={`${styles.NavLink} ${
+          <li className="nav-item me-lg-3 text-center mt-3 border border-danger pb-1 rounded-3">
+            <Link to="/games"  className={`text-decoration-none jersey fs-4 ${styles.NavLink} ${
                 location.pathname === '/games' ? styles.NavLinkActive : ''
               }`}>
               Games
@@ -76,7 +76,7 @@ const Header = () => {
 
       {/* Sidebar para telas maiores */}
       <div
-        className={`d-none d-lg-block ${styles.Sidebar} ${
+        className={`d-none d-lg-block border-end border-danger border-2 ${styles.Sidebar} ${
           isSidebarOpen ? styles.SidebarVisible : ''
         }`}
       >
@@ -86,7 +86,7 @@ const Header = () => {
           aria-label="Close"
         ></button>
         <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-          <li className="nav-item me-lg-3 text-center mt-3">
+          <li className="nav-item me-lg-3 text-center mt-3 border-bottom  border-danger border-2 pb-3 w-100 ">
             <Link
               to="/"
               className={`fs-3 ${styles.jerseyFont} text-decoration-none ${styles.NavLink} ${
@@ -96,7 +96,7 @@ const Header = () => {
               Home
             </Link>
           </li>
-          <li className="nav-item me-lg-3 text-center mt-3">
+          <li className="nav-item me-lg-3 text-center mt-3 border-bottom  border-danger border-2 pb-3 w-100">
             <Link
               to="/games"
               className={`fs-3 text-decoration-none ${styles.NavLink} ${
