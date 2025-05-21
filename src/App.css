@@ -119,13 +119,19 @@ h4 {
   background-color: #ddd;
   padding: 10px;
   border-radius: 12px;
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, opacity 0.3s ease;
   cursor: pointer;
 }
 
 .character-container img:hover {
   transform: scale(1.2);
   z-index: 10;
+  opacity: 1;
+}
+
+.character-container img:not(:hover) {
+  transform: scale(0.9);
+  opacity: 0.7;
 }
 
 /* ------------------ SETAS DO CARROSSEL ------------------ */

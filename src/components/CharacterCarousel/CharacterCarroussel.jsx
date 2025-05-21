@@ -76,8 +76,11 @@ const CharacterCarousel = ({ titulo }) => {
             {characters.map((char, idx) => (
               <div
                 key={idx}
-                className="flex-shrink-0"
-                style={{ width: `${100 / characters.length}%` }}
+                className="flex-shrink-0 d-flex justify-content-center align-items-center"
+                style={{
+                  width: `${100 / cardsPerView}%`,
+                  height: "100%", // Ensure consistent height
+                }}
               >
                 <CharacterCard name={char.name} image={char.img} />
               </div>

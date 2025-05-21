@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import styles from "src/components/CharacterCarroussel/CharacterCarousel.module.css "; // Crie esse CSS ou adapte seu CSS atual
+import styles from "../components/CharacterCarousel/CharacterCarousel.module.css"; // Importando o CSS do carrossel
 
 // Componente CharacterCard para cada personagem
 const CharacterCard = ({ name, image }) => {
@@ -66,9 +66,7 @@ const CharacterCarousel = ({ titulo }) => {
       className={`container-fluid rounded-2 position-relative w-100 px-0 ${styles.carouselContainer}`}
     >
       <h1 className="ms-xl-5 ms-2 text-light">{titulo}</h1>
-      <div
-        className={`d-flex align-items-center ${styles.carouselScroll}`}
-      >
+      <div className={`d-flex align-items-center ${styles.carouselScroll}`}>
         <button
           className={`btn btn-dark d-none d-md-flex align-items-center justify-content-center z-2 position-relative ${styles.scrollIconLeft}`}
           onClick={handlePrev}
