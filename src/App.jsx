@@ -13,12 +13,14 @@ import SelectCharacter from "./Pages/SelectCharacter"; // ✅ corrigido
 import Footer from "./components/Footer/Footer";
 import Register from "./Pages/Register/Register";
 import CreatePost from "./Pages/Posts/CreatePost";
+import CharacterInfo from "./Pages/CharacInfo/CharacterInfo";
 
 function App() {
   return (
     <Router>
       <Header />
       <Routes>
+        <Route path="/characterinfo" element={<CharacterInfo />} />
         <Route path="/" element={<Home />} />
         <Route path="/games" element={<Games />} />
         <Route path="/signin" element={<SigIn />} />

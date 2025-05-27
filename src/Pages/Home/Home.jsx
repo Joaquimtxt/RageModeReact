@@ -10,8 +10,8 @@ import posterExample2 from '../../assets/sfd-characters-banner.jpg'
 const Home = () => {
   return (
     <div>
-      <div className=' text-light PosterContainer d-flex flex-column align-items-center'>
-        <img src='../../../public/logo_ragemode_icon.png' className='img-fluid col-8 col-md-3 align-self-center mt-5 mb-3'/>
+      <div  className={` ${styles.HomeContainer} py-4 text-light PosterContainer d-flex flex-column align-items-center justify-content-center `}>
+        <img src='../../../public/logo_ragemode_icon.png' className='img-fluid col-8 col-md-3 align-self-center mb-3'/>
 <p className='fs-5 fw-medium mb-4'> Fighting Game Community</p>
 
 <div className='bg-danger bg-opacity-75 px-4 py-2 fw-bold text-light d-flex flex-row gap-5 w-auto rounded-1'>
@@ -22,7 +22,7 @@ const Home = () => {
 </div>
       </div>
       {/* <img src={posterExample2} className={` position-static ${styles.posterExample} vw-100 z-1 opacity-75 object-fit-cover object-fit-md-fill`} alt="" srcset="" /> */}
-      <img src={posterExample2} className={`${styles.posterExample} vw-100 z-1 opacity-75 object-fit-cover object-fit-md-fill `} alt="" srcSet="" />
+
       
 <div className='d-flex flex-column text-center my-5 text-light'>
     <div className={`${styles.jerseyFont} display-1`}>RECENTES</div>

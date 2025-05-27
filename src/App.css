@@ -29,6 +29,7 @@ body{
     /* backdrop-filter: blur(2px); */
 }
 
+
 #logo{
     width: 200px;
     height: 70px;
@@ -39,6 +40,8 @@ body{
     font-family: "Jersey 15", sans-serif;
 }
 @import url("https://fonts.googleapis.com/css2?family=Jersey+25&display=swap");
+
+
 
 /* ------------------ ESTILO GLOBAL ------------------ */
 body {
