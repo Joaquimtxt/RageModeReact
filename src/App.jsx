@@ -28,6 +28,8 @@ function App() {
         <Route path="/select-character" element={<SelectCharacter />} />
         <Route path="/register" element={<Register />} />
         <Route path="/sendpost" element={<CreatePost />} />
+        <Route path="/post" element={<PostPage/>} />
+        <Route path="/perfil" element={<Perfil />} />
       </Routes>
       <Footer />
     </Router>
