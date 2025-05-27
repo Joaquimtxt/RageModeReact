@@ -22,7 +22,7 @@ const SignUp = () => {
     <>
       <div
         className="container d-flex flex-column justify-content-center align-items-center"
-        style={{ minHeight: "100vh", marginTop: "64px" }}
+        style={{ minHeight: "100vh", marginTop: "auto" }}
       >
         <div className="row justify-content-center">
           <div>
