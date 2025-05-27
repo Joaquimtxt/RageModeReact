@@ -1,28 +1,3 @@
-.Sidebar {
-    width: 400px;
-    z-index: 1045;
-    position: fixed;
-    top: 0;
-    left: -400px; /* Inicialmente fora da tela */
-    height: 100%;
-    background: linear-gradient(to right, rgba(23, 55, 145, 1) 10%, rgba(0, 0, 0, 1) 90%);
-    /* Cor de fundo */
-    overflow-y: auto;
-    transition: left 0.5s linear; /* Transição suave para a posição */
-}
-
-/* Sidebar visível */
-.SidebarVisible {
-    left: 0; /* Move a sidebar para dentro da tela */
-}
-/* Fundo do menu colapsável para telas menores */
-.CollapseMenu {
-    background: linear-gradient(to bottom, transparent 10%, rgba(0, 0, 0, 0.644) 90%);
-    /* Mesma cor do sidebar */
-    color: #ffffff; /* Cor do texto */
-    padding: 1rem; /* Espaçamento interno */
-}
-
 /* Estilo base para os links */
 .NavLink {
     position: relative;
