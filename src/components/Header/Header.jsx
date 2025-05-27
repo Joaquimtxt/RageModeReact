@@ -111,12 +111,11 @@ const Header = () => {
                 </li>
                 <li className="nav-item text-center mt-3 d-lg-none">
                   {usuario ? (
-                    <>
-                      <img
-                        src={`https://ui-avatars.com/api/?name=${usuario.name}&background=2b87ae&color=fff`}
-                        alt={usuario.name}
-                      />
-                    </>
+                    <img
+                      src="https://placehold.co/50x50"
+                      alt="User Avatar"
+                      style={{ width: "50px", height: "50px", borderRadius: "50%" }}
+                    />
                   ) : (
                     <Link to="/signin" className="btn btn-danger w-50 mt-3">
                       SIGN IN
