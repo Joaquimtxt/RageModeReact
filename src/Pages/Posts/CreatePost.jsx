@@ -1,4 +1,5 @@
 import React from "react";
+import ModalTags from "../../components/ModalTags/ModalTags";
 
 const CreatePost = () => {
   return (
@@ -24,13 +25,22 @@ const CreatePost = () => {
             <div className="col-5">
                 <div className="border-light border rounded-2">
           <div className="form-label text-center bg-light bg-opacity-50 fw-bolder m-0">Tags</div>
-          <input type="" className="input-group p-0 m-0 bg-opacity-10 bg-light border-0 py-1 px-3 text-truncate" placeholder="Selecione as tags" />
+          <input type="button" className="p-0 m-0 border-0 text-truncate" />
+       <button className="btn bg-light bg-opacity-10 text-secondary w-100"  data-bs-toggle="modal" data-bs-target="#TagModal">Selecione as tags</button>
         </div>
             </div>
         </div>
 
         <button className=" logNsign btn text-light w-auto align-self-center fw-bolder">Criar discussão <i className="ms-2 bi bi-plus-circle-fill fs-6"></i></button>
       </div>
+    <div class="modal fade" id="TagModal" tabindex="-1" aria-labelledby="TagModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+        <ModalTags />
+        </div>
+          
+          </div>
+          </div>
     </div>
   );
 };

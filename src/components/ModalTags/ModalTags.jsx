@@ -70,17 +70,21 @@ const ModalTags = () => {
     navigate("/");
   };
   return (
-    <div className='modal-content'>
+    <div className='modal-content bg-secondary'>
         <header className='bg-white text-dark fw-bold'><p>Select Tags</p></header>
         {!mostrar && !selectedGame &&(
         <div className='modal-body'>
-            <div className='d-flex flex-column align-items-center bg-secondary'>
+            <div className='d-flex flex-column align-items-center '>
                 <ul>
                 <button type="button" className="btn btn-outline-dark"  onClick={() => setMostrar(true)}>Combos</button>
                 <button type="button" className="btn btn-outline-dark"  onClick={() => setMostrar(true)}>Specials</button>
                 <button type="button" className="btn btn-outline-dark"  onClick={() => setMostrar(true)}>Curiosities</button>
                 </ul>
             </div>         
+            <div className="d-flex justify-content-between mt-3 w-100">
+            <button className="btn btn-outline-danger" onClick={handleCancel} data-bs-toggle="modal">Cancel</button>
+            <button className="btn btn-primary text-light" onClick={handleNextOrFinish}>Next</button>
+          </div> 
             </div>
             )}
 
@@ -92,7 +96,10 @@ const ModalTags = () => {
                     <button key={index} type="button" className="btn btn-outline-dark" onClick={()=>setSelectedGame(game)}>{game}</button>
                 ))}    
                 </ul>  
-            </div>         
+            </div>
+            <div className="d-flex justify-content-center mt-3 w-100">
+            <button className="btn btn-outline-danger" onClick={handleCancel} data-bs-toggle="modal">Cancel</button>
+          </div>          
             </div>
             )}
                 {selectedGame && (
@@ -100,13 +107,13 @@ const ModalTags = () => {
             <div className='d-flex flex-column align-items-center bg-secondary'>
                 <ul>
                 {personagensDoJogo.map((character) => (
-                    <button key={character.id} type="button" className="btn btn-outline-dark" onClick={() => navigate("/")}>{character.nome}</button>
+                    <button key={character.id} type="button" className="btn btn-outline-dark" data-bs-toggle="modal" onClick={() => navigate("/")}>{character.nome}</button>
                 ))}  
                 </ul>    
             </div>    
             <div className="d-flex justify-content-between mt-3 w-100">
-            <button className="btn btn-outline-danger" onClick={handleCancel}>Cancelar</button>
-            <button className="btn btn-primary text-light" onClick={handleNextOrFinish}>Finalizar</button>
+            <button className="btn btn-outline-danger" onClick={handleCancel} data-bs-toggle="modal">Cancel</button>
+            <button className="btn btn-primary text-light" onClick={handleNextOrFinish} data-bs-toggle="modal">Cancel</button>
           </div>     
             </div>
             
