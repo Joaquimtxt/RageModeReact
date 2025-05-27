@@ -1,22 +1,28 @@
+import { useNavigate } from "react-router";
 import styles from "./ForumContainer.module.css";
 
 const ForumContainer = (props) => {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate("/post", { state: props });
+  };
   return (
     <div className="container container-md vw-100">
 
-      <div className=" border border-light rounded-3 my-4">
+      <div className={` border border-light rounded-3 my-4 ${styles.PostContainer}` } onClick={handleClick}>
         <div className="row">
           <div className="col-md-7">
             <div className="container">
               <div
-                className={`${styles.infoPost} d-flex gap-4 mx-2 mt-0 p-1 align-items-center`}
+                className={` d-flex gap-4 mx-2 mt-0 p-1 align-items-center`}
               >
                 <img
                   src="https://placehold.co/30x30"
                   className="img-fluid rounded-circle"
                 ></img>
                 <h5 className="text-center py-2 fs-6">@{props.userName}</h5>
-                <p className="fw-lighter mt-2"> há {props.postDate}</p>
+                <p className="fw-lighter mt-2">{props.postDate} ago</p>
               </div>
               <div className="row">
           <div className="col-12 mx-3 w-auto">
@@ -26,7 +32,7 @@ const ForumContainer = (props) => {
             </p>
           </div>
         </div>
-              <div className={`${styles.postContent} ms-4 text-start mb-4 mb-md-3`}>
+              <div className={` ms-4 text-start mb-4 mb-md-3`}>
                 <div className="  fs-3 fw-bolder mt-2 mb-3">
                   {props.postTitle}
                 </div>

@@ -13,6 +13,7 @@ import SelectCharacter from "./Pages/SelectCharacter"; // ✅ corrigido
 import Footer from "./components/Footer/Footer";
 import Register from "./Pages/Register/Register";
 import CreatePost from "./Pages/Posts/CreatePost";
+import PostPage from "./Pages/Posts/PostPage";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
         <Route path="/select-character" element={<SelectCharacter />} />
         <Route path="/register" element={<Register />} />
         <Route path="/sendpost" element={<CreatePost />} />
+        <Route path="/post" element={<PostPage/>} />
       </Routes>
       <Footer />
     </Router>
