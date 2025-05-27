@@ -113,7 +113,7 @@ const ModalTags = () => {
             </div>    
             <div className="d-flex justify-content-between mt-3 w-100">
             <button className="btn btn-outline-danger" onClick={handleCancel} data-bs-toggle="modal">Cancel</button>
-            <button className="btn btn-primary text-light" onClick={handleNextOrFinish} data-bs-toggle="modal">Cancel</button>
+            <button className="btn btn-primary text-light" onClick={handleNextOrFinish} data-bs-toggle="modal">Finalize</button>
           </div>     
             </div>
             
