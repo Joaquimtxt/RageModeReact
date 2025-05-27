@@ -62,6 +62,7 @@ h2 {
 }
 h3 {
   font-size: 20px;
+  color: #FE7743;
 }
 h4 {
   font-size: 18px;
@@ -195,4 +196,15 @@ h4 {
 
 .carousel-arrow:hover {
   color: #fff;
+}
+img{
+    object-fit: cover;
+    border-radius: 100px;
+}
+p{
+    font-family:Arial, Helvetica, sans-serif;
+    color: #fff;
+    margin-left: 25px;
+    font-size: 18px;
+    font-style: inherit;
 }

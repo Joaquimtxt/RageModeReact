@@ -95,6 +95,17 @@ const Header = () => {
                     Games
                   </Link>
                 </li>
+                <li className="nav-item text-center mt-3">
+                  <Link
+                    to="/perfil"
+                    className={`${styles.NavLink} ${
+                      location.pathname === "/perfil" ? styles.NavLinkActive : ""
+                    }`}
+                    onClick={closeOffcanvas}
+                  >
+                    Perfil
+                  </Link>
+                </li>
 
                 <li className="nav-item text-center mt-3">
                   <Link

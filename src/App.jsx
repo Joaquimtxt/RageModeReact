@@ -13,6 +13,7 @@ import SelectCharacter from "./Pages/SelectCharacter"; // ✅ corrigido
 import Footer from "./components/Footer/Footer";
 import Register from "./Pages/Register/Register";
 import CreatePost from "./Pages/Posts/CreatePost";
+import Perfil from "./Pages/Perfil"; // Importando o componente Perfil
 
 function App() {
   return (
@@ -26,6 +27,8 @@ function App() {
         <Route path="/select-character" element={<SelectCharacter />} />
         <Route path="/register" element={<Register />} />
         <Route path="/sendpost" element={<CreatePost />} />
+        <Route path="/perfil" element={<Perfil />} />{" "}
+        {/* Rota para o perfil do usuário */}
       </Routes>
       <Footer />
     </Router>
