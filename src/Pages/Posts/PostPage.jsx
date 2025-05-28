@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useLocation, useParams } from "react-router";
 import styles from "./Posts.module.css";
 import LikePost from "../../components/LikePost/LikePost";
+import CommentBar from "../../components/Comments/CommentBar";
+import Comments from "../../components/Comments/Comments";
 
 const PostPage = () => {
   const location = useLocation();
@@ -58,6 +60,11 @@ const PostPage = () => {
       <div className="w-100 mt-3">
         <LikePost />
       </div>
+      <div className="w-100 mt-3">      
+        <h5 className="text-light">Comments:</h5>
+  <CommentBar />
+  <Comments userName={"Luiz"} postDate={"3 min"} commentContent={"Mannnnnnn Im your fan, you're so cool, that match you made on SF3 was astonishing!!"} />
+        </div>
     </div>
   );
 };
