@@ -1,0 +1,103 @@
+.search-form {
+  width: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px; /* Ajuste conforme necessário para posicionar abaixo da logo */
+}
+
+.search-container {
+  display: flex;
+  position: relative;
+  width: 75%;
+  align-items: center;
+  justify-content: center;
+}
+
+.search-input {
+  width: 100%;
+  padding: 0.5rem 2.5rem 0.5rem 1rem;
+  border: 1px solid #ced4da;
+  border-radius: 20px;
+  font-size: 0.875rem;
+  transition: all 0.3s ease;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #80bdff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.search-button {
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 100%;
+  background: transparent;
+  border: none;
+  padding: 0 0.75rem;
+  color: #6c757d;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s;
+}
+
+.search-button:hover {
+  color: #007bff;
+}
+
+.search-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.search-icon {
+  width: 18px;
+  height: 18px;
+}
+
+.search-icon.loading {
+  animation: spin 1s linear infinite;
+}
+
+.search-progress {
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #e9ecef;
+  overflow: hidden;
+  border-radius: 0 0 20px 20px;
+}
+
+.search-progress-bar {
+  height: 100%;
+  width: 30%;
+  background-color: #007bff;
+  position: absolute;
+  animation: progress 2s infinite linear;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes progress {
+  0% {
+    left: -30%;
+  }
+  100% {
+    left: 100%;
+  }
+}
