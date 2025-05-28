@@ -3,6 +3,7 @@ import styles from "./Header.module.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.js";
 import { useEffect, useState } from "react";
+import BarraPesquisa from "../SearchBar/SearchBar";
 
 const Header = () => {
   const location = useLocation();
@@ -43,9 +44,9 @@ const Header = () => {
           {/* Logo centralizado */}
           <Link to="/" className="mx-auto" id="logo">
             <img
-              src="https://placehold.co/200x70"
+              src="src/assets/logo4.png"
               alt="Logo da RageMode"
-              className="rounded d-block mx-auto col-6 col-md-4 col-lg-3"
+              className="img-fluid d-block mx-auto"
             />
           </Link>
 
@@ -99,7 +100,9 @@ const Header = () => {
                   <Link
                     to="/perfil"
                     className={`${styles.NavLink} ${
-                      location.pathname === "/perfil" ? styles.NavLinkActive : ""
+                      location.pathname === "/perfil"
+                        ? styles.NavLinkActive
+                        : ""
                     }`}
                     onClick={closeOffcanvas}
                   >
@@ -125,7 +128,11 @@ const Header = () => {
                     <img
                       src="https://placehold.co/50x50"
                       alt="User Avatar"
-                      style={{ width: "50px", height: "50px", borderRadius: "50%" }}
+                      style={{
+                        width: "50px",
+                        height: "50px",
+                        borderRadius: "50%",
+                      }}
                     />
                   ) : (
                     <Link to="/signin" className="btn btn-danger w-50 mt-3">
@@ -137,6 +144,8 @@ const Header = () => {
             </div>
           </div>
         </div>
+        {/* Barra de Pesquisa */}
+        <BarraPesquisa />
       </nav>
     </>
   );
