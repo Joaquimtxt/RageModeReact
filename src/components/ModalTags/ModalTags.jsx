@@ -71,7 +71,7 @@ const ModalTags = () => {
   };
   return (
     <div className='modal-content bg-secondary'>
-        <header className='bg-white text-dark fw-bold'><p>Select Tags</p></header>
+        <header className='bg-light fw-bold'><p className=''>Select Tags</p></header>
         {!mostrar && !selectedGame &&(
         <div className='modal-body'>
             <div className='d-flex flex-column align-items-center '>

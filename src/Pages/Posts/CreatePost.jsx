@@ -33,9 +33,9 @@ const CreatePost = () => {
 
         <button className=" logNsign btn text-light w-auto align-self-center fw-bolder">Criar discussão <i className="ms-2 bi bi-plus-circle-fill fs-6"></i></button>
       </div>
-    <div class="modal fade" id="TagModal" tabindex="-1" aria-labelledby="TagModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
+    <div className="modal fade" id="TagModal" tabIndex="-1" aria-labelledby="TagModalLabel" aria-hidden="true">
+    <div className="modal-dialog modal-lg">
+        <div className="modal-content">
         <ModalTags />
         </div>
           

@@ -14,11 +14,15 @@ const Home = () => {
 <div className='d-flex flex-column text-center my-5 text-light'>
     <div className={`${styles.jerseyFont} display-1`}>RECENTES</div>
     <ForumContainer
-    userName={"DaigoUmehara"}
-    postDate={"10 min"}
-    postTags={"Street Fighter 6, Discussion"}
-    postTitle={"How we feeling about the season 3 throw change?"}
-    postContent={"If you haven’t heard about it already, defenders now gain a bar of drive gauge when teching a throw. Here at 00:28. This is gives the defender some reward when going for a tech and it seems to be their answer to throw loops."} />
+
+    props={{
+      Id: "1",
+      userName: "DaigoUmehara",
+      postDate: "10 min",
+      postTags: "Street Fighter 6, Discussion",
+      postTitle: "How we feeling about the season 3 throw change?",
+      postContent: "If you haven’t heard about it already, defenders now gain a bar of drive gauge when teching a throw. Here at 00:28. This is gives the defender some reward when going for a tech and it seems to be their answer to throw loops."
+    }} />
 </div>
     </div>
   )
