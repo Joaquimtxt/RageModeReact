@@ -1,9 +1,11 @@
-import { Link, useLocation } from "react-router";
+import { Link, useLocation } from "react-router"; // Corrigido o import
 import styles from "./Header.module.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.js";
 import { useEffect, useState } from "react";
 import BarraPesquisa from "../SearchBar/SearchBar";
+import PostFilter from "../PostFilter/PostFilter"; // Import do PostFilter
+import logo from "../../assets/logo4.png"; // Corrigido o caminho do logo
 
 const Header = () => {
   const location = useLocation();
@@ -17,8 +19,7 @@ const Header = () => {
   }, []);
 
   const closeOffcanvas = () => {
-    const offcanvasEl = document.getElementById("menuOffcanvas"); //Estou fazendo desse jeito pois o dismiss-"offcanvas não está funcionando
-    // Só funciona com elementos nativos como a, button, e não com componentes do React como Link
+    const offcanvasEl = document.getElementById("menuOffcanvas");
     if (offcanvasEl) {
       const bsOffcanvas =
         window.bootstrap?.Offcanvas.getOrCreateInstance(offcanvasEl);
@@ -44,7 +45,7 @@ const Header = () => {
           {/* Logo centralizado */}
           <Link to="/" className="mx-auto" id="logo">
             <img
-              src="src/assets/logo4.png"
+              src={logo}
               alt="Logo da RageMode"
               className="img-fluid d-block mx-auto"
             />
@@ -145,8 +146,46 @@ const Header = () => {
           </div>
         </div>
         {/* Barra de Pesquisa */}
-        <BarraPesquisa />
+        <div className="container-fluid d-flex justify-content-center align-items-center">
+          <BarraPesquisa />
+          <button
+            className="btn btn-secondary ms-2 m-3"
+            data-bs-toggle="modal"
+            data-bs-target="#filterModal"
+          >
+            <i className="bi bi-funnel-fill"></i>
+            Filter Posts
+          </button>
+        </div>
       </nav>
+
+      {/* Modal de filtro de posts */}
+      <div
+        className="modal fade"
+        id="filterModal"
+        tabIndex="-1"
+        aria-labelledby="filterModalLabel"
+        aria-hidden="true"
+      >
+        <div className="modal-dialog">
+          <div id="modal-content" className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title" id="filterModalLabel">
+                  Filter Posts
+              </h5>
+              <button
+                type="button"
+                className="btn-close btn-close-white"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div className="modal-body">
+              <PostFilter posts={[]} onClose={() => {}} />
+            </div>
+          </div>
+        </div>
+      </div>
     </>
   );
 };

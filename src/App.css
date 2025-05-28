@@ -1,42 +1,38 @@
-@import url('https://fonts.googleapis.com/css2?family=Jersey+15&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Jersey+15&display=swap");
 
-body{
-    box-sizing: border-box;
-    border: 0;
-    padding: 0;
-    margin: 0;
-    background: radial-gradient(circle, #6366F1 5%, #09284D 64%, #09284D 100%); 
-    /* background-image: url(../public/sf3-3rd-strike-poster-art-by-daigo-ikeno\ 1.png); */
+body {
+  box-sizing: border-box;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  background: radial-gradient(circle, #6366f1 5%, #09284d 64%, #09284d 100%);
+  /* background-image: url(../public/sf3-3rd-strike-poster-art-by-daigo-ikeno\ 1.png); */
 }
 
-
-
-
-
-
-
-.logNsign{
-    background: linear-gradient(to left, #872341 0%, #BE3144 94%);
-    font-family: "Jersey 15", sans-serif;
+.logNsign {
+  background: linear-gradient(to left, #872341 0%, #be3144 94%);
+  font-family: "Jersey 15", sans-serif;
 }
 
-
-.bi-cloud-upload-fill{
-    font-size: 100px;
+.bi-cloud-upload-fill {
+  font-size: 100px;
 }
-.navbar{
-    background: linear-gradient(to top, transparent 10%, rgba(0, 0, 0, 0.644) 90%);
-    /* backdrop-filter: blur(2px); */
-}
-
-#logo{
-    width: 200px;
-    height: 70px;
+.navbar {
+  background: linear-gradient(
+    to top,
+    transparent 10%,
+    rgba(0, 0, 0, 0.644) 90%
+  );
+  /* backdrop-filter: blur(2px); */
 }
 
+#logo {
+  width: 200px;
+  height: 70px;
+}
 
-.jersey{
-    font-family: "Jersey 15", sans-serif;
+.jersey {
+  font-family: "Jersey 15", sans-serif;
 }
 @import url("https://fonts.googleapis.com/css2?family=Jersey+25&display=swap");
 
@@ -62,7 +58,7 @@ h2 {
 }
 h3 {
   font-size: 20px;
-  color: #FE7743;
+  color: #fe7743;
 }
 h4 {
   font-size: 18px;
@@ -197,14 +193,24 @@ h4 {
 .carousel-arrow:hover {
   color: #fff;
 }
-img{
-    object-fit: cover;
-    border-radius: 100px;
+img {
+  object-fit: cover;
+  border-radius: 100px;
 }
-p{
-    font-family:Arial, Helvetica, sans-serif;
-    color: #fff;
-    margin-left: 25px;
-    font-size: 18px;
-    font-style: inherit;
+p {
+  font-family: Arial, Helvetica, sans-serif;
+  color: #fff;
+  margin-left: 25px;
+  font-size: 18px;
+  font-style: inherit;
+}
+#post-filter-modal {
+  background: linear-gradient(135deg, #5a189a, #3c096c);
+}
+#modal-content {
+  background: linear-gradient(135deg, #5a189a, #3c096c);
+  border-radius: 10px;
+  padding: 20px;
+  margin: 5px;
+  color: #fff;
 }
