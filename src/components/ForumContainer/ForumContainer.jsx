@@ -1,16 +1,16 @@
 import { useNavigate } from "react-router";
 import styles from "./ForumContainer.module.css";
 
-const ForumContainer = (props) => {
+const ForumContainer = ({props}) => {
   const navigate = useNavigate();
-
+  const { Id } = props;
   const handleClick = () => {
-    navigate("/post", { state: props });
+    navigate(`/post/${Id}`, { state: props });
   };
   return (
     <div className="container container-md vw-100">
 
-      <div className={` border border-light rounded-3 my-4 ${styles.PostContainer}` } onClick={handleClick}>
+      <div className={` border border-light rounded-3 my-4 ${styles.PostContainer}` } id={Id} onClick={handleClick}>
         <div className="row">
           <div className="col-md-7">
             <div className="container">
