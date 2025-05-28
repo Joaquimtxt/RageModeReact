@@ -1,6 +1,6 @@
 .likeButton{
     background-color: rgba(255, 252, 252, 0.1);
-    border-color: white;
+    border-color: rgba(250, 250, 250, 0.253);
 }
 .likeButton i:nth-of-type(1):hover{
     color: #0d6efd !important;
@@ -10,5 +10,5 @@
 }
 .ActBtn {
     background-color: rgba(255, 252, 252, 0.1);
-    border-color: white;
+    border-color: rgba(250, 250, 250, 0.253);
 }

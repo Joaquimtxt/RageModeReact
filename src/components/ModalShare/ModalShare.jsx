@@ -1,6 +1,5 @@
 import React from 'react'
 import { useLocation } from 'react-router';
-import styles from '../LikePost/LikePost.module.css';
 
 const ModalShare = () => {
     const location = useLocation();
