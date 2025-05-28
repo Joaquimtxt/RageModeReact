@@ -25,10 +25,11 @@ const [user, setUser] = useState(null);
 
 
   useEffect(() => {
+    
     const saveUser = localStorage.getItem("userlogin");
 
     saveUser && setUser(JSON.parse(saveUser));
-  })
+  }, [])
 
 
   return (
@@ -55,14 +56,32 @@ const [user, setUser] = useState(null);
         </Link>
 
         {/* Botão SIGN IN (fora do menu em telas grandes) */}
-      <div className="text-light d-flex flex-row gap-2 align-items-center">
+      <div className="text-light d-flex flex-row gap-1 align-items-center">
 
-        {user ? (
-          <span> Bem vindo, {user.username} ! </span>
-        ) : <span>
+        {user ? 
+        
 
-          Faça login meu mano 
-        </span>}
+          <div className="d-flex flex-row"> <span className="d-none d-md-block small align-self-center jersey fs-5">
+            {user.username}
+            </span> 
+            <span className="badge align-self-center py-2 mx-2 bg-danger">RAGEMODE ADMIN</span>
+          <button type="button" className="btn text-light dropdown-toggle border-0 dropdown-toggle-split" data-bs-toggle="dropdown" ></button>
+          <ul className="dropdown-menu">
+          <li><a href="#" className="dropdown-item">Perfil</a></li>
+            <li><hr className="dropdown-divider"/> </li>
+            <li><Link to={"/"} onClick={() => {
+              localStorage.removeItem("userlogin");
+               location.reload();
+            }} 
+            className="dropdown-item">Sair</Link></li>
+
+
+          </ul>
+          </div>
+
+
+        
+         : <> </>}
 
         {user ? <img src={user.pfp || `https://ui-avatars.com/api/?name=${user?.username}&background=2b87ae&color=fff`} className="rounded-circle" width={30} height={30}/>
 

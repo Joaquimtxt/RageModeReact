@@ -16,6 +16,9 @@ import CreatePost from "./Pages/Posts/CreatePost";
 import CharacterInfo from "./Pages/CharacInfo/CharacterInfo";
 
 function App() {
+
+
+
   return (
     <Router>
       <Header />
@@ -25,9 +28,10 @@ function App() {
         <Route path="/games" element={<Games />} />
         <Route path="/signin" element={<SigIn />} />
         <Route path="/signup" element={<SignUp />} />
-        <Route path="/select-character" element={<SelectCharacter />} />
+        <Route path="/games/:gameId" element={<SelectCharacter />} />
         <Route path="/register" element={<Register />} />
         <Route path="/sendpost" element={<CreatePost />} />
+        <Route path="" element={<CharacterInfo />} ></Route>
       </Routes>
       <Footer />
     </Router>

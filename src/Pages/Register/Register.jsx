@@ -16,7 +16,6 @@ const Register = () => {
     e.preventDefault();
     if ( senha && username ){
       localStorage.setItem("userlogin", JSON.stringify({ username, senha, email: ""}))
-
       navigate("/");
     }
   }
