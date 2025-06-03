@@ -2,11 +2,20 @@ import React, { useEffect, useRef, useState } from "react";
 import styles from "./SelectGame.module.css";
 import GameCard from "./GameCard";
 import games from "../../data/Games"; // Importing games array
+import axios from 'axios';
+
+const apiUrl = 'http://apiragemode.somee.com/api'
 
 const SelectGame = (props) => {
-  const cards = games.map((jogo) => (
-    <GameCard key={jogo.id} Title={jogo.nome} Poster={jogo.poster} />
+  const [jogos, setJogos] = useState([])
+
+
+
+  const cards = jogos.map((jogo) => (
+    <GameCard key={jogo.jogosId} Title={jogo.jogoNome} Poster={jogo.imageBanner} />
   ));
+
+
 
   const [cardsPerView, setCardsPerView] = useState(4);
   const [startIdx, setStartIdx] = useState(0);
@@ -17,6 +26,18 @@ const SelectGame = (props) => {
   };
 
   useEffect(() => {
+
+
+    axios.get(`${apiUrl}/Jogos`).then(api => {
+      setJogos(api.data)
+    })
+    .catch(error => {
+      console.log("Erro com a API ao buscar os jogos:", error);
+    })
+
+
+
+
     const handleResize = () => {
       if (window.innerWidth < 700) {
         setCardsPerView(3); // Para telas menores que "sm", mostrar 3 cards
@@ -31,6 +52,10 @@ const SelectGame = (props) => {
     return () => {
       window.removeEventListener("resize", handleResize); // Remover listener ao desmontar o componente
     };
+
+
+
+
   }, []);
 
   const handlePrev = () => {

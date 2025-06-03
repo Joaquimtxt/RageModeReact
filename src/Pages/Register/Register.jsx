@@ -12,6 +12,8 @@ const Register = () => {
   const [senha, setSenha] = useState("");
   const navigate = useNavigate();
 
+
+  
   const handleLogin = (e) => {
     e.preventDefault();
     if ( senha && username ){
