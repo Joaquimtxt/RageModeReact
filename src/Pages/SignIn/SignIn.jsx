@@ -43,7 +43,7 @@ const SignIn = () => {
               </form>
               <hr style={{width:"400px", height:"3px", background:"#000"}}/>
               <p className="text-center mt-3">
-                Don't have an account? <Link to="/signup" className=" btn btn-danger text-light text-decoration-none">Sign Up</Link>
+                Don't have an account? <Link to="/register" className=" btn btn-danger text-light text-decoration-none">Sign Up</Link>
               </p>
             </div>
           </div>

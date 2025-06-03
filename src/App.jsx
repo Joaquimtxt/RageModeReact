@@ -14,6 +14,7 @@ import Footer from "./components/Footer/Footer";
 import Register from "./Pages/Register/Register";
 import CreatePost from "./Pages/Posts/CreatePost";
 import CharacterInfo from "./Pages/CharacInfo/CharacterInfo";
+import AddGame from "./Pages/Games/AddGame";
 
 function App() {
 
@@ -31,7 +32,8 @@ function App() {
         <Route path="/games/:gameId" element={<SelectCharacter />} />
         <Route path="/register" element={<Register />} />
         <Route path="/sendpost" element={<CreatePost />} />
-        <Route path="" element={<CharacterInfo />} ></Route>
+        <Route path="" element={<CharacterInfo />} />
+        <Route path="/addGame" element={<AddGame />} />
       </Routes>
       <Footer />
     </Router>
