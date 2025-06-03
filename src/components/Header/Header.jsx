@@ -161,7 +161,7 @@ const Header = () => {
 
       {/* Modal de filtro de posts */}
       <div
-        className="modal fade"
+        className="modal fade modal-smooth"
         id="filterModal"
         tabIndex="-1"
         aria-labelledby="filterModalLabel"
@@ -180,7 +180,7 @@ const Header = () => {
                 aria-label="Close"
               ></button>
             </div>
-            <div className="modal-body">
+            <div className="modal-body" id="modal-body">
               <PostFilter posts={[]} onClose={() => {}} />
             </div>
           </div>

@@ -35,7 +35,20 @@
     background-color: red; 
 }
 
-
 .jerseyFont {
     font-family: 'Jersey 15', sans-serif;
+}
+
+.modal-smooth {
+    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+}
+
+.modal.fade.show {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.modal.fade {
+    transform: translateY(-20px);
+    opacity: 0;
 }

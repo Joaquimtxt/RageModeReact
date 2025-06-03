@@ -214,3 +214,13 @@ p {
   margin: 5px;
   color: #fff;
 }
+.modal-fade {
+  opacity: 0;
+  transform: translateY(-30px);
+  transition: all 0.3s ease;
+}
+
+.modal-show {
+  opacity: 1;
+  transform: translateY(0);
+}

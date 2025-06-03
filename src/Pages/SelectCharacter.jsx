@@ -1,5 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
+import { useLocation } from "react-router"; // Import useLocation to get query parameters
 import styles from "../components/CharacterCarousel/CharacterCarousel.module.css"; // Importando o CSS do carrossel
+import { gameCharacters } from "../data"; // Import gameCharacters
 
 // Componente CharacterCard para cada personagem
 const CharacterCard = ({ name, image }) => {
@@ -16,16 +18,7 @@ const CharacterCard = ({ name, image }) => {
 };
 
 // Componente principal do carrossel de personagens
-const CharacterCarousel = ({ titulo }) => {
-  const characters = [
-    { name: "Ryu", img: "https://placehold.co/300x400?text=Ryu" },
-    { name: "Ken", img: "https://placehold.co/300x400?text=Ken" },
-    { name: "Chun-Li", img: "https://placehold.co/300x400?text=Chun-Li" },
-    { name: "Guile", img: "https://placehold.co/300x400?text=Guile" },
-    { name: "Blanka", img: "https://placehold.co/300x400?text=Blanka" },
-    { name: "Bison", img: "https://placehold.co/300x400?text=Bison" },
-  ];
-
+const CharacterCarousel = ({ titulo, characters }) => {
   const [cardsPerView, setCardsPerView] = useState(4);
   const [startIdx, setStartIdx] = useState(0);
   const touchStartX = useRef(null);
@@ -115,6 +108,11 @@ const CharacterCarousel = ({ titulo }) => {
 };
 
 const SelectCharacter = () => {
+  const location = useLocation(); // Get location object
+  const queryParams = new URLSearchParams(location.search); // Parse query parameters
+  const gameId = queryParams.get("gameId"); // Extract gameId from query parameters
+  const characters = gameCharacters[gameId] || []; // Fetch characters by game ID
+
   return (
     <div
       className="container-fluid d-flex flex-column align-items-center"
@@ -164,7 +162,7 @@ const SelectCharacter = () => {
       >
         <h1 className="text-light mt-5 text-start">Select Character</h1>
         <div className="py-3 rounded bg-dark mt-2 px-0 w-100">
-          <CharacterCarousel titulo="Personagens de Street Fighter 20" />
+          <CharacterCarousel titulo={`Personagens`} characters={characters} />
         </div>
       </div>
     </div>

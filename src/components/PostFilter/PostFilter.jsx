@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 // Lista fixa dos jogos (você pode adaptar para puxar da API depois)
 const jogos = [
@@ -59,6 +59,21 @@ const PostFilter = ({ posts }) => {
   // Estado para filtro de tipo de post
   const [filtroTipoPost, setFiltroTipoPost] = useState("Todas");
 
+  // Estado para usuários e busca
+  const [usuarios, setUsuarios] = useState([]);
+  const [searchUsuario, setSearchUsuario] = useState("");
+
+  useEffect(() => {
+    const storedUsers = localStorage.getItem("usuarios");
+    if (storedUsers) {
+      setUsuarios(JSON.parse(storedUsers));
+    }
+  }, []);
+
+  const usuariosFiltrados = usuarios.filter((usuario) =>
+    usuario.toLowerCase().includes(searchUsuario.toLowerCase())
+  );
+
   // Filtra os posts pelo jogo, tipo e data (tag)
   const postsFiltrados = posts.filter((post) => {
     const jogoMatch = filtroJogo ? post.jogo === filtroJogo : true;
@@ -92,7 +107,7 @@ const PostFilter = ({ posts }) => {
           onClick={() => setModalAberto(false)} // fecha modal clicando fora
         >
           <div
-          id="post-filter-modal"
+            id="post-filter-modal"
             style={{
               padding: 20,
               borderRadius: 8,
@@ -103,6 +118,30 @@ const PostFilter = ({ posts }) => {
             onClick={(e) => e.stopPropagation()} // evita fechar clicando dentro
           >
             <h2>Filtrar Posts</h2>
+
+            {/* Barra de pesquisa de usuários */}
+            <div style={{ marginTop: 15 }}>
+              <h4>Buscar Usuários</h4>
+              <input
+                type="text"
+                placeholder="Digite o nome do usuário"
+                value={searchUsuario}
+                onChange={(e) => setSearchUsuario(e.target.value)}
+                style={{
+                  width: "100%",
+                  padding: "8px",
+                  marginBottom: "10px",
+                  borderRadius: "4px",
+                  border: "1px solid #ccc",
+                }}
+              />
+              <ul style={{ paddingLeft: 20, maxHeight: 150, overflowY: "auto" }}>
+                {usuariosFiltrados.length === 0 && <li>Nenhum usuário encontrado.</li>}
+                {usuariosFiltrados.map((usuario, index) => (
+                  <li key={index}>{usuario}</li>
+                ))}
+              </ul>
+            </div>
 
             {/* Filtro por jogo */}
             <div>
@@ -229,7 +268,7 @@ const PostFilter = ({ posts }) => {
 
             {/* Botão para fechar modal */}
             <button
-            className="btn btn-outline-dark bg-light text-dark fw-bold"
+              className="btn btn-outline-dark bg-light text-dark fw-bold"
               onClick={() => setModalAberto(false)}
               style={{ marginTop: 15, padding: "8px 16px", cursor: "pointer" }}
             >
