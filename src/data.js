@@ -1,6 +1,6 @@
 export const gameCharacters = {
   1: [
-    { name: "Ryu", img: "https://placehold.co/300x400?text=Ryu" },
+    { name: "Ryu", img: "https://placehold.co/300x400?text=Ryu", description:"Descrição teste" },
     { name: "Ken", img: "https://placehold.co/300x400?text=Ken" },
     { name: "Chun-Li", img: "https://placehold.co/300x400?text=Chun-Li" },
     { name: "Guile", img: "https://placehold.co/300x400?text=Guile" },

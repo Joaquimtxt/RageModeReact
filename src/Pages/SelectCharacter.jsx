@@ -2,11 +2,16 @@ import React, { useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router"; // Import useLocation to get query parameters
 import styles from "../components/CharacterCarousel/CharacterCarousel.module.css"; // Importando o CSS do carrossel
 import { gameCharacters, jogosDeLuta } from "../data"; // Import gameCharacters and jogosDeLuta
+import Modal from "react-bootstrap/Modal"; // Import Bootstrap Modal
 
 // Componente CharacterCard para cada personagem
-const CharacterCard = ({ name, image }) => {
+const CharacterCard = ({ name, image, description, onClick }) => {
   return (
-    <div className={`card text-bg-dark ${styles.card}`}>
+    <div
+      className={`card text-bg-dark ${styles.card}`}
+      onClick={() => onClick({ name, image, description })}
+      style={{ cursor: "pointer" }}
+    >
       <img src={image} className="card-img" alt={name} />
       <div className="card-img-overlay d-flex align-items-end">
         <h5 className="card-title bg-dark bg-opacity-75 p-2 w-100 text-center">
@@ -18,7 +23,7 @@ const CharacterCard = ({ name, image }) => {
 };
 
 // Componente principal do carrossel de personagens
-const CharacterCarousel = ({ titulo, characters }) => {
+const CharacterCarousel = ({ titulo, characters, onCharacterClick }) => {
   const [cardsPerView, setCardsPerView] = useState(4);
   const [startIdx, setStartIdx] = useState(0);
   const touchStartX = useRef(null);
@@ -88,7 +93,12 @@ const CharacterCarousel = ({ titulo, characters }) => {
                 className="flex-shrink-0"
                 style={{ width: `${100 / characters.length}%` }}
               >
-                <CharacterCard name={char.name} image={char.img} />
+                <CharacterCard
+                  name={char.name}
+                  image={char.img}
+                  description={char.description || "No description available"}
+                  onClick={onCharacterClick}
+                />
               </div>
             ))}
           </div>
@@ -114,6 +124,19 @@ const SelectCharacter = () => {
   const characters = gameCharacters[gameId] || []; // Fetch characters by game ID
   const gameInfo = jogosDeLuta.find((game) => game.id === parseInt(gameId)); // Fetch game info by ID
 
+  const [selectedCharacter, setSelectedCharacter] = useState(null); // State for selected character
+  const [showModal, setShowModal] = useState(false); // State for modal visibility
+
+  const handleCharacterClick = (character) => {
+    setSelectedCharacter(character);
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+    setSelectedCharacter(null);
+  };
+
   return (
     <div
       className="container-fluid d-flex flex-column align-items-center"
@@ -130,9 +153,15 @@ const SelectCharacter = () => {
         }}
       >
         <div className="col-md-6 d-flex flex-column align-items-center">
-          <h2 className="text-center mb-4 text-light">{gameInfo?.nome || "Game Information"}</h2>
+          <h2 className="text-center mb-4 text-light">
+            {gameInfo?.nome || "Game Information"}
+          </h2>
           <img
-            src={gameInfo ? `/images/${gameInfo.imagem}` : "https://placehold.co/300x200"}
+            src={
+              gameInfo
+                ? `/images/${gameInfo.imagem}`
+                : "https://placehold.co/300x200"
+            }
             alt={gameInfo?.nome || "Game Placeholder"}
             className="mb-4 rounded-4"
           />
@@ -151,7 +180,9 @@ const SelectCharacter = () => {
           </div>
           <div>
             <h3 className="text-light">Plataformas</h3>
-            <p className="text-light">{gameInfo?.plataformas.join(", ") || "N/A"}</p>
+            <p className="text-light">
+              {gameInfo?.plataformas.join(", ") || "N/A"}
+            </p>
           </div>
         </div>
       </div>
@@ -161,9 +192,33 @@ const SelectCharacter = () => {
       >
         <h1 className="text-light mt-5 text-start">Select Character</h1>
         <div className="py-3 rounded bg-dark mt-2 px-0 w-100">
-          <CharacterCarousel titulo={`Personagens`} characters={characters} />
+          <CharacterCarousel
+            titulo={`Personagens`}
+            characters={characters}
+            onCharacterClick={handleCharacterClick}
+          />
         </div>
       </div>
+
+      {/* Modal for character details */}
+      <Modal show={showModal} onHide={handleCloseModal} centered>
+        <Modal.Header closeButton id="modal-header">
+          <Modal.Title>{selectedCharacter?.name}</Modal.Title>
+        </Modal.Header >
+        <Modal.Body id="modal-body" className="text-center">
+          <img
+            src={selectedCharacter?.image}
+            alt={selectedCharacter?.name}
+            className="img-fluid mb-3"
+          />
+          <p>{selectedCharacter?.description}</p>
+        </Modal.Body>
+        <Modal.Footer id="modal-footer">
+          <button className="btn btn-secondary" onClick={handleCloseModal}>
+            Close
+          </button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 };

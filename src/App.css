@@ -224,3 +224,23 @@ p {
   opacity: 1;
   transform: translateY(0);
 }
+#modal-body{
+  max-height: 80vh;
+  overflow-y: auto;
+  padding: 20px;
+  background: linear-gradient(135deg, #5a189a, #3c096c);
+
+  color: #fff;
+}
+#modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(135deg, #5a189a, #3c096c);
+}
+#modal-footer{
+  display: flex;
+  justify-content: flex-end;
+  background: linear-gradient(135deg, #5a189a, #3c096c);
+  padding: 10px;
+}
