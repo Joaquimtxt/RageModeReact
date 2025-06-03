@@ -1,8 +1,25 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Mosaico from '../../assets/Mosaico.png'
+import { useNavigate } from 'react-router';
+
+
+
 
 const Register = () => {
-  return (
+
+  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("")
+  const [senha, setSenha] = useState("");
+  const navigate = useNavigate();
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+    if ( senha && username ){
+      localStorage.setItem("userlogin", JSON.stringify({ username, senha, email: ""}))
+      navigate("/");
+    }
+  }
+    return (
 
     <div className='row justify-content-center'>
 
@@ -29,18 +46,22 @@ const Register = () => {
 
                     <div className='row container px-4'>
                         <div className='col-12 my-2'>
-                            <label className='form-label text-light mb-1 ms-1 fw-medium'>Texto</label>
-                            <input className='input-group-text rounded-3 bg-danger-subtle border-black w-100'></input>
+                            <label className='form-label text-light mb-1 ms-1 fw-medium'>Nome de usuário</label>
+                            <input name="username" value={username} onChange={(e) => setUsername(e.target.value)} type='text' className='input-group-text rounded-3 bg-danger-subtle border-black w-100 text-start'></input>
                         </div>
 
                          <div className='col-12 my-2'>
-                            <label className='form-label text-light mb-1 ms-1 fw-medium'>Texto</label>
-                            <input className='input-group-text rounded-3 bg-danger-subtle border-black w-100'></input>
+                            <label className='form-label text-light mb-1 ms-1 fw-medium'>Crie uma senha</label>
+                            <input type='password' onChange={(e) => setSenha(e.target.value)} value={senha} className='input-group-text rounded-3 bg-danger-subtle border-black w-100 text-start'></input>
                         </div>
 
                     </div>
 
-                    <button className='btn btn-dark btn-sm fs-4 bg-black border-0 rounded-1 w-auto px-5 mt-3 jersey'>Registrar</button>
+                    <button className='btn btn-dark btn-sm fs-4 bg-black border-0 rounded-1 w-auto px-5 mt-3 jersey'
+                    onClick={handleLogin} >
+                      Registrar
+                    </button>
+
                     <hr className='w-100 mt-3 mb-5'/>
                 </div>
             </div>
