@@ -18,8 +18,10 @@ const ForumContainer = ({props}) => {
                 className={` d-flex gap-4 mx-2 mt-0 p-1 align-items-center`}
               >
                 <img
-                  src="https://placehold.co/30x30"
+                  src={props.profilePicture}
                   className="img-fluid rounded-circle"
+                  width={"30px"}
+                  height={"30px"}
                 ></img>
                 <h5 className="text-center py-2 fs-6">@{props.userName}</h5>
                 <p className="fw-lighter mt-2">{props.postDate} ago</p>

@@ -1,7 +1,8 @@
 import React from 'react'
-import styles from './Selectsth.module.css'
+import styles from './SelectGame.module.css'
+import { Link } from 'react-router';
 
-const SthCard = (props) => {
+const GameCard = (props) => {
   const isSmallScreen = window.innerWidth < 700;
   return (
     <div   className="p-1"
@@ -26,9 +27,10 @@ const SthCard = (props) => {
       <div  className="card-body text-center d-flex p-1 p-md-3 flex-column justify-content-end">
         <h6 className='m-0'>{props.Title}</h6>
       </div>
+      <Link to={`/games/${props.jogoId}/character/${props.personagemId}`}></Link>
     </div>
     </div>
   )
 }
 
-export default SthCard
+export default GameCard

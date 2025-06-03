@@ -8,6 +8,9 @@ import PostFilter from "../PostFilter/PostFilter"; // Import do PostFilter
 import logo from "../../assets/logo4.png"; // Corrigido o caminho do logo
 
 const Header = () => {
+
+const [user, setUser] = useState(null);
+
   const location = useLocation();
   const [usuario, setUsuario] = useState(null);
 
