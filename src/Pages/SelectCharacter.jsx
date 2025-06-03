@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router"; // Import useLocation to get query parameters
 import styles from "../components/CharacterCarousel/CharacterCarousel.module.css"; // Importando o CSS do carrossel
-import { gameCharacters } from "../data"; // Import gameCharacters
+import { gameCharacters, jogosDeLuta } from "../data"; // Import gameCharacters and jogosDeLuta
 
 // Componente CharacterCard para cada personagem
 const CharacterCard = ({ name, image }) => {
@@ -112,6 +112,7 @@ const SelectCharacter = () => {
   const queryParams = new URLSearchParams(location.search); // Parse query parameters
   const gameId = queryParams.get("gameId"); // Extract gameId from query parameters
   const characters = gameCharacters[gameId] || []; // Fetch characters by game ID
+  const gameInfo = jogosDeLuta.find((game) => game.id === parseInt(gameId)); // Fetch game info by ID
 
   return (
     <div
@@ -129,10 +130,10 @@ const SelectCharacter = () => {
         }}
       >
         <div className="col-md-6 d-flex flex-column align-items-center">
-          <h2 className="text-center mb-4 text-light">Game Information</h2>
+          <h2 className="text-center mb-4 text-light">{gameInfo?.nome || "Game Information"}</h2>
           <img
-            src="https://placehold.co/300x200" // Placeholder image URL
-            alt="Game Placeholder"
+            src={gameInfo ? `/images/${gameInfo.imagem}` : "https://placehold.co/300x200"}
+            alt={gameInfo?.nome || "Game Placeholder"}
             className="mb-4 rounded-4"
           />
         </div>
@@ -141,18 +142,16 @@ const SelectCharacter = () => {
           style={{ gap: "15px" }}
         >
           <div>
-            <h3 className="text-light">12312321</h3>
-            <p className="text-light">
-              A thrilling action game where you unleash your rage!
-            </p>
+            <h3 className="text-light">Desenvolvedora</h3>
+            <p className="text-light">{gameInfo?.desenvolvedora || "N/A"}</p>
           </div>
           <div>
             <h3 className="text-light">Ano</h3>
-            <p className="text-light">123123123</p>
+            <p className="text-light">{gameInfo?.lancamento || "N/A"}</p>
           </div>
           <div>
             <h3 className="text-light">Plataformas</h3>
-            <p className="text-light">12312321312</p>
+            <p className="text-light">{gameInfo?.plataformas.join(", ") || "N/A"}</p>
           </div>
         </div>
       </div>
