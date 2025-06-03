@@ -40,6 +40,7 @@ const Home = () => {
         {posts.map((post) => (
           <ForumContainer
             key={post.id}
+            Id={post.id}
             userName={post.user.userName}
             profilePicture={post.user.profilePicture}
             postDate={post.postDate}
