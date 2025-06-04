@@ -8,6 +8,13 @@ body {
     
 }
 
+.HomeContainer{
+    background: radial-gradient(circle,  rgba(0, 0, 0, 0.7) 20%, transparent 80%), url(../../assets/sfd-characters-banner.jpg) ;
+    
+    height: 600px;
+}
+
+
 .jerseyFont {
     font-family: 'Jersey 15', sans-serif;
 }

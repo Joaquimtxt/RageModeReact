@@ -13,21 +13,29 @@ import SelectCharacter from "./Pages/SelectCharacter"; // ✅ corrigido
 import Footer from "./components/Footer/Footer";
 import Register from "./Pages/Register/Register";
 import CreatePost from "./Pages/Posts/CreatePost";
+import CharacterInfo from "./Pages/CharacInfo/CharacterInfo";
+import AddGame from "./Pages/Games/AddGame";
 import Perfil from "./Pages/Perfil"; // Importando o componente Perfil
 import PostPage from "./Pages/Posts/PostPage";
 
 function App() {
+
+
+
   return (
     <Router>
       <Header />
       <Routes>
+        <Route path="/characterinfo" element={<CharacterInfo />} />
         <Route path="/" element={<Home />} />
         <Route path="/games" element={<Games />} />
         <Route path="/signin" element={<SigIn />} />
         <Route path="/signup" element={<SignUp />} />
-        <Route path="/select-character" element={<SelectCharacter />} />
+        <Route path="/games/:gameId" element={<SelectCharacter />} />
         <Route path="/register" element={<Register />} />
         <Route path="/sendpost" element={<CreatePost />} />
+        <Route path="/characterInfo" element={<CharacterInfo />} />
+        <Route path="/addGame" element={<AddGame />} />
         <Route path="/post/:id" element={<PostPage/>} />
         <Route path="/perfil" element={<Perfil />} />
       </Routes>

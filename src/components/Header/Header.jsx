@@ -1,4 +1,4 @@
-import { Link, useLocation } from "react-router"; // Corrigido o import
+import { Link, Navigate, useLocation } from "react-router"; // Corrigido o import
 import styles from "./Header.module.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.js";
@@ -8,11 +8,14 @@ import PostFilter from "../PostFilter/PostFilter"; // Import do PostFilter
 import logo from "../../assets/logo4.png"; // Corrigido o caminho do logo
 
 const Header = () => {
+
+
+
   const location = useLocation();
   const [usuario, setUsuario] = useState(null);
 
   useEffect(() => {
-    const storedUser = localStorage.getItem("usuario");
+    const storedUser = localStorage.getItem("userlogin");
     if (storedUser) {
       setUsuario(JSON.parse(storedUser));
     }
@@ -145,7 +148,7 @@ const Header = () => {
             </div>
           </div>
         </div>
-        {/* Barra de Pesquisa */}
+        {/* Barra de Pesquisa
         <div className="container-fluid d-flex justify-content-center align-items-center">
           <BarraPesquisa />
           <button
@@ -156,7 +159,7 @@ const Header = () => {
             <i className="bi bi-funnel-fill"></i>
             Filter Posts
           </button>
-        </div>
+        </div> */}
       </nav>
 
       {/* Modal de filtro de posts */}
