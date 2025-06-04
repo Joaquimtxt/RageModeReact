@@ -1,13 +1,15 @@
-import React, { useState } from "react";
-import { useLocation, useParams } from "react-router";
+import React, { useEffect, useState } from "react";
+import {useParams } from "react-router";
 import styles from "./Posts.module.css";
 import LikePost from "../../components/LikePost/LikePost";
 import CommentBar from "../../components/Comments/CommentBar";
 import Comments from "../../components/Comments/Comments";
+import { getPostById } from "../../api/posts";
+
 
 const PostPage = () => {
-  const location = useLocation();
   const { id } = useParams();
+  const [post, setPost] = useState(null);
   const [subscribed, setSubscribed] = useState(false);
   const [followersCount, setFollowersCount] = useState(0);
   const handleSubscribe = () => {
@@ -19,10 +21,12 @@ const PostPage = () => {
       setFollowersCount(followersCount - 1);
     }
   };
-  const { Id = id, userName, postDate, postTitle, postContent, postTags } =
-    location.state || {};
+  useEffect(() => {
+    getPostById(id).then(setPost).catch(console.error);
+  }, [id]);
+
   return (
-    <div className="container vw-100 text-light" id={Id}>
+    <div className="container vw-100 text-light" id={post.PostId}>
       <div className={`border border-light rounded-3 my-4`}>
         <div className={` d-flex gap-4 mx-2 mt-0 p-1 align-items-center`}>
           <img
@@ -31,18 +35,18 @@ const PostPage = () => {
             alt="profile picture"
           ></img>
           <div className="d-flex flex-column align-items-start justify-content-start">
-            <h5 className="py-1 fs-6 m-0">@{userName}</h5>
+            <h5 className="py-1 fs-6 m-0">@{post.Usuario}</h5>
             <p className="fw-lighter fs-6 m-0">{followersCount} {followersCount == 1? "follower" : "followers"}</p>
           </div>
-          <p className="fw-lighter mt-2">{postDate} ago</p>
+          <p className="fw-lighter mt-2">{post.DataPostagem} ago</p>
           <button className={`btn fw-lighter mt-2 ${subscribed? "btn-secondary" : "btn-light"}`} onClick={handleSubscribe}>{subscribed?"Followed" : "Follow"}</button>
         </div>
         <div className={` ms-4 text-start mb-4 mb-md-3`}>
-          <div className="  fs-3 fw-bolder mt-2 mb-3">{postTitle}</div>
+          <div className="  fs-3 fw-bolder mt-2 mb-3">{post.PostTitulo}</div>
           <div className="col-7 col-md-3">
             <p className="bg-danger ms-auto  px-2 px-md-1 rounded-1 fw-medium text-center text-md-start d-flex flex-row gap-2">
               <i className="bi bi-tags-fill"></i>
-              {postTags}
+              {post.Tags}
             </p>
           </div>
         </div>
@@ -54,7 +58,7 @@ const PostPage = () => {
               alt=""
             />
           </div>
-          <div className="w-100 mt-3 text-light">{postContent}</div>
+          <div className="w-100 mt-3 text-light">{post.PostConteudo}</div>
         </div>
       </div>
       <div className="w-100 mt-3">
