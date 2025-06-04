@@ -1,3 +1,4 @@
+
 @import url("https://fonts.googleapis.com/css2?family=Jersey+15&display=swap");
 
 body {
@@ -34,7 +35,6 @@ body {
 .jersey {
   font-family: "Jersey 15", sans-serif;
 }
-@import url("https://fonts.googleapis.com/css2?family=Jersey+25&display=swap");
 
 
 
@@ -118,7 +118,7 @@ h4 {
   background-color: #8999e8;
   padding: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-  font-family: "Jersey 25", sans-serif;
+  font-family: "Jersey 15", sans-serif;
   text-align: center;
   font-size: 20px;
   width: 100%;
