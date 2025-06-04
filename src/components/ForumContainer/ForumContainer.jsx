@@ -1,19 +1,26 @@
-import { useNavigate } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import styles from "./ForumContainer.module.css";
+import { getPostById } from "../../api/posts";
+import { getTimeAgo } from "../../utils/dateUtils";
+import { useEffect, useState } from "react";
 
 
 
 
 const ForumContainer = (props) => {
   const navigate = useNavigate();
-  const { Id } = props;
+   const [post, setPost] = useState(null);
+  const { id } = useParams();
+   useEffect(() => {
+      getPostById(id).then(setPost).catch(console.error);
+    }, [id]);
   const handleClick = () => {
-    navigate(`/post/${Id}`, { state: props });
+    navigate(`/post/${id}`, { state: props });
   };
     return (
     <div className="container container-md vw-100">
 
-      <div className={` border border-light rounded-3 my-4 ${styles.PostContainer}` } id={Id} onClick={handleClick}>
+      <div className={` border border-light rounded-3 my-4 ${styles.PostContainer}` } id={id} onClick={handleClick}>
         <div className="row">
           <div className="col-md-7">
             <div className="container">
@@ -26,23 +33,23 @@ const ForumContainer = (props) => {
                   width={"30px"}
                   height={"30px"}
                 ></img>
-                <h5 className="text-center py-2 fs-6">@{props.userName}</h5>
-                <p className="fw-lighter mt-2">{props.postDate} ago</p>
+                <h5 className="text-center py-2 fs-6">@{post.Usuarios?.UsuarioNome}</h5>
+                <p className="fw-lighter mt-2">{getTimeAgo(post.DataPostagem)}</p>
               </div>
               <div className="row">
           <div className="col-12 mx-3 w-auto">
             <p className="bg-danger ms-auto  px-2 px-md-1 rounded-1 fw-medium text-center text-md-start d-flex flex-row gap-2">
                 <i className="bi bi-tags-fill"></i>
-              {props.postTags}
+              {post.Tags}
             </p>
           </div>
         </div>
               <div className={` ms-4 text-start mb-4 mb-md-3`}>
                 <div className="  fs-3 fw-bolder mt-2 mb-3">
-                  {props.postTitle}
+                  {post.PostTitulo}
                 </div>
                 <div className="text-truncate w-100">
-                  {props.postContent}
+                  {post.PostConteudo}
                 </div>
               </div>
             </div>
@@ -50,7 +57,7 @@ const ForumContainer = (props) => {
           <div className="col-md-5 text-end post-img">
             <img
               className="img-fluid rounded-1 object-fit-contain postImg"
-              src="https://placehold.co/600x300"
+              src={post.PostImage}
             />
           </div>
         </div>

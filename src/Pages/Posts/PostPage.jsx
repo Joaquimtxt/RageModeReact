@@ -5,6 +5,7 @@ import LikePost from "../../components/LikePost/LikePost";
 import CommentBar from "../../components/Comments/CommentBar";
 import Comments from "../../components/Comments/Comments";
 import { getPostById } from "../../api/posts";
+import { getTimeAgo } from "../../utils/dateUtils";
 
 
 const PostPage = () => {
@@ -35,10 +36,10 @@ const PostPage = () => {
             alt="profile picture"
           ></img>
           <div className="d-flex flex-column align-items-start justify-content-start">
-            <h5 className="py-1 fs-6 m-0">@{post.Usuario}</h5>
+            <h5 className="py-1 fs-6 m-0">@{post.Usuarios?.UsuarioNome}</h5>
             <p className="fw-lighter fs-6 m-0">{followersCount} {followersCount == 1? "follower" : "followers"}</p>
           </div>
-          <p className="fw-lighter mt-2">{post.DataPostagem} ago</p>
+          <p className="fw-lighter mt-2"> {getTimeAgo(post.DataPostagem)}</p>
           <button className={`btn fw-lighter mt-2 ${subscribed? "btn-secondary" : "btn-light"}`} onClick={handleSubscribe}>{subscribed?"Followed" : "Follow"}</button>
         </div>
         <div className={` ms-4 text-start mb-4 mb-md-3`}>
@@ -54,7 +55,7 @@ const PostPage = () => {
           <div className="text-center post-img">
             <img
               className="img-fluid rounded-1 object-fit-contain postImg"
-              src="https://placehold.co/1200x700"
+              src={post.PostImage}
               alt=""
             />
           </div>

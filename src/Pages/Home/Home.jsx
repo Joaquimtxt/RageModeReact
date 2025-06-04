@@ -21,14 +21,16 @@ const Home = () => {
 <div className='d-flex flex-column text-center my-5 text-light'>
     <div className={`${styles.jerseyFont} display-1`}>RECENTES</div>
     {posts.map(post => (
-          <ForumContainer key={post.id} props={{
-            Id: post.id,
-            userName: post.userName,
-            postDate: post.postDate,
-            postTags: post.postTags,
-            postTitle: post.postTitle,
-            postContent: post.postContent
-          }} />
+         <ForumContainer
+         key={post.PostId}
+         PostId={post.PostId}
+         UsuarioNome={post.Usuarios?.UsuarioNome}
+         DataPostagem={post.DataPostagem}
+         Tags={post.Tags}
+         PostTitulo={post.PostTitulo}
+         PostConteudo={post.PostConteudo}
+         PostImagem={post.PostImage}
+       />
         ))}
 </div>
     </div>
