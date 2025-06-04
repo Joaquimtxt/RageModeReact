@@ -1,21 +1,21 @@
 import React, { useEffect, useRef, useState } from "react";
 import styles from "./SelectGame.module.css";
 import GameCard from "./GameCard";
-import games from "../../data/Games"; // Importing games array
-import axios from 'axios';
+import { jogosDeLuta } from "../../data"; // Import jogosDeLuta array
+import axios from "axios";
 
-const apiUrl = 'http://apiragemode.somee.com/api'
+const apiUrl = "http://apiragemode.somee.com/api";
 
 const SelectGame = (props) => {
-  const [jogos, setJogos] = useState([])
-
-
-
-  const cards = jogos.map((jogo) => (
-    <GameCard key={jogo.jogosId} Title={jogo.jogoNome} Poster={jogo.imageBanner} />
+  const cards = jogosDeLuta.map((jogo) => (
+    <GameCard
+      key={jogo.id}
+      Title={jogo.nome}
+      Poster={`${
+        import.meta.env.VITE_PUBLIC_URL ? import.meta.env.VITE_PUBLIC_URL : ""
+      }/assets/${jogo.imagem}`}
+    />
   ));
-
-
 
   const [cardsPerView, setCardsPerView] = useState(4);
   const [startIdx, setStartIdx] = useState(0);
@@ -26,18 +26,6 @@ const SelectGame = (props) => {
   };
 
   useEffect(() => {
-
-
-    axios.get(`${apiUrl}/Jogos`).then(api => {
-      setJogos(api.data)
-    })
-    .catch(error => {
-      console.log("Erro com a API ao buscar os jogos:", error);
-    })
-
-
-
-
     const handleResize = () => {
       if (window.innerWidth < 700) {
         setCardsPerView(3); // Para telas menores que "sm", mostrar 3 cards
@@ -52,10 +40,6 @@ const SelectGame = (props) => {
     return () => {
       window.removeEventListener("resize", handleResize); // Remover listener ao desmontar o componente
     };
-
-
-
-
   }, []);
 
   const handlePrev = () => {
@@ -83,7 +67,8 @@ const SelectGame = (props) => {
 
   return (
     <div
-      className={`container-fluid rounded-2 position-relative w-100 px-0 ${styles.sthContainer}`}
+      className={`container-fluid rounded-2 position-relative px-0 ${styles.sthContainer}`}
+      style={{ width: "auto", maxHeight: "auto" }} // Set the width to 100% of the viewport without increasing height
     >
       <h1 className="ms-xl-5 ms-2 text-light ">{props.Titulo}</h1>
       <div className={`d-flex align-items-center  ${styles.SthScroll}`}>
@@ -95,7 +80,9 @@ const SelectGame = (props) => {
         >
           <ion-icon name="caret-back-outline" size="large"></ion-icon>
         </button>
-        <div className="overflow-hidden ">
+        <div className="overflow-hidden w-100">
+          {" "}
+          {/* Ensure the container spans full width */}
           <div
             className={`d-flex flex-nowrap m-0 p-3 ${styles.scrollTransition}`}
             style={{
@@ -110,7 +97,7 @@ const SelectGame = (props) => {
                 key={idx}
                 className="flex-shrink-0"
                 style={{
-                  width: `${100 / cards.length}%`,
+                  width: `${100 / cardsPerView}%`, // Adjust card width for full-width layout
                 }}
               >
                 {card}
