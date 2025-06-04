@@ -761,84 +761,239 @@ export const gameCharacters = {
     },
   ],
   6: [
-    { name: "Aquaman", img: "https://placehold.co/300x400?text=Aquaman" },
-    { name: "Atrocitus", img: "https://placehold.co/300x400?text=Atrocitus" },
-    { name: "Bane", img: "https://placehold.co/300x400?text=Bane" },
-    { name: "Batman", img: "https://placehold.co/300x400?text=Batman" },
-    { name: "Black Adam", img: "https://placehold.co/300x400?text=Black+Adam" },
+    {
+      name: "Aquaman",
+      img: "https://placehold.co/300x400?text=Aquaman",
+      description:
+        "O rei de Atlântida, com habilidades aquáticas e força sobre-humana.",
+    },
+    {
+      name: "Atrocitus",
+      img: "https://placehold.co/300x400?text=Atrocitus",
+      description:
+        "O líder dos Red Lanterns, alimentado pela raiva e sede de vingança.",
+    },
+    {
+      name: "Bane",
+      img: "https://placehold.co/300x400?text=Bane",
+      description:
+        "Um vilão poderoso, conhecido por sua força física e inteligência estratégica.",
+    },
+    {
+      name: "Batgirl",
+      img: "https://placehold.co/300x400?text=Batgirl",
+      description:
+        "A jovem heroína, treinada por Batman, com habilidades excepcionais.",
+    },
+    {
+      name: "Batwoman",
+      img: "https://placehold.co/300x400?text=Batwoman",
+      description:
+        "Uma vigilante independente, lutando contra o crime em Gotham City.",
+    },
+    {
+      name: "Batman",
+      img: "https://placehold.co/300x400?text=Batman",
+      description:
+        "O Cavaleiro das Trevas, um vigilante de Gotham City, mestre em combate e estratégia.",
+    },
+    {
+      name: "Black Adam",
+      img: "https://placehold.co/300x400?text=Black+Adam",
+      description:
+        "Um anti-herói poderoso, com habilidades mágicas e força sobre-humana.",
+    },
     {
       name: "Black Canary",
       img: "https://placehold.co/300x400?text=Black+Canary",
+      description:
+        "Uma heroína com habilidades de combate excepcionais e um grito sônico devastador.",
     },
     {
       name: "Blue Beetle",
       img: "https://placehold.co/300x400?text=Blue+Beetle",
+      description:
+        "Um jovem herói com uma armadura alienígena, capaz de voar e disparar energia.",
     },
-    { name: "Brainiac", img: "https://placehold.co/300x400?text=Brainiac" },
+    {
+      name: "Brainiac",
+      img: "https://placehold.co/300x400?text=Brainiac",
+      description:
+        "Um vilão alienígena, conhecido por sua inteligência superior e habilidades tecnológicas.",
+    },
     {
       name: "Captain Cold",
       img: "https://placehold.co/300x400?text=Captain+Cold",
+      description:
+        "Um vilão com habilidades de manipulação do gelo, conhecido por sua frieza e astúcia.",
     },
-    { name: "Catwoman", img: "https://placehold.co/300x400?text=Catwoman" },
-    { name: "Cheetah", img: "https://placehold.co/300x400?text=Cheetah" },
-    { name: "Cyborg", img: "https://placehold.co/300x400?text=Cyborg" },
-    { name: "Darkseid", img: "https://placehold.co/300x400?text=Darkseid" },
-    { name: "Deadshot", img: "https://placehold.co/300x400?text=Deadshot" },
+    {
+      name: "Catwoman",
+      img: "https://placehold.co/300x400?text=Catwoman",
+      description:
+        "Uma ladra habilidosa, com habilidades acrobáticas e um passado complicado com Batman.",
+    },
+    {
+      name: "Cheetah",
+      img: "https://placehold.co/300x400?text=Cheetah",
+      description:
+        "Uma vilã com habilidades felinas, conhecida por sua velocidade e ferocidade.",
+    },
+    {
+      name: "Cyborg",
+      img: "https://placehold.co/300x400?text=Cyborg",
+      description:
+        "Um herói meio homem, meio máquina, com habilidades tecnológicas avançadas.",
+    },
+    {
+      name: "Darkseid",
+      img: "https://placehold.co/300x400?text=Darkseid",
+      description:
+        "Um dos vilões mais poderosos do universo DC, governante de Apokolips.",
+    },
+    {
+      name: "Deadshot",
+      img: "https://placehold.co/300x400?text=Deadshot",
+      description:
+        "Um assassino habilidoso, conhecido por sua precisão com armas de fogo.", 
+    },
     {
       name: "Doctor Fate",
       img: "https://placehold.co/300x400?text=Doctor+Fate",
+      description:
+        "Um poderoso mago, portador do Elmo de Nabu, com habilidades místicas excepcionais.",
     },
-    { name: "Firestorm", img: "https://placehold.co/300x400?text=Firestorm" },
-    { name: "The Flash", img: "https://placehold.co/300x400?text=The+Flash" },
+    {
+      name: "Firestorm",
+      img: "https://placehold.co/300x400?text=Firestorm",
+      description:
+        "Um herói com habilidades de manipulação da matéria e energia, formado por dois indivíduos.",
+    },
+    {
+      name: "The Flash",
+      img: "https://placehold.co/300x400?text=The+Flash",
+      description:
+        "O homem mais rápido do mundo, com habilidades de velocidade sobre-humana.",
+    },
     {
       name: "Gorilla Grodd",
       img: "https://placehold.co/300x400?text=Gorilla+Grodd",
+      description:
+        "Um gorila superinteligente com habilidades telepáticas, conhecido por sua astúcia e força.",
     },
     {
       name: "Green Arrow",
       img: "https://placehold.co/300x400?text=Green+Arrow",
+      description:
+        "Um vigilante arqueiro, conhecido por sua precisão e habilidades de combate corpo a corpo.",
     },
     {
       name: "Green Lantern",
       img: "https://placehold.co/300x400?text=Green+Lantern",
+      description:
+        "Um membro da Tropa dos Lanternas Verdes, com um anel que cria construtos de energia.",
     },
     {
       name: "Harley Quinn",
       img: "https://placehold.co/300x400?text=Harley+Quinn",
+      description:
+        "Uma ex-psiquiatra, agora uma vilã carismática e imprevisível, com habilidades acrobáticas.",
     },
-    { name: "Joker", img: "https://placehold.co/300x400?text=Joker" },
-    { name: "Poison Ivy", img: "https://placehold.co/300x400?text=Poison+Ivy" },
-    { name: "Red Hood", img: "https://placehold.co/300x400?text=Red+Hood" },
+    {
+      name: "Joker",
+      img: "https://placehold.co/300x400?text=Joker",
+      description:
+        "O arqui-inimigo do Batman, um vilão caótico e imprevisível, conhecido por seu humor macabro.",
+    },
+    {
+      name: "Poison Ivy",
+      img: "https://placehold.co/300x400?text=Poison+Ivy",
+      description:
+        "Uma vilã com habilidades de controle de plantas, conhecida por sua beleza e veneno.",
+    },
+    {
+      name: "Red Hood",
+      img: "https://placehold.co/300x400?text=Red+Hood",
+      description:
+        "Um vigilante anti-herói, ex-Robin, com habilidades de combate excepcionais e uma moral questionável.",
+    },
     {
       name: "Robin (Damian Wayne)",
       img: "https://placehold.co/300x400?text=Robin+(Damian+Wayne)",
+      description:
+        "O filho de Bruce Wayne, treinado por assassinos, com habilidades excepcionais e uma moral complexa.",
     },
-    { name: "Scarecrow", img: "https://placehold.co/300x400?text=Scarecrow" },
-    { name: "Supergirl", img: "https://placehold.co/300x400?text=Supergirl" },
-    { name: "Superman", img: "https://placehold.co/300x400?text=Superman" },
+    {
+      name: "Scarecrow",
+      img: "https://placehold.co/300x400?text=Scarecrow",
+      description:
+        "Um vilão que usa o medo como arma, conhecido por suas toxinas e psicologia.",
+    },
+    {
+      name: "Supergirl",
+      img: "https://placehold.co/300x400?text=Supergirl",
+      description:
+        "A prima de Superman, com habilidades semelhantes e um forte senso de justiça.",
+    },
+    {
+      name: "Superman",
+      img: "https://placehold.co/300x400?text=Superman",
+      description:
+        "O Homem de Aço, um dos heróis mais poderosos do universo DC, com habilidades sobre-humanas.",
+    },
     {
       name: "Swamp Thing",
       img: "https://placehold.co/300x400?text=Swamp Thing",
+      description:
+        "Uma entidade elemental, protetora da natureza, com habilidades de manipulação de plantas e regeneração.",
     },
     {
       name: "Wonder Woman",
       img: "https://placehold.co/300x400?text=Wonder Woman",
+      description:
+        "A princesa das Amazonas, uma guerreira habilidosa com força sobre-humana e habilidades de combate excepcionais.",
     },
     {
       name: "Black Manta",
       img: "https://placehold.co/300x400?text=Black Manta",
+      description:
+        "Um vilão aquático, conhecido por sua rivalidade com Aquaman e suas habilidades tecnológicas avançadas.",
     },
-    { name: "Raiden", img: "https://placehold.co/300x400?text=Raiden" },
-    { name: "HellBoy", img: "https://placehold.co/300x400?text=Hellboy" },
+    {
+      name: "Raiden",
+      img: "https://placehold.co/300x400?text=Raiden",
+      description:
+        "O deus do trovão, conhecido por sua sabedoria e habilidades de combate sobrenaturais.",
+    },
+    {
+      name: "HellBoy",
+      img: "https://placehold.co/300x400?text=Hellboy",
+      description:
+        "Um demônio com um coração de herói, conhecido por sua força e habilidades sobrenaturais.",
+    },
     {
       name: "Enchantress",
       img: "https://placehold.co/300x400?text=Enchantress",
+      description:
+        "Uma poderosa feiticeira, conhecida por sua magia e habilidades de manipulação mental.",
     },
-    { name: "Sub-Zero", img: "https://placehold.co/300x400?text=Sub-Zero" },
-    { name: "Stafire", img: "https://placehold.co/300x400?text=Stafire" },
+    {
+      name: "Sub-Zero",
+      img: "https://placehold.co/300x400?text=Sub-Zero",
+      description:
+        "Um guerreiro de gelo, conhecido por suas habilidades de manipulação do frio e combate corpo a corpo.",
+    },
+    {
+      name: "Stafire",
+      img: "https://placehold.co/300x400?text=Stafire",
+      description:
+        "Uma princesa alienígena, conhecida por suas habilidades de voo e manipulação de energia.",
+    },
     {
       name: "Teenage Mutant Ninja Turtles",
       img: "https://placehold.co/300x400?text=Teenage Mutant Ninja Turtles",
+      description:
+        "Quatro tartarugas mutantes treinadas em ninjutsu, cada uma com habilidades únicas e personalidades distintas.",
     },
   ],
   7: [
