@@ -1,50 +1,57 @@
-import { Link, useNavigate } from "react-router"; // Corrected import
+import { Link, Navigate, useNavigate } from "react-router"; // Corrected import
 import React, { useState } from "react";
+import api from "../../services/api";
 
 const SignIn = () => {
-  const [formData, setFormData] = useState({ email: "", password: "" });
-  const [error, setError] = useState("");
-  const navigate = useNavigate(); // Initialize navigate
+  const [email, setEmail] = useState("");
+  const [senha, setSenha] = useState("");
+  const [TwofaRec, setTwofaRec] = useState("");
+  const [TwofaCode, setTwofaCode] = useState("");
 
-  const handleChange = (e) => {
-    const { id, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [id]: value,
-    }));
-  };
+  const [erro, setErro] = useState("");
+ const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+
+
+
+
+  const handleLogin = async (e) => {
     e.preventDefault();
 
-    // Retrieve profiles from local storage
-    const profiles = JSON.parse(localStorage.getItem("profiles")) || [];
+    try {
+      const resposta = await api.post(`Users/login`, {
+        email: email,
+        password: senha,
+      });
 
-    // Check if the entered credentials match any stored profile
-    const user = profiles.find(
-      (profile) =>
-        profile.email === formData.email &&
-        profile.password === formData.password
-    );
+      const data = resposta.data;
 
-    if (user) {
-      console.log("Login successful:", user);
-      setError("");
-
-      // Save the logged-in user in localStorage
-      localStorage.setItem("usuario", JSON.stringify(user));
-
-      // Redirect
       navigate("/");
-    } else {
-      setError("Invalid credentials. Please try again.");
+      localStorage.setItem("Token", data.acessToken);
+      localStorage.setItem("refreshToken", data.refreshToken);
+      localStorage.setItem("UserEmail", email);
+      console.log(localStorage.getItem("Token"))
+      console.log(email);
+      alert("Login realizado com sucesso!");
+      
+      setEmail("");
+      setSenha("");
+      
+    } catch (err) {
+      if (err.response) {
+        console.log("Erro de resposta do servidor:", err.response.data);
+      } else {
+        // Algo mais causou o erro
+        console.log("Erro ao configurar a requisição:", err.message);
+        setErro("Ocorreu um erro inesperado. Tente novamente.");
+      }
     }
   };
-
+  
   return (
     <div
-      className="container d-flex flex-column justify-content-center align-items-center "
-      style={{ minHeight: "100vh" }}
+    className="container d-flex flex-column justify-content-center align-items-center "
+    style={{ minHeight: "100vh" }}
     >
       <div className="row justify-content-center">
         <div>
@@ -54,7 +61,7 @@ const SignIn = () => {
               id="card"
               className="card-body border-0 d-flex justify-content-center flex-column align-items-center"
             >
-              <form onSubmit={handleSubmit}>
+              <form onSubmit={handleLogin}>
                 <div className="mb-3">
                   <label htmlFor="email" className="form-label">
                     Email
@@ -64,8 +71,8 @@ const SignIn = () => {
                     className="form-control bg-transparent rounded-4"
                     id="email"
                     placeholder="Enter your email"
-                    value={formData.email}
-                    onChange={handleChange}
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                   />
                 </div>
                 <div className="mb-3">
@@ -77,11 +84,11 @@ const SignIn = () => {
                     className="form-control bg-transparent rounded-4"
                     id="password"
                     placeholder="Enter your password"
-                    value={formData.password}
-                    onChange={handleChange}
+                    value={senha}
+                    onChange={(e) => setSenha(e.target.value)}
                   />
                 </div>
-                {error && <p className="text-danger">{error}</p>}
+                {erro && <p className="text-danger">{erro}</p>}
                 <button
                   id="button"
                   type="submit"
@@ -94,7 +101,13 @@ const SignIn = () => {
                 style={{ width: "400px", height: "3px", background: "#000" }}
               />
               <p className="text-center mt-3">
-                Don't have an account? <Link to="/register" className=" btn btn-danger text-light text-decoration-none">Sign Up</Link>
+                Don't have an account?{" "}
+                <Link
+                  to="/register"
+                  className=" btn btn-danger text-light text-decoration-none"
+                >
+                  Sign Up
+                </Link>
               </p>
             </div>
           </div>

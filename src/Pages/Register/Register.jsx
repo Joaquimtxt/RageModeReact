@@ -2,8 +2,7 @@ import React, { useState } from 'react'
 import Mosaico from '../../assets/Mosaico.png'
 import { useNavigate } from 'react-router';
 
-
-
+import api from '../../services/api';
 
 const Register = () => {
 
@@ -11,15 +10,30 @@ const Register = () => {
   const [username, setUsername] = useState("")
   const [senha, setSenha] = useState("");
   const navigate = useNavigate();
-
+  const [erro, setErro] = useState("")
 
   
-  const handleLogin = (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
-    if ( senha && username ){
-      localStorage.setItem("userlogin", JSON.stringify({ username, senha, email: ""}))
-      navigate("/");
-    }
+  
+try {
+ await api.post(`/Users/register`,{
+  email: email,
+  password: senha,
+ });
+
+  navigate("/signin");
+  alert("Seu registro foi realizado, faça login para continuar.");
+  // const { token } = resposta.data.accessToken;
+  // localStorage.setItem("token", token)
+
+} catch (err) {
+if (err.response?.data?.mensagem) {
+setErro(err.response.data.mensagem);
+}
+}
+
+
   }
     return (
 
@@ -48,8 +62,8 @@ const Register = () => {
 
                     <div className='row container px-4'>
                         <div className='col-12 my-2'>
-                            <label className='form-label text-light mb-1 ms-1 fw-medium'>Nome de usuário</label>
-                            <input name="username" value={username} onChange={(e) => setUsername(e.target.value)} type='text' className='input-group-text rounded-3 bg-danger-subtle border-black w-100 text-start'></input>
+                            <label className='form-label text-light mb-1 ms-1 fw-medium'>Email</label>
+                            <input name="email" value={email} onChange={(e) => setEmail(e.target.value)} type='text' className='input-group-text rounded-3 bg-danger-subtle border-black w-100 text-start'></input>
                         </div>
 
                          <div className='col-12 my-2'>
@@ -60,7 +74,7 @@ const Register = () => {
                     </div>
 
                     <button className='btn btn-dark btn-sm fs-4 bg-black border-0 rounded-1 w-auto px-5 mt-3 jersey'
-                    onClick={handleLogin} >
+                    onClick={handleRegister} >
                       Registrar
                     </button>
 
