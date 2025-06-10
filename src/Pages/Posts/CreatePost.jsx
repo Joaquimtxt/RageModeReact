@@ -66,36 +66,28 @@ const CreatePost = () => {
   const handleCreate = async () => {
     const validTags = tags.filter(Boolean);
 
-  // Validação: precisa de pelo menos uma tag de jogo
-  const jogoTag = validTags.find(t => t.jogoId);
 
-  if (!jogoTag) {
-    alert("Selecione pelo menos de jogo é!");
-    return;
-  }
 
-  const postData = {
-    postTitulo: titulo,
-    postConteudo: conteudo,
-    tipoPost: validTags.find(t => t.tipo)?.tipo || null,
-    personagemId: validTags.find(t => t.personagemId)?.personagemId || null,
-    jogoId: jogoTag.jogoId,
-    postImage: postImage || null,
-    dataPostagem: new Date().toISOString()
-  };
+ 
+
+    const postData = {
+      PostTitulo: titulo,
+      PostConteudo: conteudo,
+      TipoPost: validTags.find(t => t.type === "tipo")?.label || null,
+      PersonagemId: validTags.find(t => t.type === "personagem")?.id || null,
+      DataPostagem: new Date().toISOString()
+    };
   createPost(postData)
   .then(() => {
     alert("Post criado com sucesso!");
     handleCancel();
   })
-  .catch(() => {
+  .catch((err) => {
+    console.error("Erro ao criar post:", err);
     alert("Erro ao criar post!");
   });
 
 };
-    
-     // Adicione este log:
-  console.log("Tags atuais:", tags);
 
   return (
     <div className="container-fluid col-12 col-md-5">

@@ -58,11 +58,6 @@ const ModalTags = ({onClose, onFinish }) => {
     if (onFinish) onFinish(tag);
     
     if (onFinish)
-      console.log("Enviando tag para o pai:", tag); // <-- Adicione este log
-    setTipo("");
-    setSelectedGame(null);
-    setPersonagens([]);
-    setSelectedPersonagem(null);
     setStep(1);
     if (onClose) onClose();
   };
