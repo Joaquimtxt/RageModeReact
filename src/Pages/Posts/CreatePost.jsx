@@ -11,12 +11,15 @@ const CreatePost = () => {
 
   // Recebe as tags da modal
   const handleAddTags = (newTags) => {
-    setTags(prev => [...prev, ...newTags]);
+    const validTags = newTags.filter(tag => tag.label && tag.label.trim() !== "");
+    setTags(prev => [...prev, ...validTags]);
   };
+
+  
 
   // Remove tag (seta como null)
   const handleRemoveTag = (idx) => {
-    setTags(prev => prev.map((tag, i) => i === idx ? null : tag));
+    setTags(prev => prev.filter((_, i) => i !== idx));
   };
 
   // Cancela criação do post
@@ -72,13 +75,13 @@ const CreatePost = () => {
   }
 
   const postData = {
-    PostTitulo: titulo,
-    PostConteudo: conteudo,
-    TipoPost: validTags.find(t => t.tipo)?.tipo || null,
-    PersonagemId: validTags.find(t => t.personagemId)?.personagemId || null,
-    JogoId: jogoTag.jogoId,
-    PostImage: postImage || null,
-    DataPostagem: new Date().toISOString()
+    postTitulo: titulo,
+    postConteudo: conteudo,
+    tipoPost: validTags.find(t => t.tipo)?.tipo || null,
+    personagemId: validTags.find(t => t.personagemId)?.personagemId || null,
+    jogoId: jogoTag.jogoId,
+    postImage: postImage || null,
+    dataPostagem: new Date().toISOString()
   };
   createPost(postData)
   .then(() => {
@@ -91,7 +94,9 @@ const CreatePost = () => {
 
 };
     
-    
+     // Adicione este log:
+  console.log("Tags atuais:", tags);
+
   return (
     <div className="container-fluid col-12 col-md-5">
       <div className="d-flex flex-column gap-4">
@@ -148,35 +153,32 @@ const CreatePost = () => {
                 <div className="border-light border rounded-2">
           <div className="form-label text-center bg-light bg-opacity-50 fw-bolder m-0">Tags</div>
           <div className="d-flex flex-wrap gap-2 p-2">
-                {tags.filter(Boolean).map((tag, idx) => (
-                  <div key={idx} className="bg-danger text-light px-2 py-1 rounded d-flex align-items-center">
-                    {tag.tipo && <span>{tag.tipo}</span>}
-                    {tag.jogo && <span> | {tag.jogo}</span>}
-                    {tag.personagem && <span> | {tag.personagem}</span>}
-                    <button
-                      className="btn btn-sm btn-close btn-close-white ms-2"
-                      onClick={() => handleRemoveTag(idx)}
-                      aria-label="Remover tag"
-                    />
-                  </div>
-                ))}
+          {tags.map((tag, idx) => (
+  <div key={idx} className="bg-danger text-light px-2 py-1 rounded d-flex align-items-center gap-2">
+    <span>{tag.label}</span>
+    <button
+      className="btn btn-sm btn-close btn-close-white ms-2"
+      onClick={() => handleRemoveTag(idx)}
+      aria-label="Remover tag"
+    />
+  </div>
+))}
               </div>
           <input type="button" className="p-0 m-0 border-0 text-truncate" />
-       <button className="btn bg-light bg-opacity-10 text-secondary w-100"  data-bs-toggle="modal" data-bs-target="#TagModal">Selecione as tags</button>
+          <button
+  className="btn bg-light bg-opacity-10 text-secondary w-100"
+  data-bs-toggle="modal"
+  data-bs-target="#TagModal"
+>
+  Selecione as tags
+</button>
         </div>
             </div>
         </div>
         <button className="btn btn-outline-secondary text-light w-auto align-self-center fw-bolder" onClick={handleCancel}>Cancelar</button>
         <button className=" logNsign btn text-light w-auto align-self-center fw-bolder" onClick={handleCreate}>Criar discussão <i className="ms-2 bi bi-plus-circle-fill fs-6"></i></button>
       </div>
-    <div className="modal fade" id="TagModal" tabIndex="-1" aria-labelledby="TagModalLabel" aria-hidden="true">
-    <div className="modal-dialog modal-lg">
-        <div className="modal-content">
-        <ModalTags onFinish={handleAddTags}/>
-        </div>
-          
-          </div>
-          </div>
+  <ModalTags onFinish={handleAddTags} />
     </div>
   );
 };
