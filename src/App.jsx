@@ -9,13 +9,13 @@ import Games from "./Pages/Games/Games";
 import Header from "./components/Header/Header";
 import SigIn from "./Pages/SignIn/SignIn";
 import SignUp from "./Pages/SignUp";
-import SelectCharacter from "./Pages/SelectCharacter"; // ✅ corrigido
+import SelectCharacter from "./Pages/SelectCharacter"; 
 import Footer from "./components/Footer/Footer";
 import Register from "./Pages/Register/Register";
 import CreatePost from "./Pages/Posts/CreatePost";
 import CharacterInfo from "./Pages/CharacInfo/CharacterInfo";
 import AddGame from "./Pages/Games/AddGame";
-import Perfil from "./Pages/Perfil"; // Importando o componente Perfil
+import Perfil from "./Pages/Perfil"; 
 import PostPage from "./Pages/Posts/PostPage";
 
 function App() {
