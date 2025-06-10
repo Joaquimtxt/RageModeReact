@@ -204,7 +204,7 @@ const SelectCharacter = () => {
       <Modal show={showModal} onHide={handleCloseModal} centered>
         <Modal.Header closeButton id="modal-header">
           <Modal.Title>{selectedCharacter?.name}</Modal.Title>
-        </Modal.Header >
+        </Modal.Header>
         <Modal.Body id="modal-body" className="text-center">
           <img
             src={selectedCharacter?.image}
