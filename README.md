@@ -3,6 +3,8 @@
 ![Visitor Badge](https://api.visitorbadge.io/api/visitors?path=https%3A%2F%2Fgithub.com%2FJoaquimtxt%2FRageModeReact&countColor=%23263759)
 ![GitHub Stars](https://img.shields.io/github/stars/Joaquimtxt/RageModeReact)
 ![React Badge](https://img.shields.io/badge/React-61DAFB?style=flat&logo=react&logoColor=black)
+![C#](https://img.shields.io/badge/c%23-%23239120.svg?style=for-the-badge&logo=csharp&logoColor=white)
+![Bootstrap](https://img.shields.io/badge/bootstrap-%238511FA.svg?style=for-the-badge&logo=bootstrap&logoColor=white)
 
 ---
 
