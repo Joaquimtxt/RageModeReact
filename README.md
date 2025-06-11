@@ -17,6 +17,15 @@
 
 RageModeReact é um fórum totalmente voltado para fãs de jogos de luta. Criado com React, e consumindo de uma API própria, feita em C#, o projeto centraliza informações e interações em torno de personagens, combos e experiências dos jogadores com a paixão por jogos de luta.
 
+## 🔗 Links do Projeto
+
+- **Frontend (este React)**: https://github.com/Joaquimtxt/RageModeReact  
+- **Site Hospedado**: https://rage-mode-react.vercel.app/  
+- **Backend (API)**: https://github.com/LLuizXL/RageModeAPI  
+- **API online (no SOMEe)**: http://apiragemode.somee.com/
+
+---
+
 ### 🎮 Funcionalidades
 
 - **Catálogo de Jogos de Luta**: Escolha entre vários títulos clássicos ou modernos.
