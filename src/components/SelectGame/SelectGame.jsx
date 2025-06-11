@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router"; // Import useNavigate
 import styles from "./SelectGame.module.css";
 import GameCard from "./GameCard";
 import games from "../../data/Games"; // Importing games array
@@ -7,13 +8,19 @@ import axios from "axios";
 const apiUrl = "http://apiragemode.somee.com/api";
 
 const SelectGame = (props) => {
+  const navigate = useNavigate(); // Initialize useNavigate
   const [jogos, setJogos] = useState([]);
+
+  const handleGameClick = (gameId) => {
+    navigate(`/select-character?gameId=${gameId}`); // Redirect to SelectCharacter page with gameId
+  };
 
   const cards = jogos.map((jogo) => (
     <GameCard
       key={jogo.jogosId}
       Title={jogo.jogoNome}
       Poster={jogo.imageBanner}
+      onClick={() => handleGameClick(jogo.jogosId)} // Pass gameId to handleGameClick
     />
   ));
 
