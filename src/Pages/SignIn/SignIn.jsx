@@ -19,20 +19,20 @@ const SignIn = () => {
     e.preventDefault();
 
     try {
-      const resposta = await api.post(`Users/login`, {
+      const resposta = await api.post(`Identity/login`, {
         email: email,
         password: senha,
       });
 
       const data = resposta.data;
 
-      navigate("/");
-      localStorage.setItem("Token", data.acessToken);
+      localStorage.setItem("Token", data.accessToken);
       localStorage.setItem("refreshToken", data.refreshToken);
       localStorage.setItem("UserEmail", email);
-      console.log(localStorage.getItem("Token"))
       console.log(email);
+      console.log("Token JWT Bearer: ", localStorage.getItem("Token"));
       alert("Login realizado com sucesso!");
+      navigate("/");
       
       setEmail("");
       setSenha("");

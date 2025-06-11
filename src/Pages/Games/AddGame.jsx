@@ -29,7 +29,7 @@ const navigate = useNavigate();
       jogoNome: jogoNome,
       imageBanner: imageBanner || "https://placehold.co/300x400",
       jogoDescricao: jogoDesc,
-      anoLancamento: jogoData,
+      anoLancamento: jogoData
     }
     
     const resposta = await api.post('/api/Jogos', infoJogo);

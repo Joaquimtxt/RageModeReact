@@ -17,9 +17,10 @@ const Register = () => {
     e.preventDefault();
   
 try {
- await api.post(`/Users/register`,{
+ await api.post(`/api/Usuarios`,{
   email: email,
-  password: senha,
+  senha: senha,
+  usuarioNome: username,
  });
 
   navigate("/signin");
@@ -62,6 +63,10 @@ setErro(err.response.data.mensagem);
 
                     <div className='row container px-4'>
                         <div className='col-12 my-2'>
+                            <label className='form-label text-light mb-1 ms-1 fw-medium'>crie um Username: </label>
+                            <input name="username" value={username} onChange={(e) => setUsername(e.target.value)} type='text' className='input-group-text rounded-3 bg-danger-subtle border-black w-100 text-start'></input>
+                        </div>
+                        <div className='col-12 my-2'>
                             <label className='form-label text-light mb-1 ms-1 fw-medium'>Email</label>
                             <input name="email" value={email} onChange={(e) => setEmail(e.target.value)} type='text' className='input-group-text rounded-3 bg-danger-subtle border-black w-100 text-start'></input>
                         </div>
@@ -70,6 +75,7 @@ setErro(err.response.data.mensagem);
                             <label className='form-label text-light mb-1 ms-1 fw-medium'>Crie uma senha</label>
                             <input type='password' onChange={(e) => setSenha(e.target.value)} value={senha} className='input-group-text rounded-3 bg-danger-subtle border-black w-100 text-start'></input>
                         </div>
+
 
                     </div>
 
