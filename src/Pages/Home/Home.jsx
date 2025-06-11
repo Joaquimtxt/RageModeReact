@@ -13,6 +13,8 @@ const Home = () => {
   useEffect(() => {
     getPosts().then(setPosts).catch(console.error);
   }, []);
+  
+console.log("posts:" , posts)
 
   return (
     <div>
@@ -33,6 +35,7 @@ const Home = () => {
        />
         ))}
 </div>
+
     </div>
   );
 };
