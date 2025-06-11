@@ -5,7 +5,7 @@ import GameCard from "./GameCard";
 import games from "../../data/Games"; // Importing games array
 import axios from "axios";
 
-const apiUrl = "http://apiragemode.somee.com/api";
+const apiUrl = 'https://apiragemode.somee.com/api'
 
 const SelectGame = (props) => {
   const navigate = useNavigate(); // Initialize useNavigate

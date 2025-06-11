@@ -8,10 +8,21 @@ import PostFilter from "../PostFilter/PostFilter"; // Import do PostFilter
 import logo from "../../assets/logo4.png"; // Corrigido o caminho do logo
 
 const Header = () => {
+const [userEmail, setUserEmail] = useState();
+
+
+
+
   const location = useLocation();
   const [usuario, setUsuario] = useState(null);
 
   useEffect(() => {
+
+const storedUserEmail = localStorage.getItem("UserEmail");
+if (storedUserEmail) {
+  setUserEmail(storedUserEmail);
+}
+
     const storedUser = localStorage.getItem("userlogin");
     if (storedUser) {
       setUsuario(JSON.parse(storedUser));
@@ -41,6 +52,13 @@ const Header = () => {
           >
             <span className="navbar-toggler-icon"></span>
           </button>
+
+
+          
+
+          <div className="text-light">
+            Bem vindo, {userEmail} !
+            </div>
 
           {/* Logo centralizado */}
           <Link to="/" className="mx-auto" id="logo">
