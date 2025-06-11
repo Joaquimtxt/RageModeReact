@@ -8,9 +8,6 @@ import PostFilter from "../PostFilter/PostFilter"; // Import do PostFilter
 import logo from "../../assets/logo4.png"; // Corrigido o caminho do logo
 
 const Header = () => {
-
-
-
   const location = useLocation();
   const [usuario, setUsuario] = useState(null);
 
@@ -52,10 +49,6 @@ const Header = () => {
               alt="Logo da RageMode"
               className="img-fluid d-block mx-auto"
             />
-          </Link>
-
-          <Link to="/signin" className="btn btn-danger d-none d-lg-block">
-            SIGN IN
           </Link>
 
           {/* Offcanvas Menu */}
@@ -127,8 +120,11 @@ const Header = () => {
                     Select Character
                   </Link>
                 </li>
-                <li className="nav-item text-center mt-3 d-lg-none">
-                  {usuario ? (
+                <li className="nav-item d-flex flex-column align-items-center mt-3 d-lg-none">
+                  <Link to="/sendpost" className="btn btn-dark w-75 mb-2">
+                    <i className="bi bi-plus-circle"></i> New Post
+                  </Link>
+                  {usuario && usuario.nome ? (
                     <img
                       src="https://placehold.co/50x50"
                       alt="User Avatar"
@@ -139,14 +135,46 @@ const Header = () => {
                       }}
                     />
                   ) : (
-                    <Link to="/signin" className="btn btn-danger w-50 mt-3">
-                      SIGN IN
-                    </Link>
+                    <>
+                      <Link to="/signin" className="btn btn-danger w-75 mt-2">
+                        SIGN IN
+                      </Link>
+                      <Link to="/signup" className="btn btn-secondary w-75 mt-2">
+                        SIGN UP
+                      </Link>
+                    </>
                   )}
                 </li>
               </ul>
             </div>
           </div>
+
+          {/* Bloco para telas grandes (header) */}
+          <div className="d-none d-lg-flex align-items-center ms-3">
+  <Link to="/sendpost" className="btn btn-dark me-3">
+    <i className="bi bi-plus-circle"></i> New Post
+  </Link>
+  {usuario && usuario.nome ? (
+    <img
+      src="https://placehold.co/50x50"
+      alt="User Avatar"
+      style={{
+        width: "50px",
+        height: "50px",
+        borderRadius: "50%",
+      }}
+    />
+  ) : (
+    <>
+      <Link to="/signin" className="btn btn-danger ms-3">
+        SIGN IN
+      </Link>
+      <Link to="/signup" className="btn btn-secondary ms-3">
+        SIGN UP
+      </Link>
+    </>
+  )}
+</div>
         </div>
         {/* Barra de Pesquisa
         <div className="container-fluid d-flex justify-content-center align-items-center">
@@ -174,7 +202,7 @@ const Header = () => {
           <div id="modal-content" className="modal-content">
             <div className="modal-header">
               <h5 className="modal-title" id="filterModalLabel">
-                  Filter Posts
+                Filter Posts
               </h5>
               <button
                 type="button"

@@ -9,6 +9,7 @@ const ModalTags = ({onClose, onFinish }) => {
   const [personagens, setPersonagens] = useState([]);
   const [selectedPersonagem, setSelectedPersonagem] = useState(null);
   const [step, setStep] = useState(1);
+  
 
   useEffect(() => {
     getGames()
@@ -35,6 +36,11 @@ const ModalTags = ({onClose, onFinish }) => {
 
   const handleNext = () => setStep(2);
 
+  const handleSelectTipo = (tipo)=>{
+    setTipo(tipo);
+    setStep(2);
+  }
+
   const handleSelectGame = (game) => {
     setSelectedGame(game);
     setStep(3);
@@ -45,37 +51,36 @@ const ModalTags = ({onClose, onFinish }) => {
   };
 
   const handleFinish = () => {
-    const tag = {
-      tipo: tipo || null,
-      jogoId: selectedGame?.JogosId,
-      jogoNome: selectedGame?.JogoNome,
-      personagemId: selectedPersonagem?.PersonagemId || null,
-      personagemNome: selectedPersonagem?.PersonagemNome || null
-    };
-    if (!tag.jogoId) {
-      alert("Selecione um jogo!");
-      return;
-    }
-    if (onFinish) onFinish([tag]);
-    setTipo("");
-    setSelectedGame(null);
-    setPersonagens([]);
-    setSelectedPersonagem(null);
+    const tag = [];
+    if (tipo) tag.push({ label: tipo, type: "tipo" });
+    if (selectedGame?.jogoNome) tag.push({ label: selectedGame.jogoNome, type: "jogo" })
+    if (selectedPersonagem?.personagemNome) tag.push({ label: selectedPersonagem.personagemNome, type: "personagem" });
+    if (onFinish) onFinish(tag);
+    
+    if (onFinish)
     setStep(1);
     if (onClose) onClose();
   };
 
   return (
+    <div className="modal fade" id="TagModal" tabIndex="-1" aria-labelledby="TagModalLabel" aria-hidden="true">
+    <div className="modal-dialog modal-lg">
     <div className='modal-content bg-secondary'>
-        <header className='bg-light fw-bold'><p className=''>Select Tags</p></header>
+        <header className='bg-light fw-bold '><p className='text-dark'>Select Tags</p></header>
         {step === 1 &&(
         <div className='modal-body'>
             <div className='d-flex flex-column align-items-center '>
-                <ul>
-                <button type="button" className="btn btn-outline-dark"  onClick={() => setTipo("Combos")}>Combos</button>
-                <button type="button" className="btn btn-outline-dark"  onClick={() => setTipo("Specials")}>Specials</button>
-                <button type="button" className="btn btn-outline-dark"  onClick={() => setTipo("Curiosities")}>Curiosities</button>
-                </ul>
+            <ul className='d-flex flex-row list-unstyled'>
+  <li key="combos">
+  <button type="button" className="btn btn-outline-dark" onClick={() => handleSelectTipo("Combos")}>Combos</button>
+  </li>
+  <li key="specials">
+    <button type="button" className="btn btn-outline-dark" onClick={() => handleSelectTipo("Specials")}>Specials</button>
+  </li>
+  <li key="curiosities">
+    <button type="button" className="btn btn-outline-dark" onClick={() => handleSelectTipo("Curiosities")}>Curiosities</button>
+  </li>
+</ul>
             </div>         
             <div className="d-flex justify-content-between mt-3 w-100">
             <button className="btn btn-outline-danger" onClick={handleCancel} data-bs-toggle="modal">Cancel</button>
@@ -85,35 +90,48 @@ const ModalTags = ({onClose, onFinish }) => {
             )}
 
             {step === 2 &&(
-            <div className='modal-body'>
-            <div className='d-flex flex-column align-items-center bg-secondary'>
-                <ul>
-                {games.map(game => (
-                    <button key={game.JogosId} type="button" className="btn btn-outline-dark" onClick={()=>handleSelectGame(game.JogoNome)}>{game.JogoNome}</button>
-                ))}    
-                </ul>  
-            </div>
-            <div className="d-flex justify-content-center mt-3 w-100">
-            <button className="btn btn-outline-danger" onClick={handleCancel} data-bs-toggle="modal">Cancel</button>
-          </div>          
-            </div>
+       <div className='modal-body'>
+    <div className='d-flex flex-column align-items-center bg-secondary'>
+      <div className="row w-100">
+        {games.map((game) => (
+          <div className="col-3 mb-3 d-flex justify-content-center" key={game.jogosId}>
+            <button
+              type="button"
+              className="btn btn-outline-dark w-100"
+              onClick={() => handleSelectGame(game)}
+            >
+              {game.jogoNome}
+            </button>
+          </div>
+        ))}
+      </div>
+    </div>
+    <div className="d-flex justify-content-center mt-3 w-100">
+      <button className="btn btn-outline-danger" onClick={handleCancel}>Cancel</button>
+    </div>
+  </div>
             )}
                 {step===3 && (
             <div className='modal-body'>
             <div className='d-flex flex-column align-items-center bg-secondary'>
-                <ul>
+<div className='row w-100'>
                 {personagens.map((character) => (
-                    <button key={character.PersonagemId} type="button" className="btn btn-outline-dark" data-bs-toggle="modal" onClick={() => handleSelectPersonagem(character.PersonagemId)}>{character.PersonagemNome}</button>
-                ))}  
-                </ul>    
+                     <div className="col-3 mb-3 d-flex justify-content-center" key={character.personagemId}>
+                    <button type="button" className="btn btn-outline-dark"  onClick={() => {handleSelectPersonagem(character)}}>{character.personagemNome}</button>
+                    </div>
+                  ))}  
+                  </div>
+                
             </div>    
             <div className="d-flex justify-content-between mt-3 w-100">
             <button className="btn btn-outline-danger" onClick={handleCancel} data-bs-toggle="modal">Cancel</button>
-            <button className="btn btn-primary text-light" onClick={handleFinish} data-bs-toggle="modal">Finalize</button>
+            <button className="btn btn-primary text-light" onClick={handleFinish} data-bs-toggle="modal">Finish</button>
           </div>     
             </div>
             
 )}
+    </div>
+    </div>
     </div>
   )
 }
