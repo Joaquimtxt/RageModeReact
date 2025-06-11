@@ -1,8 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import styles from "./SelectGame.module.css";
 import GameCard from "./GameCard";
-import games from "../../data/Games"; // Importing games array
-import axios from 'axios';
+import { getGames } from "../../api/personagemJogos"; 
 
 const apiUrl = 'https://apiragemode.somee.com/api'
 
@@ -28,13 +27,11 @@ const SelectGame = (props) => {
   useEffect(() => {
 
 
-    axios.get(`${apiUrl}/Jogos`).then(api => {
-      setJogos(api.data)
-    })
+    getGames()
+    .then(setJogos)
     .catch(error => {
       console.log("Erro com a API ao buscar os jogos:", error);
-    })
-
+    });
 
 
 
