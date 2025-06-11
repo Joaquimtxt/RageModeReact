@@ -63,4 +63,4 @@ RageModeReact é um fórum totalmente voltado para fãs de jogos de luta. Criado
 git clone https://github.com/Joaquimtxt/RageModeReact
 cd RageModeReact
 npm install
-npm start
+npm run dev
