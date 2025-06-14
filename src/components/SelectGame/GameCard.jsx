@@ -5,6 +5,7 @@ import { Link } from 'react-router';
 const GameCard = (props) => {
   const isSmallScreen = window.innerWidth < 700;
   return (
+    <Link to={`/games/${props.jogoId}/character`}>
     <div   className="p-1"
     style={{
       width: isSmallScreen ? '70%' : '100%',
@@ -27,9 +28,9 @@ const GameCard = (props) => {
       <div  className="card-body text-center d-flex p-1 p-md-3 flex-column justify-content-end">
         <h6 className='m-0'>{props.Title}</h6>
       </div>
-      <Link to={`/games/${props.jogoId}/character/${props.personagemId}`}></Link>
     </div>
     </div>
+    </Link>
   )
 }
 

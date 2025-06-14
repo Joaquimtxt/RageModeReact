@@ -9,7 +9,7 @@ import Games from "./Pages/Games/Games";
 import Header from "./components/Header/Header";
 import SigIn from "./Pages/SignIn/SignIn";
 import SignUp from "./Pages/SignUp";
-import SelectCharacter from "./Pages/SelectCharacter"; 
+import SelectCharacter from "./Pages/SelectCharacter/SelectCharacter"; 
 import Footer from "./components/Footer/Footer";
 import Register from "./Pages/Register/Register";
 import CreatePost from "./Pages/Posts/CreatePost";
@@ -31,7 +31,7 @@ function App() {
         <Route path="/games" element={<Games />} />
         <Route path="/signin" element={<SigIn />} />
         <Route path="/signup" element={<SignUp />} />
-        <Route path="/games/:gameId" element={<SelectCharacter />} />
+        <Route path="/games/:jogoId/character" element={<SelectCharacter />} />
         <Route path="/register" element={<Register />} />
         <Route path="/sendpost" element={<CreatePost />} />
         <Route path="/characterInfo" element={<CharacterInfo />} />

@@ -1,24 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
 import styles from "./CharacterCarousel.module.css"; // Crie ou copie um CSS semelhante ao Selectsth.module.css
-import CharacterCard from "./CharacterCard"; // Novo componente para cada personagem
+import CharacterCard from "../CharacterCard/CharacterCard"; // Novo componente para cada personagem
 
-const CharacterCarousel = ({ titulo }) => {
-  const characters = [
-    { name: "Ryu", img: "https://placehold.co/300x400?text=Ryu" },
-    { name: "Ken", img: "https://placehold.co/300x400?text=Ken" },
-    { name: "Chun-Li", img: "https://placehold.co/300x400?text=Chun-Li" },
-    { name: "Guile", img: "https://placehold.co/300x400?text=Guile" },
-    { name: "Blanka", img: "https://placehold.co/300x400?text=Blanka" },
-    { name: "Bison", img: "https://placehold.co/300x400?text=Bison" },
-  ];
-
+const CharacterCarousel = ({ titulo, characters, onCharacterClick }) => {
   const [cardsPerView, setCardsPerView] = useState(4);
   const [startIdx, setStartIdx] = useState(0);
   const touchStartX = useRef(null);
-
-  const handleTouchStart = (e) => {
-    touchStartX.current = e.touches[0].clientX;
-  };
 
   useEffect(() => {
     const handleResize = () => {
@@ -39,6 +26,10 @@ const CharacterCarousel = ({ titulo }) => {
     );
   };
 
+  const handleTouchStart = (e) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+
   const handleTouchEnd = (e) => {
     if (touchStartX.current === null) return;
     const diff = touchStartX.current - e.changedTouches[0].clientX;
@@ -57,11 +48,12 @@ const CharacterCarousel = ({ titulo }) => {
           className={`btn btn-dark d-none d-md-flex align-items-center justify-content-center z-2 position-relative ${styles.scrollIconLeft}`}
           onClick={handlePrev}
           disabled={startIdx === 0}
+          aria-label="Anterior"
         >
           <ion-icon name="caret-back-outline" size="large"></ion-icon>
         </button>
 
-        <div className="overflow-hidden">
+        <div className="overflow-hidden" style={{ width: "100%" }}>
           <div
             className={`d-flex flex-nowrap m-0 p-3 ${styles.scrollTransition}`}
             style={{
@@ -69,6 +61,7 @@ const CharacterCarousel = ({ titulo }) => {
                 (startIdx / characters.length) * 100
               }%)`,
               width: `${(characters.length / cardsPerView) * 100}%`,
+              transition: "transform 0.5s ease",
             }}
             onTouchStart={handleTouchStart}
             onTouchEnd={handleTouchEnd}
@@ -76,13 +69,15 @@ const CharacterCarousel = ({ titulo }) => {
             {characters.map((char, idx) => (
               <div
                 key={idx}
-                className="flex-shrink-0 d-flex justify-content-center align-items-center"
-                style={{
-                  width: `${100 / cardsPerView}%`,
-                  height: "100%", // Ensure consistent height
-                }}
+                className="flex-shrink-0"
+                style={{ width: `${100 / characters.length}%` }}
               >
-                <CharacterCard name={char.name} image={char.img} />
+                <CharacterCard
+                  name={char.personagemNome}
+      image={char.personagemimage}
+      description={char.personagemDescricao || "No description available"}
+      onClick={() => onCharacterClick(char)}
+                />
               </div>
             ))}
           </div>
@@ -91,6 +86,7 @@ const CharacterCarousel = ({ titulo }) => {
             className={`btn btn-dark d-none d-md-flex align-items-center justify-content-center position-absolute ${styles.scrollIconRight}`}
             onClick={handleNext}
             disabled={startIdx >= characters.length - cardsPerView}
+            aria-label="Próximo"
           >
             <ion-icon name="caret-forward-outline" size="large"></ion-icon>
           </button>

@@ -131,19 +131,6 @@ if (storedUserEmail) {
                   </Link>
                 </li>
 
-                <li className="nav-item text-center mt-3">
-                  <Link
-                    to="/select-character"
-                    className={`${styles.NavLink} ${
-                      location.pathname === "/select-character"
-                        ? styles.NavLinkActive
-                        : ""
-                    }`}
-                    onClick={closeOffcanvas}
-                  >
-                    Select Character
-                  </Link>
-                </li>
                 <li className="nav-item d-flex flex-column align-items-center mt-3 d-lg-none">
                   <Link to="/sendpost" className="btn btn-dark w-75 mb-2">
                     <i className="bi bi-plus-circle"></i> New Post

@@ -2,14 +2,14 @@ import { API_BASE_URL } from "./config.js";
 
 // Buscar um personagem por ID
 export async function getPersonagemById(id) {
-  const response = await fetch(`${API_BASE_URL}personagens/${id}`);
+  const response = await fetch(`${API_BASE_URL}Personagens/${id}`);
   if (!response.ok) throw new Error("Erro ao buscar personagem");
   return response.json();
 }
 
 // Atualizar personagem (apenas admin)
 export async function updatePersonagem(id, personagemData, token) {
-  const response = await fetch(`${API_BASE_URL}personagens/${id}`, {
+  const response = await fetch(`${API_BASE_URL}Personagens/${id}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -23,7 +23,7 @@ export async function updatePersonagem(id, personagemData, token) {
 
 // Criar novo personagem (apenas admin)
 export async function createPersonagem(personagemData, token) {
-  const response = await fetch(`${API_BASE_URL}personagens`, {
+  const response = await fetch(`${API_BASE_URL}Personagens`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -37,7 +37,7 @@ export async function createPersonagem(personagemData, token) {
 
 // Deletar personagem (apenas admin)
 export async function deletePersonagem(id, token) {
-  const response = await fetch(`${API_BASE_URL}personagens/${id}`, {
+  const response = await fetch(`${API_BASE_URL}Personagens/${id}`, {
     method: "DELETE",
     headers: {
       ...(token && { Authorization: `Bearer ${token}` }),
@@ -53,7 +53,7 @@ export async function uploadCharacterPicture(personagemId, file, token) {
   formData.append("file", file);
   formData.append("PersonagemId", personagemId);
 
-  const response = await fetch(`${API_BASE_URL}personagens/UploadCharacterPicture`, {
+  const response = await fetch(`${API_BASE_URL}Personagens/UploadCharacterPicture`, {
     method: "POST",
     headers: {
       ...(token && { Authorization: `Bearer ${token}` }),
@@ -66,7 +66,7 @@ export async function uploadCharacterPicture(personagemId, file, token) {
 
 // Buscar imagem do personagem em Base64
 export async function getCharacterPicture(personagemId) {
-  const response = await fetch(`${API_BASE_URL}personagens/GetCharacterPicture?PersonagemId=${personagemId}`);
+  const response = await fetch(`${API_BASE_URL}Personagens/GetCharacterPicture?PersonagemId=${personagemId}`);
   if (!response.ok) throw new Error("Erro ao buscar imagem do personagem");
   return response.json();
 }
