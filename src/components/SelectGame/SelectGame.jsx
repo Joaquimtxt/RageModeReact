@@ -3,8 +3,6 @@ import styles from "./SelectGame.module.css";
 import GameCard from "./GameCard";
 import { getGames } from "../../api/personagemJogos"; 
 
-const apiUrl = 'https://apiragemode.somee.com/api'
-
 const SelectGame = (props) => {
   const [jogos, setJogos] = useState([])
 
