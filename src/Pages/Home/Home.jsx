@@ -5,18 +5,19 @@ import ForumContainer from '../../components/ForumContainer/ForumContainer';
 import posterExample from '../../assets/poster_art1.jpg'
 import posterExample2 from '../../assets/sfd-characters-banner.jpg'
 import Mosaico from '../../assets/Mosaico.png'
-import { getPosts } from "../../api/posts";
+import { getPostById, getPosts } from "../../api/posts";
 import { useEffect, useState } from 'react';
+import { useParams } from "react-router";
 
 const Home = () => {
+
+
   const [posts, setPosts] = useState([]);
   useEffect(() => {
-    getPosts().then(setPosts).catch(console.error);
+      getPosts().then(setPosts).catch(console.error);
+  
   }, []);
 
-  useEffect(() => {
-    console.log("posts:" , posts)
-  }, []);
   
 
   return (

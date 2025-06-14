@@ -11,8 +11,7 @@ const Header = () => {
 const [userEmail, setUserEmail] = useState();
 
 const [logado, setLogado] = useState(false);
-
-
+const [nickname, setNickname] = useState("");
 
   const location = useLocation();
   const [usuario, setUsuario] = useState(null);
@@ -22,6 +21,7 @@ const [logado, setLogado] = useState(false);
 const token = localStorage.getItem("Token");
 setLogado(!!token);
 
+setNickname("r0sy")
 
 
 const storedUserEmail = localStorage.getItem("UserEmail");
@@ -61,10 +61,16 @@ if (storedUserEmail) {
 
 
           
+{userEmail == "rx@gmail.com" ?
 
-          <div className="text-light">
-            Bem vindo, {userEmail} !
-            </div>
+
+
+<div className="text-light ms-3 jersey fs-5">
+            <span className="mx-1 badge bg-danger"> <i className="bi bi-gem me-1"></i> RXGEMODE Owner</span> {nickname}
+            </div> : (
+              <div className="text-light ms-3 jersey"> Entre/Registe-se Agora! </div>
+            )
+          }
 
           {/* Logo centralizado */}
           <Link to="/" className="mx-auto" id="logo">
@@ -179,9 +185,9 @@ if (storedUserEmail) {
   <Link to="/sendpost" className="btn btn-dark me-3">
     <i className="bi bi-plus-circle"></i> New Post
   </Link>
-  {usuario && usuario.nome ? (
+  {logado ? (
     <img
-      src="https://placehold.co/50x50"
+      src={`https://ui-avatars.com/api/?name=${userEmail}`}
       alt="User Avatar"
       style={{
         width: "50px",

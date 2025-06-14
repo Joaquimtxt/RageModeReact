@@ -9,11 +9,12 @@ import { useEffect, useState } from "react";
 
 const ForumContainer = (props) => {
   const navigate = useNavigate();
-   const [post, setPost] = useState(null);
   const { id } = useParams();
+
    useEffect(() => {
-      getPostById(id).then(setPost).catch(console.error);
-    }, [id]);
+    if(id){
+      getPostById(id).catch(console.error);
+    }}, [id]);
   const handleClick = () => {
     navigate(`/post/${props.PostId}`);
   };
