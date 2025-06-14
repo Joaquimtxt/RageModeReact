@@ -71,11 +71,11 @@ const CreatePost = () => {
  
 
     const postData = {
-      PostTitulo: titulo,
-      PostConteudo: conteudo,
-      TipoPost: validTags.find(t => t.type === "tipo")?.label || null,
-      PersonagemId: validTags.find(t => t.type === "personagem")?.id || null,
-      DataPostagem: new Date().toISOString()
+      postTitulo: titulo,
+      postConteudo: conteudo,
+      tipoPost: validTags.find(t => t.type === "tipo")?.label || null,
+      personagemId: validTags.find(t => t.type === "personagem")?.personagemId || null,
+      dataPostagem: new Date().toISOString()
     };
   createPost(postData)
   .then(() => {

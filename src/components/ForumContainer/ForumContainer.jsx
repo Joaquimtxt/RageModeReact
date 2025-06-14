@@ -15,7 +15,7 @@ const ForumContainer = (props) => {
       getPostById(id).then(setPost).catch(console.error);
     }, [id]);
   const handleClick = () => {
-    navigate(`/post/${id}`, { state: props });
+    navigate(`/post/${props.PostId}`);
   };
     return (
     <div className="container container-md vw-100">

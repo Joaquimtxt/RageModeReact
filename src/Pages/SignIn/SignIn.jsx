@@ -29,8 +29,6 @@ const SignIn = () => {
       localStorage.setItem("Token", data.accessToken);
       localStorage.setItem("refreshToken", data.refreshToken);
       localStorage.setItem("UserEmail", email);
-      console.log(email);
-      console.log("Token JWT Bearer: ", localStorage.getItem("Token"));
       alert("Login realizado com sucesso!");
       navigate("/");
       
