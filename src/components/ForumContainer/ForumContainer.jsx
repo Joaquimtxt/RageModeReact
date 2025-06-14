@@ -15,7 +15,7 @@ const ForumContainer = (props) => {
       getPostById(id).then(setPost).catch(console.error);
     }, [id]);
   const handleClick = () => {
-    navigate(`/post/${id}`, { state: props });
+    navigate(`/post/${props.PostId}`);
   };
     return (
     <div className="container container-md vw-100">
@@ -33,23 +33,23 @@ const ForumContainer = (props) => {
                   width={"30px"}
                   height={"30px"}
                 ></img>
-                <h5 className="text-center py-2 fs-6">@{post.Usuarios?.UsuarioNome}</h5>
-                <p className="fw-lighter mt-2">{getTimeAgo(post.DataPostagem)}</p>
+                <h5 className="text-center py-2 fs-6">@{props.UsuarioNome}</h5>
+                <p className="fw-lighter mt-2">{getTimeAgo(props.DataPostagem)}</p>
               </div>
               <div className="row">
           <div className="col-12 mx-3 w-auto">
             <p className="bg-danger ms-auto  px-2 px-md-1 rounded-1 fw-medium text-center text-md-start d-flex flex-row gap-2">
                 <i className="bi bi-tags-fill"></i>
-              {post.Tags}
+              {props.Tags}
             </p>
           </div>
         </div>
               <div className={` ms-4 text-start mb-4 mb-md-3`}>
                 <div className="  fs-3 fw-bolder mt-2 mb-3">
-                  {post.PostTitulo}
+                  {props.PostTitulo}
                 </div>
                 <div className="text-truncate w-100">
-                  {post.PostConteudo}
+                  {props.PostConteudo}
                 </div>
               </div>
             </div>
@@ -57,7 +57,7 @@ const ForumContainer = (props) => {
           <div className="col-md-5 text-end post-img">
             <img
               className="img-fluid rounded-1 object-fit-contain postImg"
-              src={post.PostImage}
+              src={props.PostImage}
             />
           </div>
         </div>

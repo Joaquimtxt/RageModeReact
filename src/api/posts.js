@@ -1,8 +1,8 @@
 import { API_BASE_URL } from "./config.js";
-
+const token = localStorage.getItem("token");
 // Buscar todos os posts
 export async function getPosts() {
-  const response = await fetch(`${API_BASE_URL}posts`);
+  const response = await fetch(`${API_BASE_URL}Posts`);
   if (!response.ok) throw new Error("Erro ao buscar posts");
   return response.json();
 }
@@ -26,7 +26,9 @@ export async function getPostsByUsuario(usuarioId) {
 export async function createPost(postData) {
   const response = await fetch(`${API_BASE_URL}posts`, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: {
+       "Content-Type": "application/json",
+       Authorization: `Bearer ${token}` },
     body: JSON.stringify(postData),
   });
   if (!response.ok) throw new Error("Erro ao criar post");

@@ -13,6 +13,8 @@ const Home = () => {
   useEffect(() => {
     getPosts().then(setPosts).catch(console.error);
   }, []);
+  
+console.log("posts:" , posts)
 
   return (
     <div>
@@ -22,17 +24,18 @@ const Home = () => {
     <div className={`${styles.jerseyFont} display-1`}>RECENTES</div>
     {posts.map(post => (
          <ForumContainer
-         key={post.PostId}
-         PostId={post.PostId}
-         UsuarioNome={post.Usuarios?.UsuarioNome}
-         DataPostagem={post.DataPostagem}
-         Tags={post.Tags}
-         PostTitulo={post.PostTitulo}
-         PostConteudo={post.PostConteudo}
-         PostImagem={post.PostImage}
+         key={post.postId}
+         PostId={post.postId}
+         UsuarioNome={post.usuarioNome}
+         DataPostagem={post.dataPostagem}
+         Tags={post.tipoPost}
+         PostTitulo={post.postTitulo}
+         PostConteudo={post.postConteudo}
+         PostImage={post.postImage || "https://placehold.co/600x300"}
        />
         ))}
 </div>
+
     </div>
   );
 };

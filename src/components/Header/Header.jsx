@@ -10,6 +10,7 @@ import logo from "../../assets/logo4.png"; // Corrigido o caminho do logo
 const Header = () => {
 const [userEmail, setUserEmail] = useState();
 
+const [logado, setLogado] = useState(false);
 
 
 
@@ -17,6 +18,11 @@ const [userEmail, setUserEmail] = useState();
   const [usuario, setUsuario] = useState(null);
 
   useEffect(() => {
+
+const token = localStorage.getItem("Token");
+setLogado(!!token);
+
+
 
 const storedUserEmail = localStorage.getItem("UserEmail");
 if (storedUserEmail) {
@@ -142,9 +148,9 @@ if (storedUserEmail) {
                   <Link to="/sendpost" className="btn btn-dark w-75 mb-2">
                     <i className="bi bi-plus-circle"></i> New Post
                   </Link>
-                  {usuario && usuario.nome ? (
+                  {logado ? (
                     <img
-                      src="https://placehold.co/50x50"
+                      src={`https://ui-avatars.com/api/?name=${userEmail}`}
                       alt="User Avatar"
                       style={{
                         width: "50px",
@@ -154,6 +160,7 @@ if (storedUserEmail) {
                     />
                   ) : (
                     <>
+                  
                       <Link to="/signin" className="btn btn-danger w-75 mt-2">
                         SIGN IN
                       </Link>
