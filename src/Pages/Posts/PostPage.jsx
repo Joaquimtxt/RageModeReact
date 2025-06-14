@@ -4,12 +4,13 @@ import styles from "./Posts.module.css";
 import LikePost from "../../components/LikePost/LikePost";
 import CommentBar from "../../components/Comments/CommentBar";
 import Comments from "../../components/Comments/Comments";
-import { getPostById } from "../../api/posts";
+import { getPostById, getPostComments } from "../../api/posts";
 import { getTimeAgo } from "../../utils/dateUtils";
 
 
 const PostPage = () => {
   const { id } = useParams();
+  const [comments, setComments] = useState([]);
   const [post, setPost] = useState(null);
   const [subscribed, setSubscribed] = useState(false);
   const [followersCount, setFollowersCount] = useState(0);
@@ -23,8 +24,14 @@ const PostPage = () => {
     }
   };
   useEffect(() => {
+    getPostComments(id).then(setComments).catch(console.error)
+  }, [id])
+
+
+  useEffect(() => {
     getPostById(id).then(setPost).catch(console.error);
   }, [id]);
+
 
  if (!post) {
     return <div className="text-light text-center mt-5">Carregando post...</div>;
@@ -72,9 +79,16 @@ const PostPage = () => {
       </div>
       <div className="w-100 mt-3">      
         <h5 className="text-light">Comments:</h5>
-  <CommentBar />
-  <Comments userName={"Luiz"} postDate={"3 min"} commentContent={"Mannnnnnn Im your fan, you're so cool, that match you made on SF3 was astonishing!!"} />
+  <CommentBar postId={post.postId} />
         </div>
+
+        
+    {comments.map(comment => (
+      <div className="d-flex flex-column gap-2">
+      <Comments key={comment.comentariosId} userName={comment.usuarioNome} postDate={comment.dataComentario} commentContent={comment.comentarioTexto} />
+    </div>
+    ))}
+
     </div>
   );
 };

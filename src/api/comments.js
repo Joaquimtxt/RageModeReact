@@ -1,5 +1,7 @@
 import { API_BASE_URL } from "./config.js";
 
+const token = localStorage.getItem("Token");
+
 // Buscar todos os comentários
 export async function getComentarios() {
   const response = await fetch(`${API_BASE_URL}comentarios`);
@@ -15,7 +17,7 @@ export async function getComentarioById(id) {
 }
 
 // Criar um novo comentário (usuário autenticado)
-export async function createComentario(comentarioData, token) {
+export async function createComentario(comentarioData) {
   const response = await fetch(`${API_BASE_URL}comentarios`, {
     method: "POST",
     headers: {
@@ -29,7 +31,7 @@ export async function createComentario(comentarioData, token) {
 }
 
 // Editar um comentário (usuário autenticado)
-export async function updateComentario(id, comentarioData, token) {
+export async function updateComentario(id, comentarioData) {
   const response = await fetch(`${API_BASE_URL}comentarios/${id}`, {
     method: "PUT",
     headers: {
@@ -43,7 +45,7 @@ export async function updateComentario(id, comentarioData, token) {
 }
 
 // Deletar um comentário (usuário autenticado)
-export async function deleteComentario(id, token) {
+export async function deleteComentario(id) {
   const response = await fetch(`${API_BASE_URL}comentarios/${id}`, {
     method: "DELETE",
     headers: {

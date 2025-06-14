@@ -13,8 +13,11 @@ const Home = () => {
   useEffect(() => {
     getPosts().then(setPosts).catch(console.error);
   }, []);
+
+  useEffect(() => {
+    console.log("posts:" , posts)
+  }, []);
   
-console.log("posts:" , posts)
 
   return (
     <div>
