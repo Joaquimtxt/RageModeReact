@@ -1,1 +1,1 @@
-export const API_BASE_URL = "http://apiragemode.somee.com/api/";
+export const API_BASE_URL = "https://apiragemode.somee.com/api/";
