@@ -1,37 +1,37 @@
-import { Link, Navigate, useLocation } from "react-router"; // Corrigido o import
+import { Link, useLocation, useNavigate } from "react-router";
 import styles from "./Header.module.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.js";
 import { useEffect, useState } from "react";
 import BarraPesquisa from "../SearchBar/SearchBar";
-import PostFilter from "../PostFilter/PostFilter"; // Import do PostFilter
-import logo from "../../assets/logo4.png"; // Corrigido o caminho do logo
+import PostFilter from "../PostFilter/PostFilter";
+import logo from "../../assets/logo4.png";
 import logo2 from "../../../public/logo_ragemode_icon.png";
-const Header = () => {
-  const [userEmail, setUserEmail] = useState();
 
+const Header = () => {
+  const [userEmail, setUserEmail] = useState("");
   const [logado, setLogado] = useState(false);
   const [nickname, setNickname] = useState("");
-
   const location = useLocation();
-  const [usuario, setUsuario] = useState(null);
+  const navigate = useNavigate();
+  const token = localStorage.getItem("Token");
 
   useEffect(() => {
-    const token = localStorage.getItem("Token");
     setLogado(!!token);
-
     setNickname("r0sy");
-
     const storedUserEmail = localStorage.getItem("UserEmail");
     if (storedUserEmail) {
       setUserEmail(storedUserEmail);
     }
+  }, [token]);
 
-    const storedUser = localStorage.getItem("userlogin");
-    if (storedUser) {
-      setUsuario(JSON.parse(storedUser));
-    }
-  }, []);
+  const handleLeave = () => {
+    localStorage.removeItem("Token");
+    localStorage.removeItem("UserEmail");
+    setUserEmail("");
+    setLogado(false);
+    navigate("/");
+  };
 
   const closeOffcanvas = () => {
     const offcanvasEl = document.getElementById("menuOffcanvas");
@@ -44,7 +44,7 @@ const Header = () => {
 
   return (
     <>
-      <nav className="navbar navbar-dark sticky-md-bottom fixed-top px-3">
+      <nav className="navbar navbar-dark sticky-md-top px-3">
         <div className="container-fluid">
           {/* Botão para abrir o menu */}
           <button
@@ -57,18 +57,21 @@ const Header = () => {
             <span className="navbar-toggler-icon"></span>
           </button>
 
-          {userEmail == "rx@gmail.com" ? (
+          {/* Verificações de login */}
+          {!logado ? (
+            <div className="text-light ms-3 jersey fs-6">
+            Faça login para participar do fórum!
+            </div>
+          ) : userEmail === "rx@gmail.com" ? (
             <div className="text-light ms-3 jersey fs-5">
               <span className="mx-1 badge bg-danger">
-                {" "}
                 <i className="bi bi-gem me-1"></i> RXGEMODE Owner
               </span>{" "}
               {nickname}
             </div>
           ) : (
             <div className="text-light ms-3 jersey">
-              {" "}
-              Entre/Registe-se Agora!{" "}
+              Bem vindo, {userEmail}!
             </div>
           )}
 
@@ -181,12 +184,20 @@ const Header = () => {
                     className="btn dropdown-toggle  text-light border-0 p-0 me-3 "
                     type="button"
                     aria-expanded="false"
-                    data-bs-toggle="dropdown">
-                      <i className="bi bi-gear-fill"></i>
+                    data-bs-toggle="dropdown"
+                  >
+                    <i className="bi bi-gear-fill"></i>
                   </button>
-                  <ul className="dropdown-menu dropdown-menu-start w-25">
+                  <ul className="dropdown-menu dropdown-menu-end w-25">
                     <li>
-                    <Link to={"/perfil"}>Ver Perfil</Link>
+                      <Link className="dropdown-item" to="/perfil">
+                        Ver Perfil
+                      </Link>
+                    </li>
+                    <li>
+                      <button className="dropdown-item" onClick={handleLeave}>
+                        Sair
+                      </button>
                     </li>
                   </ul>
                 </div>
@@ -206,7 +217,7 @@ const Header = () => {
                 <Link to="/signin" className="btn btn-danger ms-3">
                   SIGN IN
                 </Link>
-                <Link to="/signup" className="btn btn-secondary ms-3">
+                <Link to="/register" className="btn btn-secondary ms-3">
                   SIGN UP
                 </Link>
               </>

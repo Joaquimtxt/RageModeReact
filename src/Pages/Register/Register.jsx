@@ -1,9 +1,8 @@
 import React, { useState } from 'react'
 import Mosaico from '../../assets/Mosaico.png'
 import { useNavigate } from 'react-router';
-
 import api from '../../services/api';
-
+import remy from '../../assets/Remy.gif'
 const Register = () => {
 
   const [email, setEmail] = useState("");
@@ -36,6 +35,8 @@ setErro(err.response.data.mensagem);
 
 
   }
+
+  
     return (
 
     <div className='row justify-content-center'>
@@ -49,7 +50,10 @@ setErro(err.response.data.mensagem);
   <p className='text-light fs-3 jersey ms-3'>Conecte-se para acessar novidades, juntar-se a comunidade, acessar novos recursos ou embarcar
      em discussões sobre seus temas preferidos.</p>
 
+     <img src={remy} className='ms-5 ms-md-0 align-self-center' />
+
 </div>
+
 
 
 <div className='col-12 col-md-4 ms-2'>

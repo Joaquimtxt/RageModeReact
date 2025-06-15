@@ -9,7 +9,7 @@ const SelectGame = (props) => {
 
 
   const cards = jogos.map((jogo) => (
-    <GameCard key={jogo.jogosId}   jogoId={jogo.jogosId} Title={jogo.jogoNome} Poster={jogo.imageBanner} />
+    <GameCard key={jogo.jogosId}  Year={jogo.anoLancamento} jogoId={jogo.jogosId} Title={jogo.jogoNome} Poster={jogo.imageBanner} />
   ));
 
 
