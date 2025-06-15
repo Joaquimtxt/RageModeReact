@@ -23,6 +23,7 @@ body {
     to top,
     transparent 10%,
     rgba(0, 0, 0, 0.644) 90%
+    
   );
   /* backdrop-filter: blur(2px); */
 }
@@ -246,3 +247,4 @@ p {
   background: linear-gradient(135deg, #5a189a, #3c096c);
   padding: 10px;
 }
+

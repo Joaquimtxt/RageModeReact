@@ -1,5 +1,5 @@
 import { API_BASE_URL } from "./config.js";
-const token = localStorage.getItem("token");
+const token = localStorage.getItem("Token");
 // Buscar todos os posts
 export async function getPosts() {
   const response = await fetch(`${API_BASE_URL}Posts`);

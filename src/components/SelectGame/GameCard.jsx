@@ -1,8 +1,13 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styles from './SelectGame.module.css'
 import { Link } from 'react-router';
+import { getGamePicture } from '../../api/jogo';
 
 const GameCard = (props) => {
+
+
+
+
   const isSmallScreen = window.innerWidth < 700;
   return (
     <Link to={`/games/${props.jogoId}/character`}>
@@ -21,8 +26,8 @@ const GameCard = (props) => {
       <div className='card-body position-absolute align-text-center w-100 top-0'>
         <p>{props.Year}</p>
       </div>
-      <div className='position-relative'>
-        <img src={props.Poster} alt={props.Title}  className='card-img-top object-fit-cover'
+      <div className={`${styles.cardImg} position-relative`}>
+        <img src={ props.Poster || "https://placehold.co/300x400" } alt={props.Title}  className='card-img-top object-fit-cover'
         />
       </div>
       <div  className="card-body text-center d-flex p-1 p-md-3 flex-column justify-content-end">

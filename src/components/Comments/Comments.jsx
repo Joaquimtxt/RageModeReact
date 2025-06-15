@@ -1,5 +1,6 @@
 import React from 'react'
 import LikePost from '../LikePost/LikePost'
+import { getTimeAgo } from '../../utils/dateUtils'
 
 const Comments = (props) => {
   return (
@@ -15,7 +16,7 @@ const Comments = (props) => {
                   className="img-fluid rounded-circle"
                 ></img>
                 <h5 className="text-center py-2 fs-6">@{props.userName}</h5>
-                <p className="fw-lighter mt-2">{props.postDate} ago</p>
+                <p className="fw-lighter mt-2">{getTimeAgo(props.postDate)} ago</p>
               </div>
               <div>
                 <div className={` ms-4 text-start mb-4 mb-md-3`}>
