@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {useParams } from "react-router"; 
+import {Link, useParams } from "react-router"; 
 import { getJogoById } from "../../api/jogo";
 import { getPersonagensByJogo } from "../../api/personagemJogos";
 import { getTiposPersonagem } from "../../api/tipoPersonagem";
@@ -140,6 +140,10 @@ const SelectCharacter = () => {
             </div>
           );
         })}
+        <Link to={`/games/${jogoId}/addcharacter`} 
+         state={{ jogoSelecionado: { jogoId: gameInfo?.jogoId || jogoId, jogoNome: gameInfo?.jogoNome } }}
+        className='text-decoration-none text-light btn btn-danger btn-lg align-self-center mt-3'> 
+        <i className='bi bi-plus-circle fs-5 me-2'></i>  Adicionar um Personagem</Link>
       </div>
 
       {/* Modal for character details */}
