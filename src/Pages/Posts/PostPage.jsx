@@ -101,16 +101,16 @@ const PostPage = () => {
         <CommentBar postId={post.postId} />
       </div>
 
+      <div className="d-flex flex-column gap-2">
       {comments.map((comment) => (
-        <div className="d-flex flex-column gap-2">
           <Comments
             key={comment.comentariosId}
             userName={comment.usuarioNome}
             postDate={comment.dataComentario}
             commentContent={comment.comentarioTexto}
           />
-        </div>
       ))}
+        </div>
     </div>
   );
 };

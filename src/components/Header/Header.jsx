@@ -6,28 +6,26 @@ import { useEffect, useState } from "react";
 import BarraPesquisa from "../SearchBar/SearchBar";
 import PostFilter from "../PostFilter/PostFilter"; // Import do PostFilter
 import logo from "../../assets/logo4.png"; // Corrigido o caminho do logo
-
+import logo2 from "../../../public/logo_ragemode_icon.png";
 const Header = () => {
-const [userEmail, setUserEmail] = useState();
+  const [userEmail, setUserEmail] = useState();
 
-const [logado, setLogado] = useState(false);
-const [nickname, setNickname] = useState("");
+  const [logado, setLogado] = useState(false);
+  const [nickname, setNickname] = useState("");
 
   const location = useLocation();
   const [usuario, setUsuario] = useState(null);
 
   useEffect(() => {
+    const token = localStorage.getItem("Token");
+    setLogado(!!token);
 
-const token = localStorage.getItem("Token");
-setLogado(!!token);
+    setNickname("r0sy");
 
-setNickname("r0sy")
-
-
-const storedUserEmail = localStorage.getItem("UserEmail");
-if (storedUserEmail) {
-  setUserEmail(storedUserEmail);
-}
+    const storedUserEmail = localStorage.getItem("UserEmail");
+    if (storedUserEmail) {
+      setUserEmail(storedUserEmail);
+    }
 
     const storedUser = localStorage.getItem("userlogin");
     if (storedUser) {
@@ -46,7 +44,7 @@ if (storedUserEmail) {
 
   return (
     <>
-      <nav className="navbar navbar-dark bg-dark px-3">
+      <nav className="navbar navbar-dark sticky-md-bottom fixed-top px-3">
         <div className="container-fluid">
           {/* Botão para abrir o menu */}
           <button
@@ -59,23 +57,25 @@ if (storedUserEmail) {
             <span className="navbar-toggler-icon"></span>
           </button>
 
-
-          
-{userEmail == "rx@gmail.com" ?
-
-
-
-<div className="text-light ms-3 jersey fs-5">
-            <span className="mx-1 badge bg-danger"> <i className="bi bi-gem me-1"></i> RXGEMODE Owner</span> {nickname}
-            </div> : (
-              <div className="text-light ms-3 jersey"> Entre/Registe-se Agora! </div>
-            )
-          }
+          {userEmail == "rx@gmail.com" ? (
+            <div className="text-light ms-3 jersey fs-5">
+              <span className="mx-1 badge bg-danger">
+                {" "}
+                <i className="bi bi-gem me-1"></i> RXGEMODE Owner
+              </span>{" "}
+              {nickname}
+            </div>
+          ) : (
+            <div className="text-light ms-3 jersey">
+              {" "}
+              Entre/Registe-se Agora!{" "}
+            </div>
+          )}
 
           {/* Logo centralizado */}
           <Link to="/" className="mx-auto" id="logo">
             <img
-              src={logo}
+              src={logo2}
               alt="Logo da RageMode"
               className="img-fluid d-block mx-auto"
             />
@@ -156,21 +156,23 @@ if (storedUserEmail) {
                   </Link>
                   {logado ? (
                     <img
+                      className="rounded-circle"
                       src={`https://ui-avatars.com/api/?name=${userEmail}`}
                       alt="User Avatar"
                       style={{
                         width: "50px",
                         height: "50px",
-                        borderRadius: "50%",
                       }}
                     />
                   ) : (
                     <>
-                  
                       <Link to="/signin" className="btn btn-danger w-75 mt-2">
                         SIGN IN
                       </Link>
-                      <Link to="/signup" className="btn btn-secondary w-75 mt-2">
+                      <Link
+                        to="/signup"
+                        className="btn btn-secondary w-75 mt-2"
+                      >
                         SIGN UP
                       </Link>
                     </>
@@ -182,30 +184,47 @@ if (storedUserEmail) {
 
           {/* Bloco para telas grandes (header) */}
           <div className="d-none d-lg-flex align-items-center ms-3">
-  <Link to="/sendpost" className="btn btn-dark me-3">
-    <i className="bi bi-plus-circle"></i> New Post
-  </Link>
-  {logado ? (
-    <img
-      src={`https://ui-avatars.com/api/?name=${userEmail}`}
-      alt="User Avatar"
-      style={{
-        width: "50px",
-        height: "50px",
-        borderRadius: "50%",
-      }}
-    />
-  ) : (
-    <>
-      <Link to="/signin" className="btn btn-danger ms-3">
-        SIGN IN
-      </Link>
-      <Link to="/signup" className="btn btn-secondary ms-3">
-        SIGN UP
-      </Link>
-    </>
-  )}
-</div>
+            <Link to="/sendpost" className="btn btn-dark me-3">
+              <i className="bi bi-plus-circle"></i> New Post
+            </Link>
+            {logado ? (
+              <div className="d-flex flex-row align-items-center">
+                <div className="dropdown">
+                  <button
+                    className="btn dropdown-toggle  text-light border-0 p-0 me-3 "
+                    type="button"
+                    aria-expanded="false"
+                    data-bs-toggle="dropdown">
+                      <i className="bi bi-gear-fill"></i>
+                  </button>
+                  <ul className="dropdown-menu dropdown-menu-start w-25">
+                    <li>
+                    <Link to={"/perfil"}>Ver Perfil</Link>
+                    </li>
+                  </ul>
+                </div>
+
+                <img
+                  src={`https://ui-avatars.com/api/?name=${userEmail}`}
+                  alt="User Avatar"
+                  style={{
+                    width: "50px",
+                    height: "50px",
+                    borderRadius: "50%",
+                  }}
+                />
+              </div>
+            ) : (
+              <>
+                <Link to="/signin" className="btn btn-danger ms-3">
+                  SIGN IN
+                </Link>
+                <Link to="/signup" className="btn btn-secondary ms-3">
+                  SIGN UP
+                </Link>
+              </>
+            )}
+          </div>
         </div>
         {/* Barra de Pesquisa
         <div className="container-fluid d-flex justify-content-center align-items-center">
