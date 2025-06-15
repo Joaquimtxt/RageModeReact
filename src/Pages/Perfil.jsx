@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 
 const Perfil = () => {
   const [posts, setPosts] = useState([]);
-
+  const userEmail = localStorage.getItem("UserEmail");
   useEffect(() => {
     // Carregar posts do localStorage
     const storedPosts = JSON.parse(localStorage.getItem("posts")) || [];
@@ -14,7 +14,7 @@ const Perfil = () => {
       {/* Seção do Topo */}
       <div className="d-flex align-items-center mb-4">
         <img
-          src="https://placehold.co/120x120"
+          src={`https://ui-avatars.com/api/?name=${userEmail}`}
           alt="Imagem Perfil"
           className="rounded-circle border border-3 border-light me-4"
         />
