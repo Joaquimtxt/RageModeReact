@@ -1,5 +1,9 @@
 import { API_BASE_URL } from "./config.js";
-const token = localStorage.getItem("Token");
+
+function getToken() {
+  return localStorage.getItem("Token");
+}
+
 // Buscar todos os usuários
 export async function getUsuarios() {
   const response = await fetch(`${API_BASE_URL}usuarios`);
@@ -8,6 +12,9 @@ export async function getUsuarios() {
 }
 
 export async function getOwnUserProfile() {
+  const token = getToken();
+  console.log("Token Usado:", token);
+
   const response = await fetch(`${API_BASE_URL}usuarios/me`, {
     headers: {
       ...(token && { Authorization: `Bearer ${token}` }),
@@ -26,6 +33,8 @@ export async function getOwnUserProfile() {
 
 // Atualizar usuário (usuário autenticado ou admin)
 export async function updateUsuario(id, usuarioData) {
+  const token = getToken();
+
   const response = await fetch(`${API_BASE_URL}usuarios/${id}`, {
     method: "PUT",
     headers: {
@@ -40,7 +49,9 @@ export async function updateUsuario(id, usuarioData) {
 
 // Buscar contagem de seguidores de um usuário
 export async function getFollowerCount(userId) {
-  const response = await fetch(`${API_BASE_URL}usuarios/${userId}/followers/count`);
+  const response = await fetch(
+    `${API_BASE_URL}usuarios/${userId}/followers/count`
+  );
   if (!response.ok) throw new Error("Erro ao buscar contagem de seguidores");
   return response.json();
 }
@@ -60,6 +71,8 @@ export async function registerUser(registerData) {
 
 // Seguir usuário (usuário autenticado)
 export async function followUser(userId) {
+  const token = getToken();
+
   const response = await fetch(`${API_BASE_URL}usuarios/${userId}/follow`, {
     method: "POST",
     headers: {
@@ -72,6 +85,8 @@ export async function followUser(userId) {
 
 // Deixar de seguir usuário (usuário autenticado)
 export async function unfollowUser(userId) {
+  const token = getToken();
+
   const response = await fetch(`${API_BASE_URL}usuarios/${userId}/unfollow`, {
     method: "DELETE",
     headers: {
@@ -84,6 +99,8 @@ export async function unfollowUser(userId) {
 
 // Deletar usuário (usuário autenticado ou admin)
 export async function deleteUsuario(id) {
+  const token = getToken();
+
   const response = await fetch(`${API_BASE_URL}usuarios/${id}`, {
     method: "DELETE",
     headers: {
@@ -96,6 +113,8 @@ export async function deleteUsuario(id) {
 
 // Adicionar role a um usuário (admin)
 export async function addRoleToUser(userId, role) {
+  const token = getToken();
+
   const response = await fetch(`${API_BASE_URL}usuarios/${userId}/addrole`, {
     method: "POST",
     headers: {

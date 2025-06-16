@@ -16,19 +16,24 @@ const Header = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const token = localStorage.getItem("Token");
-  const [userInfo, setUserInfo] = useState([])
+  const [userInfo, setUserInfo] = useState([]);
 
   useEffect(() => {
     setLogado(!!token);
-    
-    getOwnUserProfile().then(setUserInfo).catch(error => {
-      console.log("Erro ao buscar as informações do usuário: ", error)
-    })
+
     const storedUserEmail = localStorage.getItem("UserEmail");
     if (storedUserEmail) {
       setUserEmail(storedUserEmail);
     }
-  },[token]);
+  }, [token]);
+
+  useEffect(() => {
+    getOwnUserProfile()
+      .then(setUserInfo)
+      .catch((error) => {
+        console.error("Erro ao buscar as informações de perfil: ", error);
+      });
+  }, []);
 
   const handleLeave = () => {
     localStorage.removeItem("Token");
@@ -36,6 +41,7 @@ const Header = () => {
     setUserEmail("");
     setLogado(false);
     navigate("/");
+    window.location.reload();
   };
 
   const closeOffcanvas = () => {
@@ -65,7 +71,7 @@ const Header = () => {
           {/* Verificações de login */}
           {!logado ? (
             <div className="text-light ms-3 jersey fs-6">
-            Faça login para participar do fórum!
+              Faça login para participar do fórum!
             </div>
           ) : userEmail === "rx@gmail.com" ? (
             <div className="text-light ms-3 jersey fs-5">

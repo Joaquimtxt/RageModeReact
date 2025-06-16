@@ -1,9 +1,18 @@
 import React, { useEffect, useState } from "react";
+import { getOwnUserProfile } from "../api/usuarios";
 
 const Perfil = () => {
   const [posts, setPosts] = useState([]);
+  const [userInfo, setUserInfo] = useState([])
+
+
   const userEmail = localStorage.getItem("UserEmail");
+  
   useEffect(() => {
+      getOwnUserProfile().then(setUserInfo).catch(error => {
+            console.log("Erro ao buscar as informações do usuário: ", error)
+          }, [])
+
     // Carregar posts do localStorage
     const storedPosts = JSON.parse(localStorage.getItem("posts")) || [];
     setPosts(storedPosts);
@@ -14,7 +23,7 @@ const Perfil = () => {
       {/* Seção do Topo */}
       <div className="d-flex align-items-center mb-4">
         <img
-          src={`https://ui-avatars.com/api/?name=${userEmail}`}
+          src={`https://ui-avatars.com/api/?name=${userInfo.usuarioNome}`}
           alt="Imagem Perfil"
           className="rounded-circle border border-3 border-light me-4"
         />
@@ -23,10 +32,10 @@ const Perfil = () => {
           <p className="text-muted mb-1"></p>
           <div className="d-flex gap-4">
             <span>
-              <strong>24</strong> posts
+              <strong>{userInfo.postCount}</strong> posts
             </span>
             <span>
-              <strong>3.2k</strong> seguidores
+              <strong>{userInfo.followerCount}</strong> seguidores
             </span>
             <span>
               <strong>180</strong> seguindo
