@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {Link, useParams } from "react-router"; 
+import {Link, useNavigate, useParams } from "react-router"; 
 import { getJogoById } from "../../api/jogo";
 import { getPersonagensByJogo } from "../../api/personagemJogos";
 import { getTiposPersonagem } from "../../api/tipoPersonagem";
@@ -18,8 +18,7 @@ const SelectCharacter = () => {
   const [gameInfo, setGameInfo] = useState(null);
   const [tipos, setTipos] = useState([]);
   const [personagensPorTipo, setPersonagensPorTipo] = useState({});
-  const [selectedCharacter, setSelectedCharacter] = useState(null);
-  const [showModal, setShowModal] = useState(false);
+  const navigate = useNavigate();
   
   useEffect(() => {
     async function fetchData() {
@@ -74,14 +73,9 @@ const SelectCharacter = () => {
   }, [jogoId]);
 
   const handleCharacterClick = (character) => {
-    setSelectedCharacter(character);
-    setShowModal(true);
-  };
+  navigate(`/characterInfo/${character.personagemId}`);
+};
 
-  const handleCloseModal = () => {
-    setShowModal(false);
-    setSelectedCharacter(null);
-  };
 
   return (
     <div
@@ -146,25 +140,6 @@ const SelectCharacter = () => {
         <i className='bi bi-plus-circle fs-5 me-2'></i>  Adicionar um Personagem</Link>
       </div>
 
-      {/* Modal for character details */}
-      <Modal show={showModal} onHide={handleCloseModal} centered>
-        <Modal.Header closeButton id="modal-header">
-          <Modal.Title>{selectedCharacter?.personagemNome}</Modal.Title>
-        </Modal.Header >
-        <Modal.Body id="modal-body" className="text-center">
-          <img
-            src={selectedCharacter?.personagemimage}
-            alt={selectedCharacter?.personagemNome}
-            className="img-fluid mb-3"
-          />
-          <p>{selectedCharacter?.personagemDescricao}</p>
-        </Modal.Body>
-        <Modal.Footer id="modal-footer">
-          <button className="btn btn-secondary" onClick={handleCloseModal}>
-            Close
-          </button>
-        </Modal.Footer>
-      </Modal>
     </div>
   );
 };

@@ -19,7 +19,7 @@ const ModalTags = ({onClose, onFinish }) => {
 
   useEffect(() => {
     if (selectedGame) {
-      getPersonagensByJogo(selectedGame.JogoNome)
+      getPersonagensByJogo(selectedGame.jogoNome)
         .then(setPersonagens)
         .catch(console.error);
     }
@@ -46,15 +46,19 @@ const ModalTags = ({onClose, onFinish }) => {
     setStep(3);
   };
 
-  const handleSelectPersonagem = (personagem) => {
-    setSelectedPersonagem(personagem);
-  };
+ const handleSelectPersonagem = (personagem) => {
+  setSelectedPersonagem(personagem);
+};
 
   const handleFinish = () => {
     const tag = [];
     if (tipo) tag.push({ label: tipo, type: "tipo" });
     if (selectedGame?.jogoNome) tag.push({ label: selectedGame.jogoNome, type: "jogo" })
-    if (selectedPersonagem?.personagemNome) tag.push({ label: selectedPersonagem.personagemNome, type: "personagem" });
+   if (selectedPersonagem?.personagemNome) tag.push({
+  label: selectedPersonagem.personagemNome,
+  type: "personagem",
+  personagemId: selectedPersonagem.personagemId 
+});
     if (onFinish) onFinish(tag);
     
     if (onFinish)

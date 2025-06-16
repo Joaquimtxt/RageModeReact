@@ -2,7 +2,6 @@ import React from 'react'
 import SelectGame from '../../components/SelectGame/SelectGame.jsx'
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.js";
-import  games  from "../../data/Games.js"
 import { Link } from 'react-router';
 
 const Games = () => {
