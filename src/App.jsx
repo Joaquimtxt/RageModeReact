@@ -35,7 +35,7 @@ function App() {
         <Route path="/games/:jogoId/character" element={<SelectCharacter />} />
         <Route path="/register" element={<Register />} />
         <Route path="/sendpost" element={<CreatePost />} />
-        <Route path="/characterInfo" element={<CharacterInfo />} />
+        <Route path="/characterInfo/:personagemId" element={<CharacterInfo />} />
         <Route path="/addGame" element={<AddGame />} />
         <Route path="/post/:id" element={<PostPage/>} />
         <Route path="/perfil" element={<Perfil />} />

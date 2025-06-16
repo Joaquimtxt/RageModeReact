@@ -71,12 +71,17 @@ const CreatePost = () => {
  
 
     const postData = {
-      postTitulo: titulo,
-      postConteudo: conteudo,
-      tipoPost: validTags.find(t => t.type === "tipo")?.label || null,
-      personagemId: validTags.find(t => t.type === "personagem")?.personagemId || null,
-      dataPostagem: new Date().toISOString()
+     PostTitulo: titulo,
+    PostConteudo: conteudo,
+    TipoPost: validTags.find(t => t.type === "tipo")?.label || null,
+    PersonagemId: validTags.find(t => t.type === "personagem")?.personagemId || null,
+    DataPostagem: new Date().toISOString(),
+    ImageUrl: postImage || null
     };
+     if (!postData.PostTitulo || !postData.PostConteudo || !postData.TipoPost || !postData.PersonagemId) {
+    alert("Preencha todos os campos obrigatórios e selecione as tags corretamente!");
+    return;
+  }
   createPost(postData)
   .then(() => {
     alert("Post criado com sucesso!");
