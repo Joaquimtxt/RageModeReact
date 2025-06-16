@@ -34,6 +34,8 @@ const SignIn = () => {
       
       setEmail("");
       setSenha("");
+
+      console.log("Token: ", localStorage.getItem("Token"));
       
     } catch (err) {
       if (err.response) {

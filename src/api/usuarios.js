@@ -1,9 +1,19 @@
 import { API_BASE_URL } from "./config.js";
-
+const token = localStorage.getItem("Token");
 // Buscar todos os usuários
 export async function getUsuarios() {
   const response = await fetch(`${API_BASE_URL}usuarios`);
   if (!response.ok) throw new Error("Erro ao buscar usuários");
+  return response.json();
+}
+
+export async function getOwnUserProfile() {
+  const response = await fetch(`${API_BASE_URL}usuarios/me`, {
+    headers: {
+      ...(token && { Authorization: `Bearer ${token}` }),
+    },
+  });
+  if (!response.ok) throw new Error("Erro ao carregar o seu perfil");
   return response.json();
 }
 
@@ -15,7 +25,7 @@ export async function getUsuarios() {
 // }
 
 // Atualizar usuário (usuário autenticado ou admin)
-export async function updateUsuario(id, usuarioData, token) {
+export async function updateUsuario(id, usuarioData) {
   const response = await fetch(`${API_BASE_URL}usuarios/${id}`, {
     method: "PUT",
     headers: {
@@ -49,7 +59,7 @@ export async function registerUser(registerData) {
 }
 
 // Seguir usuário (usuário autenticado)
-export async function followUser(userId, token) {
+export async function followUser(userId) {
   const response = await fetch(`${API_BASE_URL}usuarios/${userId}/follow`, {
     method: "POST",
     headers: {
@@ -61,7 +71,7 @@ export async function followUser(userId, token) {
 }
 
 // Deixar de seguir usuário (usuário autenticado)
-export async function unfollowUser(userId, token) {
+export async function unfollowUser(userId) {
   const response = await fetch(`${API_BASE_URL}usuarios/${userId}/unfollow`, {
     method: "DELETE",
     headers: {
@@ -73,7 +83,7 @@ export async function unfollowUser(userId, token) {
 }
 
 // Deletar usuário (usuário autenticado ou admin)
-export async function deleteUsuario(id, token) {
+export async function deleteUsuario(id) {
   const response = await fetch(`${API_BASE_URL}usuarios/${id}`, {
     method: "DELETE",
     headers: {
@@ -85,7 +95,7 @@ export async function deleteUsuario(id, token) {
 }
 
 // Adicionar role a um usuário (admin)
-export async function addRoleToUser(userId, role, token) {
+export async function addRoleToUser(userId, role) {
   const response = await fetch(`${API_BASE_URL}usuarios/${userId}/addrole`, {
     method: "POST",
     headers: {

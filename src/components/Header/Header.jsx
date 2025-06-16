@@ -7,6 +7,7 @@ import BarraPesquisa from "../SearchBar/SearchBar";
 import PostFilter from "../PostFilter/PostFilter";
 import logo from "../../assets/logo4.png";
 import logo2 from "../../../public/logo_ragemode_icon.png";
+import { getOwnUserProfile } from "../../api/usuarios";
 
 const Header = () => {
   const [userEmail, setUserEmail] = useState("");
@@ -15,15 +16,19 @@ const Header = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const token = localStorage.getItem("Token");
+  const [userInfo, setUserInfo] = useState([])
 
   useEffect(() => {
     setLogado(!!token);
-    setNickname("r0sy");
+    
+    getOwnUserProfile().then(setUserInfo).catch(error => {
+      console.log("Erro ao buscar as informações do usuário: ", error)
+    })
     const storedUserEmail = localStorage.getItem("UserEmail");
     if (storedUserEmail) {
       setUserEmail(storedUserEmail);
     }
-  }, [token]);
+  },[token]);
 
   const handleLeave = () => {
     localStorage.removeItem("Token");
@@ -67,11 +72,11 @@ const Header = () => {
               <span className="mx-1 badge bg-danger">
                 <i className="bi bi-gem me-1"></i> RXGEMODE Owner
               </span>{" "}
-              {nickname}
+              {userInfo.usuarioNome}
             </div>
           ) : (
             <div className="text-light ms-3 jersey">
-              Bem vindo, {userEmail}!
+              Bem vindo, {userInfo.usuarioNome}!
             </div>
           )}
 
@@ -87,7 +92,7 @@ const Header = () => {
           {/* Offcanvas Menu */}
           <div
             id="menuOffcanvas"
-            className="offcanvas offcanvas-start text-bg-dark"
+            className="offcanvas offcanvas-start w-50 h-50 text-bg-dark"
             tabIndex="-1"
             aria-labelledby="menuOffcanvasLabel"
           >
