@@ -1,7 +1,6 @@
-import React, { useState } from 'react'
 import styles from './SelectGame.module.css'
 import { Link } from 'react-router';
-import { getGamePicture } from '../../api/jogo';
+
 
 const GameCard = (props) => {
 
@@ -27,7 +26,7 @@ const GameCard = (props) => {
         <p>{props.Year}</p>
       </div>
       <div className={`${styles.cardImg} position-relative`}>
-        <img src={ props.Poster || "https://placehold.co/300x400" } alt={props.Title}  className='card-img-top object-fit-cover'
+        <img src={ props.Poster } alt={props.Title}  className='card-img-top object-fit-cover'
         />
       </div>
       <div  className="card-body text-center d-flex p-1 p-md-3 flex-column justify-content-end">

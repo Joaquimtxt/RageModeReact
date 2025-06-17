@@ -10,7 +10,10 @@ const Games = () => {
       <h1 className="text-light mt-5 text-start">Jogos</h1>
     <div className=" py-3 rounded bg-dark mt-2 px-0">
       <SelectGame Titulo="games" />
+       <SelectGame Titulo="Street Fighter" franquia="street fighter" />
+      <SelectGame Titulo="Tekken" franquia="tekken" />
     </div>
+    
 <Link to={"/AddGame"} className='text-decoration-none text-light btn btn-danger btn-lg align-self-center mt-3'> <i className='bi bi-plus-circle fs-5 me-2'></i>  Adicionar um Game</Link>
   </div>
   );
