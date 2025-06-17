@@ -66,7 +66,7 @@ export async function uploadGamePicture(jogoId, file, token) {
 
 // Buscar imagem do jogo em Base64
 export async function getGamePicture(jogoId) {
-  const response = await fetch(`${API_BASE_URL}jogos/GetGamePicture?jogoId=${jogoId}`);
+  const response = await fetch(`${API_BASE_URL}Jogos/GetGamePicture?jogoId=${jogoId}`);
   if (!response.ok) throw new Error("Erro ao buscar imagem do jogo");
-  return response.json();
+  return response.json(); 
 }
