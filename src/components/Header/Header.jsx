@@ -197,7 +197,7 @@ const Header = () => {
                         SIGN IN
                       </Link>
                       <Link
-                        to="/signup"
+                        to="/register"
                         className="btn btn-secondary w-75 mt-2"
                       >
                         SIGN UP
