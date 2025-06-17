@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import {Link, useNavigate, useParams } from "react-router"; 
-import { getJogoById } from "../../api/jogo";
+import { deleteJogo, getJogoById } from "../../api/jogo";
 import { getPersonagensByJogo } from "../../api/personagemJogos";
 import { getTiposPersonagem } from "../../api/tipoPersonagem";
 import { getCharacterPicture } from "../../api/personagem";
 import CharacterCarroussel from "../../components/CharacterCarousel/CharacterCarroussel";
 import Modal from "react-bootstrap/Modal";
+import { getOwnUserProfile } from "../../api/usuarios";
 
 
 
@@ -18,9 +19,22 @@ const SelectCharacter = () => {
   const [gameInfo, setGameInfo] = useState(null);
   const [tipos, setTipos] = useState([]);
   const [personagensPorTipo, setPersonagensPorTipo] = useState({});
+  const [userInfo, setUserInfo] = useState()
+  
   const navigate = useNavigate();
+
+
+  getOwnUserProfile().then(setUserInfo).catch(error => {
+      console.log("Erro ao buscar as informações de perfil: ", error);
+    })
+  
   
   useEffect(() => {
+
+
+
+
+
     async function fetchData() {
       try {
         // Busca informações do jogo
@@ -76,12 +90,32 @@ const SelectCharacter = () => {
   navigate(`/characterInfo/${character.personagemId}`);
 };
 
+  const handleDeleteGame = () => {
+
+    // if(userInfo.usuarioRole != "Admin") {
+  //   navigate("/")
+  //   alert("Somente um administrador pode excluir ou alterar postagens.")
+  // }
+
+const confirmDelete = window.confirm(`Deseja excluir o jogo ${gameInfo.jogoNome}? esta será uma ação irreversivel.`)
+
+      if(!confirmDelete) return;
+
+    deleteJogo(jogoId).then(setGameInfo(null));
+    navigate("/games")
+    window.location.reload();
+    alert("Jogo deletado com sucesso.")
+
+  }
+
+
 
   return (
     <div
       className="container-fluid d-flex flex-column align-items-center"
       style={{ minHeight: "100vh", marginTop: "60px", padding: "0" }}
-    >
+    > 
+
       <div
         id="gameTittle"
         className="row w-100"
@@ -101,6 +135,7 @@ const SelectCharacter = () => {
             alt={gameInfo?.jogoNome || "Game Placeholder"}
             className="mb-4 rounded-4"
           />
+          <button className="bg-danger px-2 py-1 rounded-3 text-light border-0" onClick={handleDeleteGame} ><i className="bi bi-trash me-2"></i> Deletar </button>
         </div>
         <div
           className="col-md-6 d-flex justify-content-between"

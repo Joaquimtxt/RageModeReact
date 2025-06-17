@@ -53,7 +53,8 @@ const ModalTags = ({onClose, onFinish }) => {
   const handleFinish = () => {
     const tag = [];
     if (tipo) tag.push({ label: tipo, type: "tipo" });
-    if (selectedGame?.jogoNome) tag.push({ label: selectedGame.jogoNome, type: "jogo" })
+    if (selectedGame?.jogoNome) tag.push({
+       label: selectedGame.jogoNome, type: "jogo" })
    if (selectedPersonagem?.personagemNome) tag.push({
   label: selectedPersonagem.personagemNome,
   type: "personagem",

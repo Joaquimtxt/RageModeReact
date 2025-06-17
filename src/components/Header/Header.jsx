@@ -73,7 +73,7 @@ const Header = () => {
             <div className="text-light ms-3 jersey fs-6">
               Faça login para participar do fórum!
             </div>
-          ) : userEmail === "rx@gmail.com" ? (
+          ) : userInfo.usuarioNome === "r0sy" || userInfo.usuarioNome === "pa1n" ? (
             <div className="text-light ms-3 jersey fs-5">
               <span className="mx-1 badge bg-danger">
                 <i className="bi bi-gem me-1"></i> RXGEMODE Owner

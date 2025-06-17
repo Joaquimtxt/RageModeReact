@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import styles from "./Posts.module.css";
 import LikePost from "../../components/LikePost/LikePost";
 import CommentBar from "../../components/Comments/CommentBar";
 import Comments from "../../components/Comments/Comments";
-import { getPostById, getPostComments } from "../../api/posts";
+import { deletePost, getPostById, getPostComments } from "../../api/posts";
 import { getTimeAgo } from "../../utils/dateUtils";
+import { getOwnUserProfile } from "../../api/usuarios";
 
 const PostPage = () => {
   const { id } = useParams();
@@ -13,6 +14,14 @@ const PostPage = () => {
   const [post, setPost] = useState(null);
   const [subscribed, setSubscribed] = useState(false);
   const [followersCount, setFollowersCount] = useState(0);
+  const [userInfo, setUserInfo] = useState()
+  const navigate = useNavigate();
+
+
+  getOwnUserProfile().then(setUserInfo).catch(error => {
+    console.log("Erro ao buscar as informações de perfil: ", error);
+  })
+
   const handleSubscribe = () => {
     if (!subscribed) {
       setSubscribed(true);
@@ -22,7 +31,26 @@ const PostPage = () => {
       setFollowersCount(followersCount - 1);
     }
   };
+
+const handleDeletePost = () => {
+
+  // if(userInfo.usuarioRole != "Admin") {
+  //   navigate("/")
+  //   alert("Somente um administrador pode excluir ou alterar postagens.")
+  // }
+
+     const confirmDelete =  window.confirm(`Tem certeza que deseja excluir a postagem de ${post.usuarioNome}? Esta ação será irreversível. `)
+     if (!confirmDelete) return;
+
+     deletePost(id);
+     navigate("/")
+     alert(`A postagem de ${post.usuarioNome} foi removida com sucesso.`)
+    }
+
   useEffect(() => {
+    
+
+
     getPostComments(id).then(setComments).catch(console.error);
   },);
 
@@ -63,6 +91,9 @@ const PostPage = () => {
           >
             {subscribed ? "Followed" : "Follow"}
           </button>
+
+          <button className="btn btn-danger btn-sm border-0 ms-2 "  onClick={handleDeletePost}> <i className="bi bi-trash me-1 "></i>Deletar</button>
+
         </div>
         <div className={` ms-4 text-start mb-4 mb-md-3`}>
           <div className="  fs-3 fw-bolder mt-2 mb-3">{post.postTitulo}</div>

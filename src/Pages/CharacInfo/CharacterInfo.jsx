@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router";
-import { getPersonagemById } from "../../api/personagem";
+import { useNavigate, useParams } from "react-router";
+import { deletePersonagem, getPersonagemById } from "../../api/personagem";
 import { getJogoById } from "../../api/jogo";
 import { getTiposPersonagem } from "../../api/tipoPersonagem";
 import { getPosts } from "../../api/posts";
 import ForumContainer from "../../components/ForumContainer/ForumContainer";
+import { getOwnUserProfile } from "../../api/usuarios";
+
+
 
 
 const CharacterInfo = () => {
@@ -12,6 +15,32 @@ const CharacterInfo = () => {
   const [personagem, setPersonagem] = useState(null);
   const [posts, setPosts] = useState([]);
   const [filteredPosts, setFilteredPosts] = useState([]);
+    const [userInfo, setUserInfo] = useState()
+  
+  const navigate = useNavigate();
+  
+getOwnUserProfile().then(setUserInfo).catch(error => {
+    console.log("Erro ao buscar as informações de perfil: ", error);
+  })
+
+
+  const handleDeleteCharacter = () => {
+
+// if(userInfo.usuarioRole != "Admin") {
+  //   navigate("/")
+  //   alert("Somente um administrador pode excluir ou alterar postagens.")
+  // }
+
+      const confirmDelete = window.confirm(`Deseja excluir ${personagem.personagemNome} do banco de dados de ${personagem.jogo.jogoNome} ? esta será uma ação irreversivel.`)
+
+      if(!confirmDelete) return;
+
+      deletePersonagem(personagemId);
+      navigate(`/games/${personagem.jogoId}/character`)
+      alert( "Personagem removido com sucesso." )
+
+  }
+
 
   useEffect(() => {
     async function fetchData() {
@@ -89,8 +118,8 @@ const tiposOrdem = ["Specials", "Combos"];
           />
           <div className="d-flex flex-column align-items-center">
             <span className="text-light jersey fs-1">{personagem.personagemNome}</span>
-            <span className="text-light fs-3">Class:
-              {personagem.tipoPersonagem?.tipoNome || "Class not defined"}
+            <span className="text-light fs-3">Classe:  
+              <b className="ms-2">{personagem.tipoPersonagem?.tipoNome || "Class not defined"}</b>
             </span>
           </div>
           <span className="fw-light fs-5 text-light text-center">
@@ -99,6 +128,7 @@ const tiposOrdem = ["Specials", "Combos"];
           <span className="fw-light fs-6 text-light text-center">
             Jogo: {personagem.jogo?.jogoNome || personagem.jogoNome || "N/A"}
           </span>
+          <button className="bg-danger px-2 py-1 rounded-3 text-light border-0" onClick={handleDeleteCharacter} ><i className="bi bi-trash me-2"></i> Deletar </button>
         </div>
       </div>
       <hr className="text-light w-100 my-3 p-0 " />

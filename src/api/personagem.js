@@ -36,7 +36,8 @@ export async function createPersonagem(personagemData, token) {
 }
 
 // Deletar personagem (apenas admin)
-export async function deletePersonagem(id, token) {
+export async function deletePersonagem(id) {
+  const token = localStorage.getItem("token"); // Supondo que o token esteja armazenado no localStorage
   const response = await fetch(`${API_BASE_URL}Personagens/${id}`, {
     method: "DELETE",
     headers: {

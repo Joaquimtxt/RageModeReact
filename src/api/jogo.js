@@ -36,7 +36,8 @@ export async function createJogo(jogoData, token) {
 }
 
 // Deletar jogo (apenas admin)
-export async function deleteJogo(id, token) {
+export async function deleteJogo(id) {
+  const token = localStorage.getItem("token"); // Supondo que o token esteja armazenado no localStorage
   const response = await fetch(`${API_BASE_URL}jogos/${id}`, {
     method: "DELETE",
     headers: {

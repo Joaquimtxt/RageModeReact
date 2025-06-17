@@ -28,7 +28,7 @@ const Perfil = () => {
           className="rounded-circle border border-3 border-light me-4"
         />
         <div>
-          <h3 className="mb-1">usuario_nome</h3>
+          <h3 className="mb-1">{userInfo.usuarioNome}</h3>
           <p className="text-muted mb-1"></p>
           <div className="d-flex gap-4">
             <span>
