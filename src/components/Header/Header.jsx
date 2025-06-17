@@ -80,7 +80,16 @@ const Header = () => {
               </span>{" "}
               {userInfo.usuarioNome}
             </div>
-          ) : (
+          ) :  userInfo.usuarioRole == "Admin" ? (
+
+            <div className="text-light ms-3 jersey fs-5">
+              <span className="mx-1 badge bg-warning">
+                <i className="bi bi-gem me-1"></i> RXGEMODE Admnin
+              </span>{" "}
+              {userInfo.usuarioNome}
+            </div>
+
+          )  :  (
             <div className="text-light ms-3 jersey">
               Bem vindo, {userInfo.usuarioNome}!
             </div>

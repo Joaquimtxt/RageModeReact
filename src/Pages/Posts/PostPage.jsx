@@ -14,14 +14,20 @@ const PostPage = () => {
   const [post, setPost] = useState(null);
   const [subscribed, setSubscribed] = useState(false);
   const [followersCount, setFollowersCount] = useState(0);
-  const [userInfo, setUserInfo] = useState()
+  const [userInfo, setUserInfo] = useState();
   const navigate = useNavigate();
 
 
-  getOwnUserProfile().then(setUserInfo).catch(error => {
+  
+useEffect(() => {
+  getOwnUserProfile()
+  .then(setUserInfo)
+  .catch((error) => {
     console.log("Erro ao buscar as informações de perfil: ", error);
-  })
+  });
 
+}, [])
+  
   const handleSubscribe = () => {
     if (!subscribed) {
       setSubscribed(true);
@@ -32,31 +38,41 @@ const PostPage = () => {
     }
   };
 
-const handleDeletePost = () => {
 
-  // if(userInfo.usuarioRole != "Admin") {
-  //   navigate("/")
-  //   alert("Somente um administrador pode excluir ou alterar postagens.")
-  // }
+  
+  useEffect(() => {
+    getPostById(id).then((data) => {setPost(data); console.log("Post carregado: ", data)}).catch(console.error);
+  }, [id]);
+  
 
-     const confirmDelete =  window.confirm(`Tem certeza que deseja excluir a postagem de ${post.usuarioNome}? Esta ação será irreversível. `)
-     if (!confirmDelete) return;
+  const handleDeletePost = () => {
 
-     deletePost(id);
-     navigate("/")
-     alert(`A postagem de ${post.usuarioNome} foi removida com sucesso.`)
+    if (userInfo.usuarioRole !== "Admin" && userInfo.usuarioNome !== post.usuarioNome) {
+      navigate("/");
+      alert(
+        "Você não tem permissão para excluir esta postagem. Somente um administrador ou o autor da postagem pode excluir a publicação. "
+      );
+    } else {
+      const confirmDelete = window.confirm(
+        `Tem certeza que deseja excluir a postagem de ${post.usuarioNome}? Esta ação será irreversível. `
+      );
+      if (!confirmDelete) return;
+
+      deletePost(id).then(() => {
+        alert(`A postagem de ${post.usuarioNome} foi removida com sucesso.`);
+        window.localStorage.reload();
+        navigate("/");
+
+      }).catch((error) => {console.error("Erro ao excluir a postagem: ", error)})
+      
     }
+  };
 
   useEffect(() => {
-    
-
 
     getPostComments(id).then(setComments).catch(console.error);
-  },);
+  });
 
-  useEffect(() => {
-    getPostById(id).then(setPost).catch(console.error);
-  }, [id]);
 
   if (!post) {
     return (
@@ -92,8 +108,17 @@ const handleDeletePost = () => {
             {subscribed ? "Followed" : "Follow"}
           </button>
 
-          <button className="btn btn-danger btn-sm border-0 ms-2 "  onClick={handleDeletePost}> <i className="bi bi-trash me-1 "></i>Deletar</button>
-
+          { userInfo && post && (userInfo.usuarioRole === "Admin" || userInfo.id === post.usuarioId) ? (
+            <button
+              className="btn btn-danger btn-sm border-0 ms-2 "
+              onClick={handleDeletePost}
+            >
+              {" "}
+              <i className="bi bi-trash me-1 "></i>Deletar
+            </button>
+          ) : ( ""
+            // Nao vai aparecer o botão
+          )}
         </div>
         <div className={` ms-4 text-start mb-4 mb-md-3`}>
           <div className="  fs-3 fw-bolder mt-2 mb-3">{post.postTitulo}</div>
@@ -133,15 +158,15 @@ const handleDeletePost = () => {
       </div>
 
       <div className="d-flex flex-column gap-2">
-      {comments.map((comment) => (
+        {comments.map((comment) => (
           <Comments
             key={comment.comentariosId}
             userName={comment.usuarioNome}
             postDate={comment.dataComentario}
             commentContent={comment.comentarioTexto}
           />
-      ))}
-        </div>
+        ))}
+      </div>
     </div>
   );
 };
