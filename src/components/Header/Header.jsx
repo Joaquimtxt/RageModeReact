@@ -152,10 +152,11 @@ const Header = () => {
                 </li>
 
                 <li className="nav-item d-flex flex-column align-items-center mt-3 d-lg-none">
-                  <Link to="/sendpost" className="btn btn-dark w-75 mb-2">
+                  <Link to="/sendpost" className="btn btn-dark w-75 mb-2 rounded-5">
                     <i className="bi bi-plus-circle"></i> New Post
                   </Link>
                   {logado ? (
+                    <>
                     <img
                       className="rounded-circle"
                       src={`https://ui-avatars.com/api/?name=${userEmail}`}
@@ -164,7 +165,32 @@ const Header = () => {
                         width: "50px",
                         height: "50px",
                       }}
-                    />
+                      />
+                      <div className="dropdown">
+                  <button
+                    className="btn dropdown-toggle  text-light border-0 p-0 "
+                    type="button"
+                    aria-expanded="false"
+                    data-bs-toggle="dropdown"
+                  >
+                    <i className="bi bi-gear-fill"></i>
+                  </button>
+                  <ul className="dropdown-menu dropdown-menu-end">
+                    <li>
+                      <Link className="dropdown-item" to="/perfil">
+                        Ver Perfil
+                      </Link>
+                    </li>
+                    <li>
+                      <button className="dropdown-item" onClick={handleLeave}>
+                        Sair
+                      </button>
+                    </li>
+                  </ul>
+                </div>
+
+                    
+                      </>
                   ) : (
                     <>
                       <Link to="/signin" className="btn btn-danger w-75 mt-2">
@@ -176,6 +202,9 @@ const Header = () => {
                       >
                         SIGN UP
                       </Link>
+
+                      
+
                     </>
                   )}
                 </li>
