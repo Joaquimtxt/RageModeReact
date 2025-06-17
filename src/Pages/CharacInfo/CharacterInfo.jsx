@@ -72,12 +72,25 @@ getOwnUserProfile().then(setUserInfo).catch(error => {
         const allPosts = await getPosts();
         setPosts(allPosts);
 
-        // Filtra posts que possuem a tag igual ao nome do personagem
-        const postsDoPersonagem = posts.filter(
-    (post) =>
-      post.Tags &&
-      post.Tags.toLowerCase().includes(personagem.personagemNome?.toLowerCase())
-  );
+        if (!personagem) {
+          setFilteredPosts([]);
+          return;
+        }
+        const postsDoPersonagem = allPosts.filter(post => {
+          if (!post.tipoPost) return false;
+          const partes = post.tipoPost.split('|').map(s => s.trim());
+          if (partes.length < 3) return false;
+          const [tipo, jogo, personagemNome] = partes;
+          console.log({ tipo, jogo, personagemNome });
+          return (
+            personagemNome &&
+            personagemNome.toLowerCase() === personagem.personagemNome?.toLowerCase() &&
+            jogo &&
+            jogo.toLowerCase() === personagem.jogo?.jogoNome?.toLowerCase() &&
+            tipo &&
+            (tipo.toLowerCase() === "specials" || tipo.toLowerCase() === "combos")
+          );
+        });
         setFilteredPosts(postsDoPersonagem);
       } catch (e) {
         console.error("Erro ao buscar dados:", e);

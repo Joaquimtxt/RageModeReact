@@ -39,13 +39,15 @@ const SelectGame = ({props, Titulo, franquia}) => {
     // Se é um nome de arquivo (tenta buscar pelo endpoint)
     try {
       const imgResult = await getGamePicture(jogo.jogosId);
-      return { ...jogo, imageBannerFinal: imgResult.base64Image };
-    } catch (err) {
-      // Se der erro e for 404, monta o caminho relativo
-      if (err?.response?.status === 404) {
-        return { ...jogo, imageBannerFinal: `/Resources/Games/${jogo.imageBanner}` };
+      // Se vier base64, usa ele
+      if (imgResult && imgResult.base64Image) {
+        return { ...jogo, imageBannerFinal: imgResult.base64Image };
       }
-      return { ...jogo, imageBannerFinal: null };
+      // Se não vier base64, usa o caminho local
+      return { ...jogo, imageBannerFinal: `/Resources/Games/${jogo.imageBanner}` };
+    } catch {
+      // Qualquer erro, usa o caminho local
+      return { ...jogo, imageBannerFinal: `/Resources/Games/${jogo.imageBanner}` };
     }
   }
 
