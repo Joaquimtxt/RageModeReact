@@ -13,7 +13,6 @@ export async function getUsuarios() {
 
 export async function getOwnUserProfile() {
   const token = getToken();
-  console.log("Token Usado:", token);
 
   const response = await fetch(`${API_BASE_URL}usuarios/me`, {
     headers: {

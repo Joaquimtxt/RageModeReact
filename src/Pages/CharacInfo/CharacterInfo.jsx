@@ -41,23 +41,18 @@ getOwnUserProfile().then(setUserInfo).catch(error => {
 
   }
 
-
   useEffect(() => {
     async function fetchData() {
       try {
-        // Busca dados do personagem
         const personagemData = await getPersonagemById(personagemId);
-        setPersonagem(personagemData);
 
-            let jogo = personagemData.jogo;
+        let jogo = personagemData.jogo;
         if (!jogo && personagemData.jogoId) {
           jogo = await getJogoById(personagemData.jogoId);
         }
 
-        // Busca o tipo de personagem se não vier populado
         let tipoPersonagem = personagemData.tipoPersonagem;
         if (!tipoPersonagem && personagemData.tipoPersonagemId) {
-          
           const tipos = await getTiposPersonagem();
           tipoPersonagem = tipos.find(t => t.tipoPersonagemId === personagemData.tipoPersonagemId);
         }
@@ -67,40 +62,65 @@ getOwnUserProfile().then(setUserInfo).catch(error => {
           jogo,
           tipoPersonagem,
         });
-
-        // Busca todos os posts
-        const allPosts = await getPosts();
-        setPosts(allPosts);
-
-        if (!personagem) {
-          setFilteredPosts([]);
-          return;
-        }
-        const postsDoPersonagem = allPosts.filter(post => {
-          if (!post.tipoPost) return false;
-          const partes = post.tipoPost.split('|').map(s => s.trim());
-          if (partes.length < 3) return false;
-          const [tipo, jogo, personagemNome] = partes;
-          console.log({ tipo, jogo, personagemNome });
-          return (
-            personagemNome &&
-            personagemNome.toLowerCase() === personagem.personagemNome?.toLowerCase() &&
-            jogo &&
-            jogo.toLowerCase() === personagem.jogo?.jogoNome?.toLowerCase() &&
-            tipo &&
-            (tipo.toLowerCase() === "specials" || tipo.toLowerCase() === "combos")
-          );
-        });
-        setFilteredPosts(postsDoPersonagem);
-      } catch (e) {
-        console.error("Erro ao buscar dados:", e);
-        setPersonagem(null);
-        setPosts([]);
-        setFilteredPosts([]);
+      } catch (error) {
+        console.error("Erro ao buscar dados do personagem:", error);
       }
     }
     fetchData();
   }, [personagemId]);
+
+  useEffect(() => {
+    async function fetchPosts() {
+      try {
+        const allPosts = await getPosts();
+        setPosts(allPosts);
+      } catch (error) {
+        console.error("Erro ao buscar posts:", error);
+      }
+    }
+    fetchPosts();
+  }, []);
+
+  // Filtro robusto dos posts
+  useEffect(() => {
+    if (!personagem || !personagem.jogo || !posts?.length) {
+      setFilteredPosts([]);
+      return;
+    }
+
+    const postsDoPersonagem = posts.filter(post => {
+      if (!post.tipoPost || typeof post.tipoPost !== "string") return false;
+
+      // Limpa e separa as partes
+      const tipoPostLimpo = post.tipoPost
+        .replace(/\s*\|\s*/g, '|')
+        .replace(/\|+/g, '|')
+        .trim();
+
+      const partes = tipoPostLimpo.split('|').map(s => s.trim()).filter(Boolean);
+      if (partes.length !== 3) return false;
+
+      // Normalização
+      const normalize = str =>
+        str
+          ?.normalize("NFD")
+          .replace(/[\u0300-\u036f]/g, "")
+          .replace(/\s+/g, " ")
+          .trim()
+          .toLowerCase();
+
+      const [tipo, jogo, personagemNome] = partes.map(normalize);
+      const tipoPersonagem = normalize(personagem.personagemNome);
+      const jogoPersonagem = normalize(personagem.jogo?.jogoNome);
+
+      const tipoValido = ["specials", "combos"].includes(tipo);
+      const jogoValido = !!jogo && !!jogoPersonagem && jogo === jogoPersonagem;
+      const personagemValido = !!personagemNome && !!tipoPersonagem && personagemNome === tipoPersonagem;
+      return tipoValido && jogoValido && personagemValido;
+    });
+
+    setFilteredPosts(postsDoPersonagem);
+  }, [personagem, posts]);
 
   if (!personagem) {
     return (
@@ -110,15 +130,25 @@ getOwnUserProfile().then(setUserInfo).catch(error => {
     );
   }
   function agruparPostsPorTipo(posts) {
-  const agrupados = {};
-  posts.forEach(post => {
-    const tipo = post.tipoPost || "Outro";
-    if (!agrupados[tipo]) agrupados[tipo] = [];
-    agrupados[tipo].push(post);
-  });
-  return agrupados;
-}
-const tiposOrdem = ["Specials", "Combos"];
+    const agrupados = { specials: [], combos: [] };
+    posts.forEach(post => {
+      if (!post.tipoPost) return;
+      const partes = post.tipoPost
+        .replace(/\s*\|\s*/g, '|')
+        .replace(/\|+/g, '|')
+        .trim()
+        .split('|')
+        .map(s => s.trim())
+        .filter(Boolean);
+      if (partes.length !== 3) return;
+      const tipo = partes[0].toLowerCase();
+      if (tipo === "specials") agrupados.specials.push(post);
+      if (tipo === "combos") agrupados.combos.push(post);
+    });
+    return agrupados;
+  }
+  
+  const agrupados = agruparPostsPorTipo(filteredPosts);
 
   return (
     <div className="px-md-5 container-fluid d-flex flex-column">
@@ -150,46 +180,31 @@ const tiposOrdem = ["Specials", "Combos"];
     Posts about {personagem.personagemNome}
   </p>
   <div className="d-flex flex-column gap-4 w-100">
-    {(() => {
-      // Agrupa os posts filtrados por tipoPost
-      const agrupados = agruparPostsPorTipo(filteredPosts);
-
-      // Gera a ordem: Specials, Combos, depois os outros tipos (sem repetir)
-      const tiposRestantes = Object.keys(agrupados)
-        .filter(tipo => !tiposOrdem.includes(tipo));
-      const ordemFinal = [...tiposOrdem, ...tiposRestantes];
-
-      // Renderiza cada grupo
-      return ordemFinal.map(tipo => (
-        agrupados[tipo] && agrupados[tipo].length > 0 && (
-          <div key={tipo}>
-            <h2 className="text-light">{tipo}</h2>
-            <div className="d-flex flex-wrap gap-3 justify-content-center">
-              {agrupados[tipo].map(post => (
-                <ForumContainer
-                  key={post.PostId}
-                  PostId={post.PostId}
-                  PostTitulo={post.PostTitulo}
-                  PostConteudo={post.PostConteudo}
-                  PostImage={post.PostImage}
-                  UsuarioNome={post.UsuarioNome}
-                  profilePicture={post.profilePicture}
-                  DataPostagem={post.DataPostagem}
-                  Tags={post.Tags}
-                />
-              ))}
-            </div>
-          </div>
-        )
-      ));
-    })()}
-    {filteredPosts.length === 0 && (
-      <span className="text-light">No posts found for this character.</span>
-    )}
+    <div className="d-flex flex-column gap-3 justify-content-center text-light">
+      {["specials", "combos"].map(tipo => (
+        <div key={tipo}>
+          <h3>{tipo.charAt(0).toUpperCase() + tipo.slice(1)}</h3>
+          {agrupados[tipo].map(post => (
+            <ForumContainer
+              key={post.postId}
+              PostId={post.postId}
+              PostTitulo={post.postTitulo}
+              PostConteudo={post.postConteudo}
+              UsuarioNome={post.usuarioNome}
+              DataPostagem={post.dataPostagem}
+              PostImage={post.imageUrl}
+              profilePicture={post.profilePicture}
+              Tags={post.tipoPost}
+            />
+          ))}
+        </div>
+      ))}
+    </div>
   </div>
 </div>
-    </div>
+</div> 
   );
 };
+
 
 export default CharacterInfo;
