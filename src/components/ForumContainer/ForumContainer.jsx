@@ -2,7 +2,7 @@ import { useNavigate, useParams } from "react-router";
 import styles from "./ForumContainer.module.css";
 import { getPostById } from "../../api/posts";
 import { getTimeAgo } from "../../utils/dateUtils";
-import { useEffect, useState } from "react";
+import { useEffect} from "react";
 
 
 

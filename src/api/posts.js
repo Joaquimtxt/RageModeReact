@@ -3,14 +3,14 @@ import { API_BASE_URL } from "./config.js";
 const token = localStorage.getItem("Token");
 // Buscar todos os posts
 export async function getPosts() {
-  const response = await fetch(`${API_BASE_URL}Posts`);
+  const response = await fetch(`${API_BASE_URL}posts`);
   if (!response.ok) throw new Error("Erro ao buscar posts");
   return response.json();
 }
 
 // Buscar um post por ID
-export async function getPostById(id) {
-  const response = await fetch(`${API_BASE_URL}posts/${id}`);
+export async function getPostById(postId) {
+  const response = await fetch(`${API_BASE_URL}posts/${postId}`);
   if (!response.ok) throw new Error("Erro ao buscar post");
   return response.json();
 }
@@ -134,5 +134,20 @@ export async function uploadPostImage(postId, file, token) {
     body: formData,
   });
   if (!response.ok) throw new Error("Erro ao enviar imagem do post");
+  return response.json(); 
+}
+export async function getUserLikeForPost(postId, token) {
+  const response = await fetch(`${API_BASE_URL}posts/${postId}/like`, {
+    headers: {
+      ...(token && { Authorization: `Bearer ${token}` }),
+    },
+  });
+  if (!response.ok) throw new Error("Erro ao buscar like do usuário");
   return response.json();
+}
+// Buscar contagem de likes/dislikes de um post
+export async function getLikesCount(postId) {
+  const response = await fetch(`${API_BASE_URL}posts/${postId}/likes-count`);
+  if (!response.ok) throw new Error("Erro ao buscar contagem de likes");
+  return response.json(); // { likes: X, dislikes: Y }
 }

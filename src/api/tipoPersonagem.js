@@ -34,7 +34,8 @@ export async function createTipoPersonagem(tipoData) {
   const response = await fetch(`${API_BASE_URL}TipoPersonagens`, {
     method: "POST",
     headers: {
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
+      ...(token && { Authorization: `Bearer ${token}` }),
     },
     body: JSON.stringify(tipoData),
   });
