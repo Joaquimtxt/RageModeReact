@@ -29,12 +29,12 @@ export async function updateTipoPersonagem(id, tipoData, token) {
 }
 
 // Criar novo tipo de personagem (usuário autenticado/admin)
-export async function createTipoPersonagem(tipoData, token) {
+export async function createTipoPersonagem(tipoData) {
+  const token = localStorage.getItem("Token");
   const response = await fetch(`${API_BASE_URL}TipoPersonagens`, {
     method: "POST",
     headers: {
-      "Content-Type": "application/json",
-      ...(token && { Authorization: `Bearer ${token}` }),
+      "Content-Type": "application/json"
     },
     body: JSON.stringify(tipoData),
   });
