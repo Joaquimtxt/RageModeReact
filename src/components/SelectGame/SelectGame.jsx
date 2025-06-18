@@ -159,6 +159,7 @@ const SelectGame = ({ props, Titulo, franquia }) => {
     }
     touchStartX.current = null;
   };
+  console.log("Jogo: ", cards);
 
   return (
     <div
