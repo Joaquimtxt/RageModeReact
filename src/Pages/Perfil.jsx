@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { getOwnUserProfile } from "../api/usuarios";
+import { useNavigate } from "react-router";
+import { getTimeAgo } from "../utils/dateUtils";
 
 const Perfil = () => {
   const [posts, setPosts] = useState([]);
   const [userInfo, setUserInfo] = useState([])
-
+  const navigate = useNavigate()
 
   const userEmail = localStorage.getItem("UserEmail");
   
@@ -60,7 +62,7 @@ const Perfil = () => {
             <div className="col-12" key={post.postId}>
               <div className="card d-flex bg-dark bg-opacity-50 border-light shadow-sm">
                 <div className="card-body p-0 py-2 px-3 d-flex flex-column">
-                  <span className="small text-light"> <b>@{userInfo.usuarioNome}</b> - {post.dataPostagem}</span>
+                  <span className="small text-light"> <b>@{userInfo.usuarioNome}</b> - {getTimeAgo(post.dataPostagem)}</span>
                   <span className="card-title text-light jersey fs-2">{post.postTitulo}</span>
                 </div>
               </div>

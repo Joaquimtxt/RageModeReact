@@ -26,7 +26,7 @@ const PostPage = () => {
   const [followersCount, setFollowersCount] = useState(0);
   const [userInfo, setUserInfo] = useState();
   const navigate = useNavigate();
-
+const token = localStorage.getItem("Token")
   useEffect(() => {
     getOwnUserProfile()
       .then(setUserInfo)

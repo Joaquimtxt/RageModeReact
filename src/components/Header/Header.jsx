@@ -168,7 +168,7 @@ const Header = () => {
                     <>
                     <img
                       className="rounded-circle"
-                      src={`https://ui-avatars.com/api/?name=${userEmail}`}
+                      src={`https://ui-avatars.com/api/?name=${userInfo.usuarioNome}`}
                       alt="User Avatar"
                       style={{
                         width: "50px",

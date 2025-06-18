@@ -8,10 +8,10 @@ export function getTimeAgo(dateString) {
     const diffMonths = Math.floor(diffDays / 30);
     const diffYears = Math.floor(diffDays / 365);
   
-    if (diffMinutes < 1) return "Posted just now";
-    if (diffMinutes < 60) return `Posted ${diffMinutes} minute${diffMinutes === 1 ? "" : "s"} ago`;
-    if (diffHours < 24) return `Posted ${diffHours} hour${diffHours === 1 ? "" : "s"} ago`;
-    if (diffDays < 30) return `Posted ${diffDays} day${diffDays === 1 ? "" : "s"} ago`;
-    if (diffMonths < 12) return `Posted ${diffMonths} month${diffMonths === 1 ? "" : "s"} ago`;
-    return `Posted ${diffYears} year${diffYears === 1 ? "" : "s"} ago`;
+    if (diffMinutes < 1) return "Postado agora";
+    if (diffMinutes < 60) return `Postado há ${diffMinutes} minuto${diffMinutes === 1 ? "" : "s"}`;
+    if (diffHours < 24) return `Postado há ${diffHours} hora${diffHours === 1 ? "" : "s"}`;
+    if (diffDays < 30) return `Postado há ${diffDays} dia${diffDays === 1 ? "" : "s"}`;
+    if (diffMonths < 12) return `Postado há ${diffMonths} ${diffMonths === 1 ? "mês" : "meses"}`;
+    return `Postado há ${diffYears} ano${diffYears === 1 ? "" : "s"}`;
   }

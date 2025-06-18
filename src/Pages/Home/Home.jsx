@@ -37,6 +37,7 @@ const Home = () => {
          PostTitulo={post.postTitulo}
          PostConteudo={post.postConteudo}
          PostImage={post.postImage || "https://placehold.co/600x300"}
+         profilePicture={`https://ui-avatars.com/api/?name=${post.usuarioNome}`}
        />
         ))}
 </div>
