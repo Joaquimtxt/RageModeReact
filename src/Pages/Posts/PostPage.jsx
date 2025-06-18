@@ -18,6 +18,8 @@ const PostPage = () => {
   const navigate = useNavigate();
 
 
+  const token = localStorage.getItem("Token"); 
+
   getOwnUserProfile().then(setUserInfo).catch(error => {
     console.log("Erro ao buscar as informações de perfil: ", error);
   })
@@ -125,7 +127,7 @@ const handleDeletePost = () => {
         </div>
       </div>
       <div className="w-100 mt-3">
-        <LikePost />
+        <LikePost postId={post.postId} token={token} />
       </div>
       <div className="w-100 mt-3">
         <h5 className="text-light">Comments:</h5>
