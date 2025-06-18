@@ -6,6 +6,8 @@ import { getGamePicture } from "../../api/jogo";
 
 const SelectGame = ({ props, Titulo, franquia }) => {
   const [jogos, setJogos] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [cardsPerView, setCardsPerView] = useState(4);
 
   async function fetchImageBanner(jogo) {
     // Se imageBanner não existe ou está vazio, tenta buscar pelo endpoint
@@ -60,6 +62,8 @@ const SelectGame = ({ props, Titulo, franquia }) => {
     let isMounted = true;
 
     async function fetchJogos() {
+
+      setLoading(true);
       try {
         let jogosData = await getGames();
 
@@ -93,14 +97,31 @@ const SelectGame = ({ props, Titulo, franquia }) => {
       } catch (error) {
         console.log("Erro com a API ao buscar os jogos:", error);
       }
+      setLoading(false);
     }
-
+    
     fetchJogos();
-
+    
     return () => {
       isMounted = false;
     };
   }, [franquia]);
+
+  const placeholders = Array(cardsPerView).fill(0).map((_, idx) => (
+    <div key={idx} className="card m-2" style={{ width: 200 }}>
+      <div className="placeholder-glow" style={{ height: 300, background: "#e0e0e0" }}>
+        <span className="placeholder col-12" style={{ height: "100%", display: "block" }}></span>
+      </div>
+      <div className="card-body bg-secondary">
+        <h5 className="card-title placeholder-glow">
+          <span className="placeholder col-6"></span>
+        </h5>
+        <p className="card-text placeholder-glow">
+          <span className="placeholder col-4"></span>
+        </p>
+      </div>
+    </div>
+  ));
 
   const cards = jogos.map((jogo) => (
     <GameCard
@@ -112,7 +133,6 @@ const SelectGame = ({ props, Titulo, franquia }) => {
     />
   ));
 
-  const [cardsPerView, setCardsPerView] = useState(4);
   const [startIdx, setStartIdx] = useState(0);
   const touchStartX = useRef(null);
 
@@ -185,7 +205,7 @@ const SelectGame = ({ props, Titulo, franquia }) => {
               transform: `translateX(-${(startIdx / cards.length) * 100}%)`,
             }}
           >
-            {cards.map((card, idx) => (
+            {(loading ? placeholders : cards).map((card, idx) => (
               <div key={idx} className="flex-shrink-0" style={{}}>
                 {card}
               </div>
