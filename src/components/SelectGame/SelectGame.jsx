@@ -4,9 +4,8 @@ import GameCard from "./GameCard";
 import { getGames } from "../../api/personagemJogos";
 import { getGamePicture } from "../../api/jogo";
 
-const SelectGame = ({props, Titulo, franquia}) => {
-  const [jogos, setJogos] = useState([])
-
+const SelectGame = ({ props, Titulo, franquia }) => {
+  const [jogos, setJogos] = useState([]);
 
   async function fetchImageBanner(jogo) {
     // Se imageBanner não existe ou está vazio, tenta buscar pelo endpoint
@@ -44,14 +43,20 @@ const SelectGame = ({props, Titulo, franquia}) => {
         return { ...jogo, imageBannerFinal: imgResult.base64Image };
       }
       // Se não vier base64, usa o caminho local
-      return { ...jogo, imageBannerFinal: `/Resources/Games/${jogo.imageBanner}` };
+      return {
+        ...jogo,
+        imageBannerFinal: `/Resources/Games/${jogo.imageBanner}`,
+      };
     } catch {
       // Qualquer erro, usa o caminho local
-      return { ...jogo, imageBannerFinal: `/Resources/Games/${jogo.imageBanner}` };
+      return {
+        ...jogo,
+        imageBannerFinal: `/Resources/Games/${jogo.imageBanner}`,
+      };
     }
   }
 
- useEffect(() => {
+  useEffect(() => {
     let isMounted = true;
 
     async function fetchJogos() {
@@ -61,7 +66,7 @@ const SelectGame = ({props, Titulo, franquia}) => {
         // Filtra por franquia se necessário
         if (franquia) {
           const franquiaNormalized = franquia.replace(/\s/g, "").toLowerCase();
-          jogosData = jogosData.filter(jogo =>
+          jogosData = jogosData.filter((jogo) =>
             (jogo.jogoNome || jogo.nome || "")
               .replace(/\s/g, "")
               .toLowerCase()
@@ -70,13 +75,19 @@ const SelectGame = ({props, Titulo, franquia}) => {
         }
 
         // Ordena por anoLancamento (mais antigo à esquerda)
-    jogosData.sort((a, b) => {
-  const dataA = a.anoLancamento ? new Date(a.anoLancamento) : new Date(0);
-  const dataB = b.anoLancamento ? new Date(b.anoLancamento) : new Date(0);
-  return dataA - dataB;
-});
+        jogosData.sort((a, b) => {
+          const dataA = a.anoLancamento
+            ? new Date(a.anoLancamento)
+            : new Date(0);
+          const dataB = b.anoLancamento
+            ? new Date(b.anoLancamento)
+            : new Date(0);
+          return dataA - dataB;
+        });
 
-        const jogosComImagem = await Promise.all(jogosData.map(fetchImageBanner));
+        const jogosComImagem = await Promise.all(
+          jogosData.map(fetchImageBanner)
+        );
 
         if (isMounted) setJogos(jogosComImagem);
       } catch (error) {
@@ -86,7 +97,9 @@ const SelectGame = ({props, Titulo, franquia}) => {
 
     fetchJogos();
 
-    return () => { isMounted = false; };
+    return () => {
+      isMounted = false;
+    };
   }, [franquia]);
 
   const cards = jogos.map((jogo) => (
@@ -99,8 +112,6 @@ const SelectGame = ({props, Titulo, franquia}) => {
     />
   ));
 
-
-
   const [cardsPerView, setCardsPerView] = useState(4);
   const [startIdx, setStartIdx] = useState(0);
   const touchStartX = useRef(null);
@@ -109,22 +120,22 @@ const SelectGame = ({props, Titulo, franquia}) => {
     touchStartX.current = e.touches[0].clientX;
   };
 
- useEffect(() => {
-  const handleResize = () => {
-    if (window.innerWidth < 700) {
-      setCardsPerView(3);
-    } else {
-      setCardsPerView(4);
-    }
-  };
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 700) {
+        setCardsPerView(3);
+      } else {
+        setCardsPerView(4);
+      }
+    };
 
-  handleResize();
-  window.addEventListener("resize", handleResize);
+    handleResize();
+    window.addEventListener("resize", handleResize);
 
-  return () => {
-    window.removeEventListener("resize", handleResize);
-  };
-}, []);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   const handlePrev = () => {
     setStartIdx((prev) => Math.max(prev - cardsPerView, 0)); // Diminui o índice inicial, mas não permite que fique negativo(Rolar para o início), o limite é 0
@@ -153,7 +164,9 @@ const SelectGame = ({props, Titulo, franquia}) => {
     <div
       className={`container-fluid rounded-2 position-relative w-100 px-0 ${styles.sthContainer}`}
     >
-      <h1 className="ms-xl-5 ms-2 text-light ">{Titulo || (props && props.Titulo)}</h1>
+      <h1 className="ms-xl-5 ms-2 text-light ">
+        {Titulo || (props && props.Titulo)}
+      </h1>
       <div className={`d-flex align-items-center  ${styles.SthScroll}`}>
         <button
           className={`btn btn-dark d-none d-md-flex align-items-center justify-content-center z-2 position-relative ${styles.scrollIcon2}`}
@@ -165,22 +178,14 @@ const SelectGame = ({props, Titulo, franquia}) => {
         </button>
         <div className="overflow-hidden ">
           <div
-            className={`d-flex flex-nowrap m-0 p-3 ${styles.scrollTransition}`}
+            id="scrollContainer"
+            className={`d-flex flex-nowrap gap-3 m-0 ${styles.scrollTransition} overflow-x-scroll w-100`}
             style={{
               transform: `translateX(-${(startIdx / cards.length) * 100}%)`,
-              width: `${(cards.length / cardsPerView) * 100}%`,
             }}
-            onTouchStart={handleTouchStart}
-            onTouchEnd={handleTouchEnd}
           >
             {cards.map((card, idx) => (
-              <div
-                key={idx}
-                className="flex-shrink-0"
-                style={{
-                  width: `${100 / cards.length}%`,
-                }}
-              >
+              <div key={idx} className="flex-shrink-0" style={{}}>
                 {card}
               </div>
             ))}
