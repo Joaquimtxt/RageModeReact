@@ -2,67 +2,16 @@ import React, { useEffect, useRef, useState } from "react";
 import styles from "./SelectGame.module.css";
 import GameCard from "./GameCard";
 import { getGames } from "../../api/personagemJogos";
-import { getGamePicture } from "../../api/jogo";
 
 const SelectGame = ({ props, Titulo, franquia }) => {
   const [jogos, setJogos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [cardsPerView, setCardsPerView] = useState(4);
 
-  async function fetchImageBanner(jogo) {
-    // Se imageBanner não existe ou está vazio, tenta buscar pelo endpoint
-    if (!jogo.imageBanner) {
-      try {
-        const imgResult = await getGamePicture(jogo.jogosId);
-        return { ...jogo, imageBannerFinal: imgResult.base64Image };
-      } catch {
-        return { ...jogo, imageBannerFinal: null };
-      }
-    }
-
-    // Se já está em base64
-    if (
-      typeof jogo.imageBanner === "string" &&
-      jogo.imageBanner.startsWith("data:image/")
-    ) {
-      return { ...jogo, imageBannerFinal: jogo.imageBanner };
-    }
-
-    // Se é uma URL externa
-    if (
-      typeof jogo.imageBanner === "string" &&
-      (jogo.imageBanner.startsWith("http://") ||
-        jogo.imageBanner.startsWith("https://"))
-    ) {
-      return { ...jogo, imageBannerFinal: jogo.imageBanner };
-    }
-
-    // Se é um nome de arquivo (tenta buscar pelo endpoint)
-    try {
-      const imgResult = await getGamePicture(jogo.jogosId);
-      // Se vier base64, usa ele
-      if (imgResult && imgResult.base64Image) {
-        return { ...jogo, imageBannerFinal: imgResult.base64Image };
-      }
-      // Se não vier base64, usa o caminho local
-      return {
-        ...jogo,
-        imageBannerFinal: `/Resources/Games/${jogo.imageBanner}`,
-      };
-    } catch {
-      // Qualquer erro, usa o caminho local
-      return {
-        ...jogo,
-        imageBannerFinal: `/Resources/Games/${jogo.imageBanner}`,
-      };
-    }
-  }
-
   useEffect(() => {
     let isMounted = true;
 
     async function fetchJogos() {
-
       setLoading(true);
       try {
         let jogosData = await getGames();
@@ -89,9 +38,13 @@ const SelectGame = ({ props, Titulo, franquia }) => {
           return dataA - dataB;
         });
 
-        const jogosComImagem = await Promise.all(
-          jogosData.map(fetchImageBanner)
-        );
+        // Agora, só faz o map síncrono
+        const jogosComImagem = jogosData.map(jogo => ({
+          ...jogo,
+          imageBannerFinal: jogo.imageBanner
+            ? `/Resources/Games/${jogo.imageBanner}`
+            : null
+        }));
 
         if (isMounted) setJogos(jogosComImagem);
       } catch (error) {
@@ -99,9 +52,9 @@ const SelectGame = ({ props, Titulo, franquia }) => {
       }
       setLoading(false);
     }
-    
+
     fetchJogos();
-    
+
     return () => {
       isMounted = false;
     };
