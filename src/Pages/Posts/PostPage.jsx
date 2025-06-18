@@ -4,9 +4,19 @@ import styles from "./Posts.module.css";
 import LikePost from "../../components/LikePost/LikePost";
 import CommentBar from "../../components/Comments/CommentBar";
 import Comments from "../../components/Comments/Comments";
-import { deletePost, getPostById, getPostComments } from "../../api/posts";
+import {
+  deletePost,
+  followUserFromPost,
+  getPostById,
+  getPostComments,
+} from "../../api/posts";
 import { getTimeAgo } from "../../utils/dateUtils";
-import { getOwnUserProfile } from "../../api/usuarios";
+import {
+  followUser,
+  getFollowerCount,
+  getOwnUserProfile,
+  unfollowUser,
+} from "../../api/usuarios";
 
 const PostPage = () => {
   const { id } = useParams();
@@ -17,37 +27,67 @@ const PostPage = () => {
   const [userInfo, setUserInfo] = useState();
   const navigate = useNavigate();
 
+  useEffect(() => {
+    getOwnUserProfile()
+      .then(setUserInfo)
+      .catch((error) => {
+        console.log("Erro ao buscar as informações de perfil: ", error);
+      });
+  }, []);
 
-  
-useEffect(() => {
-  getOwnUserProfile()
-  .then(setUserInfo)
-  .catch((error) => {
-    console.log("Erro ao buscar as informações de perfil: ", error);
-  });
+  const handleSubscribe = async () => {
+    try {
+      const isFollowing = userInfo?.seguindo?.some(
+        (seguindo) => seguindo.seguindoId === post.usuarioId
+      );
 
-}, [])
-  
-  const handleSubscribe = () => {
-    if (!subscribed) {
-      setSubscribed(true);
-      setFollowersCount(followersCount + 1);
-    } else {
-      setSubscribed(false);
-      setFollowersCount(followersCount - 1);
+      if (isFollowing) {
+        unfollowUser(post.usuarioId);
+        setSubscribed(false);
+      } else {
+        followUserFromPost(id);
+        setSubscribed(true);
+      }
+      
+      // Atualiza as informações do usuário após seguir ou deixar de seguir
+      const updatedUser = getOwnUserProfile();
+      setUserInfo(updatedUser);
+    } catch (err) {
+      console.error("Erro ao seguir/deixar de seguir:", err);
     }
   };
 
-
+  useEffect(() => {
+    if (userInfo && post) {
+      const isFollowing = userInfo.seguindo?.some(
+        (seguindo) => seguindo.seguindoId === post.usuarioId
+      );
+      setSubscribed(isFollowing);
+    }
+  }, [userInfo, post]);
   
   useEffect(() => {
-    getPostById(id).then((data) => {setPost(data); console.log("Post carregado: ", data)}).catch(console.error);
+    getPostById(id)
+      .then((data) => {
+        setPost(data);
+        console.log("Post carregado: ", data);
+      })
+      .catch(console.error);
   }, [id]);
-  
+
+  useEffect(() => {
+    if (post && post.usuarioId) {
+      getFollowerCount(post.usuarioId)
+        .then(setFollowersCount)
+        .catch((e) => console.error("Erro ao pegar seguidores: ", e));
+    }
+  }, [post]);
 
   const handleDeletePost = () => {
-
-    if (userInfo.usuarioRole !== "Admin" && userInfo.usuarioNome !== post.usuarioNome) {
+    if (
+      userInfo.usuarioRole !== "Admin" &&
+      userInfo.usuarioNome !== post.usuarioNome
+    ) {
       navigate("/");
       alert(
         "Você não tem permissão para excluir esta postagem. Somente um administrador ou o autor da postagem pode excluir a publicação. "
@@ -58,21 +98,21 @@ useEffect(() => {
       );
       if (!confirmDelete) return;
 
-      deletePost(id).then(() => {
-        alert(`A postagem de ${post.usuarioNome} foi removida com sucesso.`);
-        window.localStorage.reload();
-        navigate("/");
-
-      }).catch((error) => {console.error("Erro ao excluir a postagem: ", error)})
-      
+      deletePost(id)
+        .then(() => {
+          alert(`A postagem de ${post.usuarioNome} foi removida com sucesso.`);
+          window.localStorage.reload();
+          navigate("/");
+        })
+        .catch((error) => {
+          console.error("Erro ao excluir a postagem: ", error);
+        });
     }
   };
 
   useEffect(() => {
-
     getPostComments(id).then(setComments).catch(console.error);
-  });
-
+  }, [id]);
 
   if (!post) {
     return (
@@ -108,7 +148,10 @@ useEffect(() => {
             {subscribed ? "Followed" : "Follow"}
           </button>
 
-          { userInfo && post && (userInfo.usuarioRole === "Admin" || userInfo.id === post.usuarioId) ? (
+          {userInfo &&
+          post &&
+          (userInfo.usuarioRole === "Admin" ||
+            userInfo.id === post.usuarioId) ? (
             <button
               className="btn btn-danger btn-sm border-0 ms-2 "
               onClick={handleDeletePost}
@@ -116,7 +159,8 @@ useEffect(() => {
               {" "}
               <i className="bi bi-trash me-1 "></i>Deletar
             </button>
-          ) : ( ""
+          ) : (
+            ""
             // Nao vai aparecer o botão
           )}
         </div>

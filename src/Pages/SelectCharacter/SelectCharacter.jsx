@@ -141,7 +141,7 @@ const SelectCharacter = () => {
             className="mb-4 rounded-4"
           />
 
-{gameInfo && userInfo.usuarioRole ? (
+{gameInfo && userInfo && (userInfo.usuarioRole === "Admin") ? (
   <button
             className="bg-danger px-2 py-1 rounded-3 text-light border-0"
             onClick={handleDeleteGame}
