@@ -4,9 +4,19 @@ import styles from "./Posts.module.css";
 import LikePost from "../../components/LikePost/LikePost";
 import CommentBar from "../../components/Comments/CommentBar";
 import Comments from "../../components/Comments/Comments";
-import { deletePost, getPostById, getPostComments } from "../../api/posts";
+import {
+  deletePost,
+  followUserFromPost,
+  getPostById,
+  getPostComments,
+} from "../../api/posts";
 import { getTimeAgo } from "../../utils/dateUtils";
-import { getOwnUserProfile } from "../../api/usuarios";
+import {
+  followUser,
+  getFollowerCount,
+  getOwnUserProfile,
+  unfollowUser,
+} from "../../api/usuarios";
 
 const PostPage = () => {
   const { id } = useParams();
@@ -14,50 +24,94 @@ const PostPage = () => {
   const [post, setPost] = useState(null);
   const [subscribed, setSubscribed] = useState(false);
   const [followersCount, setFollowersCount] = useState(0);
-  const [userInfo, setUserInfo] = useState()
+  const [userInfo, setUserInfo] = useState();
   const navigate = useNavigate();
 
+  useEffect(() => {
+    getOwnUserProfile()
+      .then(setUserInfo)
+      .catch((error) => {
+        console.log("Erro ao buscar as informações de perfil: ", error);
+      });
+  }, []);
 
-  const token = localStorage.getItem("Token"); 
+  const handleSubscribe = async () => {
+    try {
+      const isFollowing = userInfo?.seguindo?.some(
+        (seguindo) => seguindo.seguindoId === post.usuarioId
+      );
 
-  getOwnUserProfile().then(setUserInfo).catch(error => {
-    console.log("Erro ao buscar as informações de perfil: ", error);
-  })
-
-  const handleSubscribe = () => {
-    if (!subscribed) {
-      setSubscribed(true);
-      setFollowersCount(followersCount + 1);
-    } else {
-      setSubscribed(false);
-      setFollowersCount(followersCount - 1);
+      if (isFollowing) {
+        unfollowUser(post.usuarioId);
+        setSubscribed(false);
+      } else {
+        followUserFromPost(id);
+        setSubscribed(true);
+      }
+      
+      // Atualiza as informações do usuário após seguir ou deixar de seguir
+      const updatedUser = getOwnUserProfile();
+      setUserInfo(updatedUser);
+    } catch (err) {
+      console.error("Erro ao seguir/deixar de seguir:", err);
     }
   };
 
-const handleDeletePost = () => {
-
-  // if(userInfo.usuarioRole != "Admin") {
-  //   navigate("/")
-  //   alert("Somente um administrador pode excluir ou alterar postagens.")
-  // }
-
-     const confirmDelete =  window.confirm(`Tem certeza que deseja excluir a postagem de ${post.usuarioNome}? Esta ação será irreversível. `)
-     if (!confirmDelete) return;
-
-     deletePost(id);
-     navigate("/")
-     alert(`A postagem de ${post.usuarioNome} foi removida com sucesso.`)
+  useEffect(() => {
+    if (userInfo && post) {
+      const isFollowing = userInfo.seguindo?.some(
+        (seguindo) => seguindo.seguindoId === post.usuarioId
+      );
+      setSubscribed(isFollowing);
     }
+  }, [userInfo, post]);
+  
+  useEffect(() => {
+    getPostById(id)
+      .then((data) => {
+        setPost(data);
+        console.log("Post carregado: ", data);
+      })
+      .catch(console.error);
+  }, [id]);
 
   useEffect(() => {
-    
+    if (post && post.usuarioId) {
+      getFollowerCount(post.usuarioId)
+        .then(setFollowersCount)
+        .catch((e) => console.error("Erro ao pegar seguidores: ", e));
+    }
+  }, [post]);
 
+  const handleDeletePost = () => {
+    if (
+      userInfo.usuarioRole !== "Admin" &&
+      userInfo.usuarioNome !== post.usuarioNome
+    ) {
+      navigate("/");
+      alert(
+        "Você não tem permissão para excluir esta postagem. Somente um administrador ou o autor da postagem pode excluir a publicação. "
+      );
+    } else {
+      const confirmDelete = window.confirm(
+        `Tem certeza que deseja excluir a postagem de ${post.usuarioNome}? Esta ação será irreversível. `
+      );
+      if (!confirmDelete) return;
 
+      deletePost(id)
+        .then(() => {
+          alert(`A postagem de ${post.usuarioNome} foi removida com sucesso.`);
+          window.localStorage.reload();
+          navigate("/");
+        })
+        .catch((error) => {
+          console.error("Erro ao excluir a postagem: ", error);
+        });
+    }
+  };
+
+  useEffect(() => {
     getPostComments(id).then(setComments).catch(console.error);
-  },);
-
-  useEffect(() => {
-    getPostById(id).then(setPost).catch(console.error);
   }, [id]);
 
   if (!post) {
@@ -94,8 +148,21 @@ const handleDeletePost = () => {
             {subscribed ? "Followed" : "Follow"}
           </button>
 
-          <button className="btn btn-danger btn-sm border-0 ms-2 "  onClick={handleDeletePost}> <i className="bi bi-trash me-1 "></i>Deletar</button>
-
+          {userInfo &&
+          post &&
+          (userInfo.usuarioRole === "Admin" ||
+            userInfo.id === post.usuarioId) ? (
+            <button
+              className="btn btn-danger btn-sm border-0 ms-2 "
+              onClick={handleDeletePost}
+            >
+              {" "}
+              <i className="bi bi-trash me-1 "></i>Deletar
+            </button>
+          ) : (
+            ""
+            // Nao vai aparecer o botão
+          )}
         </div>
         <div className={` ms-4 text-start mb-4 mb-md-3`}>
           <div className="  fs-3 fw-bolder mt-2 mb-3">{post.postTitulo}</div>
@@ -135,15 +202,15 @@ const handleDeletePost = () => {
       </div>
 
       <div className="d-flex flex-column gap-2">
-      {comments.map((comment) => (
+        {comments.map((comment) => (
           <Comments
             key={comment.comentariosId}
             userName={comment.usuarioNome}
             postDate={comment.dataComentario}
             commentContent={comment.comentarioTexto}
           />
-      ))}
-        </div>
+        ))}
+      </div>
     </div>
   );
 };

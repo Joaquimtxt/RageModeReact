@@ -110,7 +110,8 @@ export async function getPostComments(postId) {
 }
 
 // Seguir usuário do post
-export async function followUserFromPost(postId, token) {
+export async function followUserFromPost(postId) {
+  const token = localStorage.getItem("Token")
   const response = await fetch(`${API_BASE_URL}posts/${postId}/follow`, {
     method: "POST",
     headers: {

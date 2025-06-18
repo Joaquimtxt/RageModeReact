@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useImperativeHandle, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router";
 import { deleteJogo, getJogoById } from "../../api/jogo";
 import { getPersonagensByJogo } from "../../api/personagemJogos";
@@ -19,13 +19,12 @@ const SelectCharacter = () => {
   const [nomeClasse, setNomeClasse] = useState("")
   const navigate = useNavigate();
 
-  useEffect(() => {
     getOwnUserProfile()
       .then(setUserInfo)
       .catch((error) => {
-        console.log("Erro ao buscar as informações de perfil: ", error);
+        console.log(error);
       });
-  }, [])
+ 
 
     const addClass = () => {
 
@@ -34,7 +33,7 @@ const SelectCharacter = () => {
       }
 
       createTipoPersonagem(dataClasse).catch(error => {
-        console.log("Erro ao Adicionar uma classe: ", error)
+        console.log("Erro ao Adicionar uma Classe: ", error)
       });
     }
 
@@ -100,21 +99,23 @@ const SelectCharacter = () => {
   };
 
   const handleDeleteGame = () => {
-    // if(userInfo.usuarioRole != "Admin") {
-    //   navigate("/")
-    //   alert("Somente um administrador pode excluir ou alterar postagens.")
-    // }
+    if(userInfo.usuarioRole != "Admin") {
+      navigate("/")
+      alert("Somente um administrador pode excluir ou alterar a lista de Jogos.")
+    } else {
 
-    const confirmDelete = window.confirm(
+      
+      const confirmDelete = window.confirm(
       `Deseja excluir o jogo ${gameInfo.jogoNome}? esta será uma ação irreversivel.`
     );
 
     if (!confirmDelete) return;
-
+    
     deleteJogo(jogoId).then(setGameInfo(null));
     navigate("/games");
     window.location.reload();
     alert("Jogo deletado com sucesso.");
+  }
   };
 
   return (
@@ -139,12 +140,16 @@ const SelectCharacter = () => {
             alt={gameInfo?.jogoNome || "Game Placeholder"}
             className="mb-4 rounded-4"
           />
-          <button
+
+{gameInfo && userInfo && (userInfo.usuarioRole === "Admin") ? (
+  <button
             className="bg-danger px-2 py-1 rounded-3 text-light border-0"
             onClick={handleDeleteGame}
           >
-            <i className="bi bi-trash me-2"></i> Deletar{" "}
+             <i className="bi bi-trash me-2"></i> Deletar{" "}
           </button>
+) : ("")}
+          
         </div>
         <div
           className="col-md-6 d-flex justify-content-between"
