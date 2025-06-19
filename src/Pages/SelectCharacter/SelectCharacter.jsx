@@ -1,4 +1,4 @@
-import React, { useEffect, useImperativeHandle, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router";
 import { deleteJogo, getJogoById } from "../../api/jogo";
 import { getPersonagensByJogo } from "../../api/personagemJogos";
