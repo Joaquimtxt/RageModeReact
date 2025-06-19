@@ -3,23 +3,23 @@ import styles from "./SelectGame.module.css";
 import GameCard from "./GameCard";
 import { getGames } from "../../api/personagemJogos";
 
-const SelectGame = ({ props, Titulo, franquia }) => {
-  const [jogos, setJogos] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [cardsPerView, setCardsPerView] = useState(4);
+const SelectGame = ({props, Titulo, franquia}) => {
+  const [jogos, setJogos] = useState([])
+const [loading, setLoading] = useState(true);
+ const [cardsPerView, setCardsPerView] = useState(4);
 
-  useEffect(() => {
+
+ useEffect(() => {
     let isMounted = true;
-
+ setLoading(true);
     async function fetchJogos() {
-      setLoading(true);
       try {
         let jogosData = await getGames();
 
         // Filtra por franquia se necessário
         if (franquia) {
           const franquiaNormalized = franquia.replace(/\s/g, "").toLowerCase();
-          jogosData = jogosData.filter((jogo) =>
+          jogosData = jogosData.filter(jogo =>
             (jogo.jogoNome || jogo.nome || "")
               .replace(/\s/g, "")
               .toLowerCase()
@@ -28,36 +28,24 @@ const SelectGame = ({ props, Titulo, franquia }) => {
         }
 
         // Ordena por anoLancamento (mais antigo à esquerda)
-        jogosData.sort((a, b) => {
-          const dataA = a.anoLancamento
-            ? new Date(a.anoLancamento)
-            : new Date(0);
-          const dataB = b.anoLancamento
-            ? new Date(b.anoLancamento)
-            : new Date(0);
-          return dataA - dataB;
+  jogosData.sort((a, b) => {
+          const anoA = parseInt(a.anoLancamento) || 0;
+          const anoB = parseInt(b.anoLancamento) || 0;
+          return anoA - anoB;
         });
 
-        // Agora, só faz o map síncrono
-        const jogosComImagem = jogosData.map(jogo => ({
-          ...jogo,
-          imageBannerFinal: jogo.imageBanner
-            ? `/Resources/Games/${jogo.imageBanner}`
-            : null
-        }));
-
-        if (isMounted) setJogos(jogosComImagem);
+        if (isMounted) setJogos(jogosData);
       } catch (error) {
         console.log("Erro com a API ao buscar os jogos:", error);
       }
-      setLoading(false);
+      finally {
+        if (isMounted) setLoading(false);
+      }
     }
 
     fetchJogos();
 
-    return () => {
-      isMounted = false;
-    };
+    return () => { isMounted = false; };
   }, [franquia]);
 
   const placeholders = Array(cardsPerView).fill(0).map((_, idx) => (
@@ -82,10 +70,13 @@ const SelectGame = ({ props, Titulo, franquia }) => {
       Year={jogo.anoLancamento}
       jogoId={jogo.jogosId}
       Title={jogo.jogoNome}
-      Poster={jogo.imageBannerFinal || null}
+      Poster={jogo.imageBanner || null}
     />
   ));
 
+
+
+ 
   const [startIdx, setStartIdx] = useState(0);
   const touchStartX = useRef(null);
 
@@ -93,22 +84,22 @@ const SelectGame = ({ props, Titulo, franquia }) => {
     touchStartX.current = e.touches[0].clientX;
   };
 
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth < 700) {
-        setCardsPerView(3);
-      } else {
-        setCardsPerView(4);
-      }
-    };
+ useEffect(() => {
+  const handleResize = () => {
+    if (window.innerWidth < 700) {
+      setCardsPerView(3);
+    } else {
+      setCardsPerView(4);
+    }
+  };
 
-    handleResize();
-    window.addEventListener("resize", handleResize);
+  handleResize();
+  window.addEventListener("resize", handleResize);
 
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
+  return () => {
+    window.removeEventListener("resize", handleResize);
+  };
+}, []);
 
   const handlePrev = () => {
     setStartIdx((prev) => Math.max(prev - cardsPerView, 0)); // Diminui o índice inicial, mas não permite que fique negativo(Rolar para o início), o limite é 0
@@ -132,15 +123,12 @@ const SelectGame = ({ props, Titulo, franquia }) => {
     }
     touchStartX.current = null;
   };
-  console.log("Jogo: ", cards);
 
   return (
     <div
       className={`container-fluid rounded-2 position-relative w-100 px-0 ${styles.sthContainer}`}
     >
-      <h1 className="ms-xl-5 ms-2 text-light ">
-        {Titulo || (props && props.Titulo)}
-      </h1>
+      <h1 className="ms-xl-5 ms-2 text-light ">{Titulo || (props && props.Titulo)}</h1>
       <div className={`d-flex align-items-center  ${styles.SthScroll}`}>
         <button
           className={`btn btn-dark d-none d-md-flex align-items-center justify-content-center z-2 position-relative ${styles.scrollIcon2}`}
@@ -158,11 +146,17 @@ const SelectGame = ({ props, Titulo, franquia }) => {
               transform: `translateX(-${(startIdx / cards.length) * 100}%)`,
             }}
           >
-            {(loading ? placeholders : cards).map((card, idx) => (
-              <div key={idx} className="flex-shrink-0" style={{}}>
-                {card}
-              </div>
-            ))}
+         {loading
+              ? placeholders.map((ph, idx) => (
+                  <div key={idx} className="flex-shrink-0">
+                    {ph}
+                  </div>
+                ))
+              : cards.map((card, idx) => (
+                  <div key={idx} className="flex-shrink-0">
+                    {card}
+                  </div>
+                ))}
           </div>
           <button
             className={`btn btn-dark d-none d-md-flex align-items-center justify-content-center  position-absolute ${styles.scrollIcon1}`}
