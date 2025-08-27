@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./SelectGame.module.css";
 import GameCard from "./GameCard";
 import { getGames } from "../../api/personagemJogos";
@@ -78,11 +78,11 @@ const [loading, setLoading] = useState(true);
 
  
   const [startIdx, setStartIdx] = useState(0);
-  const touchStartX = useRef(null);
+  // const touchStartX = useRef(null);
 
-  const handleTouchStart = (e) => {
-    touchStartX.current = e.touches[0].clientX;
-  };
+  // const handleTouchStart = (e) => {
+  //   touchStartX.current = e.touches[0].clientX;
+  // };
 
  useEffect(() => {
   const handleResize = () => {
@@ -110,19 +110,19 @@ const [loading, setLoading] = useState(true);
       Math.min(prev + cardsPerView, cards.length - cardsPerView)
     ); // Aumenta o índice inicial, mas não permite que ultrapasse o limite, que é o tanto de cards - cards por view
   };
-  const handleTouchEnd = (e) => {
-    if (touchStartX.current === null) return;
-    const touchEndX = e.changedTouches[0].clientX;
-    const diff = touchStartX.current - touchEndX; // Calcula a diferença da posição do touch inicial, com a posição final do touch
-    if (diff > 50) {
-      // Se o user arrastar mais de 50px para a esquerda, vai para os próximos card
-      handleNext(); // É chamado para respeitar os limites do carrossel
-    } else if (diff < -50) {
-      // Se o user arrastar mais de 50px para a direita, vai para os cards anteriores
-      handlePrev(); // É chamado para respeitar os limites do carrossel
-    }
-    touchStartX.current = null;
-  };
+  // const handleTouchEnd = (e) => {
+  //   if (touchStartX.current === null) return;
+  //   const touchEndX = e.changedTouches[0].clientX;
+  //   const diff = touchStartX.current - touchEndX; // Calcula a diferença da posição do touch inicial, com a posição final do touch
+  //   if (diff > 50) {
+  //     // Se o user arrastar mais de 50px para a esquerda, vai para os próximos card
+  //     handleNext(); // É chamado para respeitar os limites do carrossel
+  //   } else if (diff < -50) {
+  //     // Se o user arrastar mais de 50px para a direita, vai para os cards anteriores
+  //     handlePrev(); // É chamado para respeitar os limites do carrossel
+  //   }
+  //   touchStartX.current = null;
+  // };
 
   return (
     <div

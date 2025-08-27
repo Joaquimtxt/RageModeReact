@@ -1,14 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { getOwnUserProfile } from "../api/usuarios";
-import { useNavigate } from "react-router";
 import { getTimeAgo } from "../utils/dateUtils";
 
 const Perfil = () => {
-  const [posts, setPosts] = useState([]);
-  const [userInfo, setUserInfo] = useState([])
-  const navigate = useNavigate()
 
-  const userEmail = localStorage.getItem("UserEmail");
+  const [userInfo, setUserInfo] = useState([])
+
   
   useEffect(() => {
       getOwnUserProfile().then(setUserInfo).catch(error => {

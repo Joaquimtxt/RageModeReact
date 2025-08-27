@@ -18,6 +18,7 @@ import AddGame from "./Pages/Games/AddGame";
 import Perfil from "./Pages/Perfil"; 
 import PostPage from "./Pages/Posts/PostPage";
 import AddCharacter from "./Pages/SelectCharacter/AddCharacter";
+import PerfilUsuario from "./Pages/PerfilUsuario";
 
 function App() {
 
@@ -40,6 +41,7 @@ function App() {
         <Route path="/post/:id" element={<PostPage/>} />
         <Route path="/perfil" element={<Perfil />} />
         <Route path="/games/:jogoId/addcharacter" element={<AddCharacter />} />
+        <Route path="/usuario" element={<PerfilUsuario /> } />
       </Routes>
       <Footer />
     </Router>

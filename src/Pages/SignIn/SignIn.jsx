@@ -5,8 +5,8 @@ import api from "../../services/api";
 const SignIn = () => {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
-  const [TwofaRec, setTwofaRec] = useState("");
-  const [TwofaCode, setTwofaCode] = useState("");
+  // const [TwofaRec, setTwofaRec] = useState("");
+  // const [TwofaCode, setTwofaCode] = useState("");
 
   const [erro, setErro] = useState("");
  const navigate = useNavigate();

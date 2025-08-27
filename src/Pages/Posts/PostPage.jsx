@@ -12,7 +12,6 @@ import {
 } from "../../api/posts";
 import { getTimeAgo } from "../../utils/dateUtils";
 import {
-  followUser,
   getFollowerCount,
   getOwnUserProfile,
   unfollowUser,

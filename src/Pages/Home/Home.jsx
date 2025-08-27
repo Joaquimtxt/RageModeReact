@@ -2,12 +2,12 @@ import styles from "./Home.module.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.js";
 import ForumContainer from '../../components/ForumContainer/ForumContainer';
-import posterExample from '../../assets/poster_art1.jpg'
-import posterExample2 from '../../assets/sfd-characters-banner.jpg'
-import Mosaico from '../../assets/Mosaico.png'
-import { getPostById, getPosts } from "../../api/posts";
+// import posterExample from '../../assets/poster_art1.jpg'
+// import posterExample2 from '../../assets/sfd-characters-banner.jpg'
+// import Mosaico from '../../assets/Mosaico.png'
+import { getPosts } from "../../api/posts";
 import { useEffect, useState } from 'react';
-import { useParams } from "react-router";
+// import { useParams } from "react-router";
 
 const Home = () => {
 

@@ -5,7 +5,7 @@ import { getJogoById } from "../../api/jogo";
 import { getTiposPersonagem } from "../../api/tipoPersonagem";
 import { getPosts } from "../../api/posts";
 import ForumContainer from "../../components/ForumContainer/ForumContainer";
-import { getOwnUserProfile } from "../../api/usuarios";
+// import { getOwnUserProfile } from "../../api/usuarios";
 
 
 
@@ -15,13 +15,13 @@ const CharacterInfo = () => {
   const [personagem, setPersonagem] = useState(null);
   const [posts, setPosts] = useState([]);
   const [filteredPosts, setFilteredPosts] = useState([]);
-    const [userInfo, setUserInfo] = useState()
+    // const [userInfo, setUserInfo] = useState()
   
   const navigate = useNavigate();
   
-getOwnUserProfile().then(setUserInfo).catch(error => {
-    console.log("Erro ao buscar as informações de perfil: ", error);
-  })
+// getOwnUserProfile().then(setUserInfo).catch(error => {
+//     console.log("Erro ao buscar as informações de perfil: ", error);
+//   })
 
 
   const handleDeleteCharacter = () => {

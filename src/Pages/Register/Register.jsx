@@ -30,6 +30,8 @@ try {
 } catch (err) {
 if (err.response?.data?.mensagem) {
 setErro(err.response.data.mensagem);
+
+console.error("Erro: ", erro)
 }
 }
 

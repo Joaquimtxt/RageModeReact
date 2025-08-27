@@ -5,14 +5,14 @@ import "bootstrap/dist/js/bootstrap.bundle.js";
 import { useEffect, useState } from "react";
 import BarraPesquisa from "../SearchBar/SearchBar";
 import PostFilter from "../PostFilter/PostFilter";
-import logo from "../../assets/logo4.png";
+// import logo from "../../assets/logo4.png";
 import logo2 from "../../../public/logo_ragemode_icon.png";
 import { getOwnUserProfile } from "../../api/usuarios";
 
 const Header = () => {
   const [userEmail, setUserEmail] = useState("");
   const [logado, setLogado] = useState(false);
-  const [nickname, setNickname] = useState("");
+  // const [nickname, setNickname] = useState("");
   const location = useLocation();
   const navigate = useNavigate();
   const token = localStorage.getItem("Token");
